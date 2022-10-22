@@ -1,10 +1,13 @@
 package com.example.atyourservice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 public class RecyclerTemplate extends AppCompatActivity {
+
+    RecyclerView linkRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

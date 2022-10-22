@@ -7,8 +7,9 @@
     tools:context=".ActivityRecyclerView">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="76dp"
-        android:layout_height="344dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="417dp"
+        android:layout_height="739dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
