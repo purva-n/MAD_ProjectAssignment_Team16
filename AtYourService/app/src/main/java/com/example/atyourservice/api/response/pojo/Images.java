@@ -1,17 +1,17 @@
 package com.example.atyourservice.api.response.pojo;
 
 public class Images {
-    private int ratio;
+    private String ratio;
     private int width;
     private int height;
     private boolean fallback;
     private String url;
 
-    public int getRatio() {
+    public String getRatio() {
         return ratio;
     }
 
-    public void setRatio(int ratio) {
+    public void setRatio(String ratio) {
         this.ratio = ratio;
     }
 
