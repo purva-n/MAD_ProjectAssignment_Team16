@@ -2,6 +2,7 @@ package com.example.atyourservice.api.response.pojo;
 
 public class Date {
     private String localDate;
+    private String localTime;
     private boolean dateTBD;
     private boolean dateTBA;
     private boolean timeTBA;
@@ -13,6 +14,14 @@ public class Date {
 
     public void setLocalDate(String localDate) {
         this.localDate = localDate;
+    }
+
+    public String getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(String localTime) {
+        this.localTime = localTime;
     }
 
     public boolean isDateTBD() {

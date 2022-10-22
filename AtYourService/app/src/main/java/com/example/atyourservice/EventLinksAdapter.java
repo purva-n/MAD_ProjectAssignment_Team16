@@ -36,10 +36,14 @@ public class EventLinksAdapter extends RecyclerView.Adapter<EventLinksViewHolder
     public void onBindViewHolder(@NonNull EventLinksViewHolder holder, int position) {
         String name = embeddedResponse.getEvents().get(position).getName();
         String link = embeddedResponse.getEvents().get(position).getUrl();
+        String eventDate = embeddedResponse.getEvents().get(position).getDates().getStart().getLocalDate();
+        String eventTime = embeddedResponse.getEvents().get(position).getDates().getStart().getLocalTime();
 
         String hyperLink = "<a href='" + link + "'>" + name + "</a>";
 
         holder.eventName.setText(Html.fromHtml(hyperLink));
+        holder.eventDate.setText(eventDate);
+        holder.eventTime.setText(eventTime);
         holder.itemView.setOnClickListener(view -> {
             Uri uri = Uri.parse(link);
             Intent intent = new Intent(Intent.ACTION_VIEW);
