@@ -4,20 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.api.response.pojo.Embedded;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.net.URL;
 
 public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final String TAG ="link";
     private final Context context;
     private final Embedded embeddedResponse;
     private final int VIEW_EVENTS_LIST = 1;
@@ -38,6 +43,7 @@ public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof EventLinksViewHolder) {
@@ -46,12 +52,15 @@ public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             String link = embeddedResponse.getEvents().get(position).getUrl();
             String eventDate = embeddedResponse.getEvents().get(position).getDates().getStart().getLocalDate();
             String eventTime = embeddedResponse.getEvents().get(position).getDates().getStart().getLocalTime();
+            String imageUrl = embeddedResponse.getEvents().get(position).getImages().stream().filter(x -> x.getWidth() <= 500).findFirst().get().getUrl();
 
             String hyperLink = "<a href='" + link + "'>" + name + "</a>";
 
             holder.eventName.setText(Html.fromHtml(hyperLink));
             holder.eventDate.setText(eventDate);
             holder.eventTime.setText(eventTime);
+            Picasso.get().load(imageUrl).into(holder.icon);
+
             holder.itemView.setOnClickListener(view -> {
                 Uri uri = Uri.parse(link);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -69,15 +78,5 @@ public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemCount() {
         return embeddedResponse.getEvents().size();
-    }
-
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
     }
 }
