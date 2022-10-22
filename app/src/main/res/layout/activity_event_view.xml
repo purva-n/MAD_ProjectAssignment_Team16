@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventViewActivity"
+    android:id="@+id/eventContent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MyActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp">
+
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/app_name"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:id="@+id/profileImage"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/empty_profile" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_event_view" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:padding="2dp"
+        android:layout_margin="@dimen/fab_margin">
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/floatingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            fab:menu_icon="@drawable/ic_add_green_36dp"
+            fab:menu_labels_ellipsize="end"
+            fab:menu_labels_singleLine="true"
+            fab:menu_fab_label="Cancel"
+            fab:menu_animationDelayPerItem="0"
+            fab:menu_colorNormal="@color/white"
+            fab:menu_colorPressed="@color/buttonDark"
+            fab:menu_colorRipple="@color/quantum_grey700"
+            android:padding="8dp">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fabAddTicketmaster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_white_24dp"
+                fab:fab_colorNormal="@color/button"
+                fab:fab_colorPressed="@color/buttonDark"
+                fab:menu_colorRipple="@color/quantum_grey700"
+                fab:fab_size="mini"
+                fab:fab_label="@string/addTicketmaster"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fabQuickAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fab_add"
+                fab:fab_colorNormal="@color/button"
+                fab:fab_colorPressed="@color/buttonDark"
+                fab:menu_colorRipple="@color/quantum_grey700"
+                fab:fab_size="mini"
+                fab:fab_label="@string/quickAdd"/>
+
+        </com.github.clans.fab.FloatingActionMenu>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/noEventsMsg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/event_title"
+        android:textSize="18sp"
+        android:text="@string/noEventsMsg"
+        android:visibility="gone"/>
+</android.support.design.widget.CoordinatorLayout>
