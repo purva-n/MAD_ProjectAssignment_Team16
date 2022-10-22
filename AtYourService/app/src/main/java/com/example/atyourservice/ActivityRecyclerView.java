@@ -1,13 +1,12 @@
 package com.example.atyourservice;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.atyourservice.api.response.pojo.Date;
+import com.example.atyourservice.api.response.pojo.DateResponse;
 import com.example.atyourservice.api.response.pojo.Dates;
 import com.example.atyourservice.api.response.pojo.Embedded;
 import com.example.atyourservice.api.response.pojo.Events;
@@ -58,7 +57,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-10-25");
                                         setLocalTime("19:00:00");
@@ -99,7 +98,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -140,7 +139,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -183,7 +182,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -222,7 +221,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -261,7 +260,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -300,7 +299,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -339,7 +338,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -378,7 +377,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -417,7 +416,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -456,7 +455,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                     setDates(new Dates() {
                         {
-                            setStart(new Date() {
+                            setStart(new DateResponse() {
                                 {
                                     setLocalDate("2022-11-25");
                                     setLocalTime("19:01:00");
@@ -496,7 +495,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -538,7 +537,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -580,7 +579,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -622,7 +621,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
@@ -664,7 +663,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
 
                         setDates(new Dates() {
                             {
-                                setStart(new Date() {
+                                setStart(new DateResponse() {
                                     {
                                         setLocalDate("2022-11-25");
                                         setLocalTime("19:01:00");
