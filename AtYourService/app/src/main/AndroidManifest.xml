@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
-        <activity
-            android:name=".ActivityRecyclerView"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".ActivityRecyclerView"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".RecyclerTemplate"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityRecyclerView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
