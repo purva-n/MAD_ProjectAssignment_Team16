@@ -1,6 +1,11 @@
 package com.example.atyourservice.api.response.pojo;
 
-public class Date {
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DateResponse {
     private String localDate;
     private String localTime;
     private boolean dateTBD;
@@ -9,7 +14,14 @@ public class Date {
     private boolean noSpecificTime;
 
     public String getLocalDate() {
-        return localDate;
+        String formattedDate = localDate;
+        try {
+            Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(localDate);
+            formattedDate = format1.toString();
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        return formattedDate;
     }
 
     public void setLocalDate(String localDate) {
@@ -17,7 +29,15 @@ public class Date {
     }
 
     public String getLocalTime() {
-        return localTime;
+        String formattedTime = localTime;
+        try {
+            Date dateFormat = new SimpleDateFormat("hh:mm:ss").parse(localTime);
+            formattedTime = new SimpleDateFormat("hh:mm a").format(dateFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return formattedTime;
     }
 
     public void setLocalTime(String localTime) {
