@@ -2,11 +2,9 @@ package com.example.atyourservice;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,9 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.api.response.pojo.Embedded;
 import com.squareup.picasso.Picasso;
-
-import java.io.InputStream;
-import java.net.URL;
 
 public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

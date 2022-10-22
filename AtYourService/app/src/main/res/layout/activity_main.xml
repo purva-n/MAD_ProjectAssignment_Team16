@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/teamName"
         app:layout_constraintVertical_bias="0.515" />
 
-    <TextView
+      <TextView
         android:id="@+id/teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
