@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AtYourService</string>
-    <string name="a7_at_your_service">A7 At Your Service</string>
+    <string name="a7_at_your_service">At Your Service</string>
     <string name="team_16">Team 16</string>
-    <string name="firebase_assignment">Firebase Assignment</string>
-    <string name="togather">toGather</string>
+    <string name="firebase_assignment">Firebase</string>
+    <string name="togather">TOGATHER</string>
 </resources>
