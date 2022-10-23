@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_event_search.xml" value="0.1" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_recycler_template.xml" value="0.413022351797862" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18665924072265627" />
         <entry key="app/src/main/res/layout/activity_recycler_template.xml" value="0.30976359049479163" />
         <entry key="app/src/main/res/layout/activity_recycler_view.xml" value="0.2561030069986979" />

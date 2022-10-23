@@ -8,20 +8,19 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="209dp"
-        android:layout_height="353dp"
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/search_for_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"
@@ -31,7 +30,6 @@
             android:textAlignment="center"
             android:textSize="22sp"
             android:textStyle="bold|italic" />
-
 
         <EditText
             android:id="@+id/zipCodeInput"
@@ -43,10 +41,10 @@
 
         <TextView
             android:id="@+id/Or"
-            android:layout_width="118dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="OR"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
 
@@ -65,30 +63,30 @@
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true"
             android:ems="10"
-            android:hint="State (california)"
+            android:hint="State (CA)"
             android:inputType="textPostalAddress" />
 
         <TextView
             android:id="@+id/searchradius"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search radius"
-            android:textSize="10sp"
-            android:textStyle="italic" />
+            android:text="Search radius - "
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <SeekBar
             android:id="@+id/seekBar_radius_distance"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10"
-            android:progress="3" />
+            android:layout_height="wrap_content" />
 
         <Switch
             android:id="@+id/uom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Miles"
+            android:max="100"
+            android:progress="2"
+            android:text="miles"
+            android:textStyle="bold"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <Button
@@ -98,15 +96,5 @@
             android:text="Search" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
