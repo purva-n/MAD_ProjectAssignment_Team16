@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this,ActivityRecyclerView.class);
+        Intent intent = new Intent(this, EventSearchActivity.class);
         startActivity(intent);
     }
 }
