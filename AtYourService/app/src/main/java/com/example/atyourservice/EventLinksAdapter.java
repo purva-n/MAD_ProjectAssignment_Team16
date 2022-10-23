@@ -52,8 +52,8 @@ public class EventLinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             String hyperLink = "<a href='" + link + "'>" + name + "</a>";
 
             holder.eventName.setText(Html.fromHtml(hyperLink));
-            holder.eventDate.setText(eventDate);
-            holder.eventTime.setText(eventTime);
+            holder.eventDate.setText("Date: " + eventDate);
+            holder.eventTime.setText("Time: " + eventTime);
             Picasso.get().load(imageUrl).into(holder.icon);
 
             holder.itemView.setOnClickListener(view -> {
