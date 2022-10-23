@@ -1,11 +1,15 @@
 package com.example.atyourservice.api.response.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateResponse {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DateResponse implements Serializable {
     private String localDate;
     private String localTime;
     private boolean dateTBD;

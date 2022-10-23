@@ -23,8 +23,9 @@ public class ActivityRecyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        linkList = new Embedded();
-        linkList.setEvents(new ArrayList<Events>() {
+        linkList = (Embedded) getIntent().getSerializableExtra("ApiResponse");
+
+        /*linkList.setEvents(new ArrayList<Events>() {
             {
                 add(new Events() {
                     {
@@ -674,7 +675,7 @@ public class ActivityRecyclerView extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
         
         linkRecycleView = findViewById(R.id.recyclerView);

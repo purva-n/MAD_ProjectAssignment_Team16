@@ -1,8 +1,12 @@
 package com.example.atyourservice.api.response.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Embedded {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Embedded implements Serializable {
     private List<Events> events;
 
     public List<Events> getEvents() {
