@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cityInput" type="id">cityInput</item>
+    <item name="zipCodeInput" type="id">zipCodeInput</item>
+    <item name="searchButton" type="id">searchButton</item>
+    <item name="clearButton" type="id">clearButton</item>
+</resources>

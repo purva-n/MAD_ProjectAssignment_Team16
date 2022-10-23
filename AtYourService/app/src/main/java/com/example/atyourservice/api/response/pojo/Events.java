@@ -10,6 +10,16 @@ public class Events {
     private List<Images> images;
     private Dates dates;
 
+//    public Events(String name, String type,String id, String url,List<Images> images, Dates dates){
+//        this.name = name;
+//        this.id = id;
+//        this.type = type;
+//        this.url = url;
+//        this.images = images;
+//        this.dates = dates;
+//    }
+
+    public Events(){};
 
     public String getName() {
         return name;

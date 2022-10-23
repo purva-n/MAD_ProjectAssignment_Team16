@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.atyourservice.api.response.pojo.Date;
@@ -17,13 +18,14 @@ import java.util.ArrayList;
 public class ActivityRecyclerView extends AppCompatActivity {
     private Embedded linkList;
     RecyclerView linkRecycleView;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        linkList = new Embedded();
+        linkList = new Embedded(context);
         linkList.setEvents(new ArrayList<Events>() {
             {
                 add(new Events() {
