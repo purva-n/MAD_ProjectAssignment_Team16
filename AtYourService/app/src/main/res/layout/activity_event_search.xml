@@ -70,9 +70,16 @@
             android:id="@+id/searchradius"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search radius - "
+            android:text="Search radius"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblProgress"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp" />
 
         <SeekBar
             android:id="@+id/seekBar_radius_distance"

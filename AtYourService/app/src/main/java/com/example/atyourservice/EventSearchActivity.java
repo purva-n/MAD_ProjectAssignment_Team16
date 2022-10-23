@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ public class EventSearchActivity extends AppCompatActivity {
     StringBuilder requestURL;
     final String eventsSearchURL = "https://app.ticketmaster.com/discovery/v2/events.json?" +
                                     "apikey=Ho0dw0KonGAOwHbJ3e88wapOXC7t91I8";
+    boolean invalid = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,13 @@ public class EventSearchActivity extends AppCompatActivity {
         stateInput = (EditText) findViewById(R.id.stateInput);
         zipInput = (EditText) findViewById(R.id.zipCodeInput);
         searchBut = (Button) findViewById(R.id.searchButton);
+
+        sliderListener sldListener = new sliderListener();
         radius = (SeekBar) findViewById(R.id.seekBar_radius_distance);
+        radius.setMax(50);
+        radius.setProgress(5);
+        radius.setOnSeekBarChangeListener(sldListener);
+
         uom = (Switch) findViewById(R.id.uom);
 
         uom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,36 +70,42 @@ public class EventSearchActivity extends AppCompatActivity {
 
         requestURL = new StringBuilder();
         requestURL.append(eventsSearchURL);
-        System.out.println("zipempty " + zipInput.getText().toString().isEmpty());
-        System.out.println("zip Is  num " + IsNumber(zipInput.getText().toString()));
-
-        if(!zipInput.getText().toString().isEmpty() && IsNumber(zipInput.getText().toString())) {
-            System.out.println("zip");
-            requestURL.append("&postalCode=").append(zipInput.getText().toString());
-        } else {
-            System.out.println("citystate");
-
-            System.out.println("cityempty " + cityInput.getText().toString().isEmpty());
-            System.out.println("city Is  num " + IsNumber(cityInput.getText().toString()));
-
-            System.out.println("stateempty " + stateInput.getText().toString().isEmpty());
-            System.out.println("state Is  num " + IsNumber(stateInput.getText().toString()));
-
-            if(!cityInput.getText().toString().isEmpty() && !IsNumber(cityInput.getText().toString())) {
-                System.out.println("city");
-                requestURL.append("&city=").append(cityInput.getText().toString());
-            }
-            if(!stateInput.getText().toString().isEmpty() && !IsNumber(stateInput.getText().toString())) {
-                System.out.println("state");
-                requestURL.append("&stateCode=").append(stateInput.getText().toString());
-            }
-        }
-
-        requestURL.append("&unit=").append(uom.getText().toString());
-        requestURL.append("&radius=").append(radius.getProgress());
 
         searchBut.setOnClickListener(view -> {
-            searchEvents(requestURL.toString());
+
+            boolean zipValid = false;
+            boolean cityValid = false;
+            boolean stateValid = false;
+            if(!zipInput.getText().toString().isEmpty() && (zipValid = IsNumber(zipInput.getText().toString()))) {
+                requestURL.append("&postalCode=").append(zipInput.getText().toString());
+
+                requestURL.append("&unit=").append(uom.getText().toString());
+                requestURL.append("&radius=").append(radius.getProgress());
+                zipValid=true;
+            } else {
+                if(!cityInput.getText().toString().isEmpty() && (cityValid = !IsNumber(cityInput.getText().toString()))) {
+                    requestURL.append("&city=").append(cityInput.getText().toString());
+                    cityValid = true;
+                }
+                if(!stateInput.getText().toString().isEmpty() && (stateValid = !IsNumber(stateInput.getText().toString()))) {
+                    requestURL.append("&stateCode=").append(stateInput.getText().toString());
+                    stateValid = true;
+                }
+
+                requestURL.append("&unit=").append(uom.getText().toString());
+                requestURL.append("&radius=").append(radius.getProgress());
+            }
+
+            if(zipValid || (cityValid && stateValid)) {
+                searchEvents(requestURL.toString());
+            } else {
+                Toast.makeText(EventSearchActivity.this, "Invalid Input. Please enter valid zip or state and city ", Toast.LENGTH_LONG).show();
+            }
+            zipInput.setText("");
+            cityInput.setText("");
+            stateInput.setText("");
+            radius.setProgress(0);
+            requestURL = new StringBuilder(eventsSearchURL);
         });
     }
 
@@ -105,7 +119,6 @@ public class EventSearchActivity extends AppCompatActivity {
     }
 
     private void searchEvents(String url) {
-        System.out.println("URL "+ url);
         RequestQueue volleyQueue = Volley.newRequestQueue(EventSearchActivity.this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -118,26 +131,34 @@ public class EventSearchActivity extends AppCompatActivity {
                     try {
                         responseJSON = response.getJSONObject("_embedded").toString();
 
-                        ObjectMapper mapper = new ObjectMapper();
-                        Embedded responsePojo = mapper.readValue(responseJSON, Embedded.class);
+                        if(!responseJSON.isEmpty()) {
+                            ObjectMapper mapper = new ObjectMapper();
+                            Embedded responsePojo = mapper.readValue(responseJSON, Embedded.class);
 
-                        Intent intent = new Intent(this, ActivityRecyclerView.class);
-                        intent.putExtra("ApiResponse", responsePojo);
-                        startActivity(intent);
+                            Intent intent = new Intent(this, ActivityRecyclerView.class);
+                            intent.putExtra("ApiResponse", responsePojo);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(EventSearchActivity.this, "No events in this area :(", Toast.LENGTH_LONG).show();
+                        }
 
                     } catch (JsonMappingException e) {
+                        Toast.makeText(EventSearchActivity.this, "No events in this area :(", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     } catch (JsonProcessingException e) {
+                        Toast.makeText(EventSearchActivity.this, "No events in this area :(", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     } catch (JSONException e) {
+                        Toast.makeText(EventSearchActivity.this, "No events in this area :(", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     } catch (Exception e) {
+                        Toast.makeText(EventSearchActivity.this, "No events in this area :(", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 },
 
                 (Response.ErrorListener) error -> {
-                    Toast.makeText(EventSearchActivity.this, "Some error occurred! Cannot fetch dog image", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventSearchActivity.this, "Some error occurred! Cannot fetch events", Toast.LENGTH_LONG).show();
                     Log.e("MainActivity", "loadDogImage error: ${error.localizedMessage}");
                 }
         );
@@ -145,5 +166,20 @@ public class EventSearchActivity extends AppCompatActivity {
         volleyQueue.add(jsonObjectRequest);
     }
 
+    private class sliderListener implements SeekBar.OnSeekBarChangeListener {
+        private int smoothnessFactor = 2;
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            progress = Math.round(progress / smoothnessFactor);
+            TextView lblProgress = (TextView) findViewById(R.id.lblProgress);
+            lblProgress.setText(String.valueOf(progress));
+        }
 
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            seekBar.setProgress(Math.round((seekBar.getProgress() + (smoothnessFactor / 2)) / smoothnessFactor) * smoothnessFactor);
+        }
+    }
 }
+
