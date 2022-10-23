@@ -1,6 +1,11 @@
 package com.example.atyourservice.api.response.pojo;
 
-public class Images {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Images implements Serializable {
     private String ratio;
     private int width;
     private int height;

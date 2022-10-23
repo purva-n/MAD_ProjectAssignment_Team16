@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="209dp"
+        android:layout_height="353dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
@@ -29,16 +29,9 @@
             android:layout_marginTop="21dp"
             android:text="Search for events"
             android:textAlignment="center"
-            android:textStyle="bold|italic"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold|italic" />
 
-        <EditText
-            android:id="@+id/cityInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="City (boston)"
-            android:inputType="textPostalAddress" />
 
         <EditText
             android:id="@+id/zipCodeInput"
@@ -47,6 +40,23 @@
             android:ems="10"
             android:hint="Zip Code (95138)"
             android:inputType="number" />
+
+        <TextView
+            android:id="@+id/Or"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textAlignment="textEnd"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/cityInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="City (boston)"
+            android:inputType="textPostalAddress" />
 
         <EditText
             android:id="@+id/stateInput"
@@ -64,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="Search radius"
             android:textSize="10sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
         <SeekBar
             android:id="@+id/seekBar_radius_distance"
@@ -88,5 +98,15 @@
             android:text="Search" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

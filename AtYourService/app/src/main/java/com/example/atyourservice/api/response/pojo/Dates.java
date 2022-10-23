@@ -1,6 +1,11 @@
 package com.example.atyourservice.api.response.pojo;
 
-public class Dates {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Dates implements Serializable {
     private DateResponse start;
     private DateResponse end;
     private String timezone;

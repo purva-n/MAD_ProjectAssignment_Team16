@@ -1,8 +1,12 @@
 package com.example.atyourservice.api.response.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Events {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Events implements Serializable {
     private String name;
     private String type;
     private String id;
