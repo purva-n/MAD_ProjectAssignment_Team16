@@ -1,23 +1,28 @@
 package com.example.atyourservice.api.response.pojo;
 
-public class Dates {
-    private Date start;
-    private Date end;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Dates implements Serializable {
+    private DateResponse start;
+    private DateResponse end;
     private String timezone;
 
-    public Date getStart() {
+    public DateResponse getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(DateResponse start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public DateResponse getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(DateResponse end) {
         this.end = end;
     }
 
