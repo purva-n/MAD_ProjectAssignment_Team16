@@ -78,8 +78,8 @@ public class EventSearchActivity extends AppCompatActivity {
 
         searchBut.setOnClickListener(view -> {
             boolean zipValid = false;
-            boolean cityValid = false;
-            boolean stateValid = false;
+            boolean cityValid = true;
+            boolean stateValid = true;
             if (!zipInput.getText().toString().isEmpty() && (zipValid = IsNumber(zipInput.getText().toString()))) {
                 requestURL.append("&postalCode=").append(zipInput.getText().toString());
 
