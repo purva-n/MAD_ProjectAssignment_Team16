@@ -20,8 +20,12 @@ public class DateResponse implements Serializable {
     public String getLocalDate() {
         String formattedDate = localDate;
         try {
-            Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(localDate);
-            formattedDate = format1.toString();
+            if(localDate != null) {
+                Date format1 = new SimpleDateFormat("yyyy-MM-dd").parse(localDate);
+                formattedDate = format1.toString();
+            } else {
+                formattedDate = "TBD";
+            }
         } catch (ParseException pe) {
             pe.printStackTrace();
         }
@@ -35,10 +39,15 @@ public class DateResponse implements Serializable {
     public String getLocalTime() {
         String formattedTime = localTime;
         try {
-            Date dateFormat = new SimpleDateFormat("hh:mm:ss").parse(localTime);
-            formattedTime = new SimpleDateFormat("hh:mm a").format(dateFormat);
+            if(localTime != null) {
+                Date dateFormat = new SimpleDateFormat("hh:mm:ss").parse(localTime);
+                formattedTime = new SimpleDateFormat("hh:mm a").format(dateFormat);
+            } else {
+                formattedTime = "TBD";
+            }
         } catch (ParseException e) {
             e.printStackTrace();
+            return localTime;
         }
 
         return formattedTime;
