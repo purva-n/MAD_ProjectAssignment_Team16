@@ -7,19 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.atyourservice.ChatPackage.MessagesActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button toGatherButton = findViewById(R.id.toGather);
-        toGatherButton.setOnClickListener(new View.OnClickListener() {
+        Button firebaseButton = findViewById(R.id.fireBaseAssignment);
+        firebaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // need to add chat lists activity below
-                // Intent intent1 = new Intent(this,{Insert Chat List activity});
-                //startActivity(intent1);
+                Intent intent1 = new Intent(MainActivity.this, MessagesActivity.class);
+                startActivity(intent1);
             }
         });
     }
