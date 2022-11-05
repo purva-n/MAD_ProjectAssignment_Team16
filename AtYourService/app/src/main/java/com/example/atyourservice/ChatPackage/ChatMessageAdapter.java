@@ -32,7 +32,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ReceivedMessagesHol
 
     @Override
     public void onBindViewHolder(@NonNull ReceivedMessagesHolder holder, int position) {
-        holder.imageReceived = messages.get(position).getStickerId();
+        holder.imageReceived.setImageResource(messages.get(position).getStickerId());
         holder.timestampReceived.setText((int) messages.get(position).getTimestamp());
        // holder.senderIDReceived = receiver ID
 
