@@ -1,4 +1,4 @@
-package com.example.atyourservice.ChatPackage;
+/*package com.example.atyourservice.ChatPackage;
 
 import android.content.Context;
 import android.view.ViewGroup;

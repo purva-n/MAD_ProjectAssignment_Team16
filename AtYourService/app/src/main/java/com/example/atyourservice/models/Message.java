@@ -4,10 +4,20 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Message {
-    private int stickerID;
-    private Timestamp timestamp;
-public Message(int stickerID, Timestamp timestamp){
-    this.stickerID = stickerID;
+    private int stickerId;
+    private long timestamp;
+public Message(int stickerID, long timestamp){
+    this.stickerId = stickerID;
     this.timestamp = timestamp;
 }
+public Message(){
+}
+
+    public int getStickerId() {
+        return stickerId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
 }
