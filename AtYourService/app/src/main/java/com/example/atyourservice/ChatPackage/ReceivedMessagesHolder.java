@@ -1,4 +1,4 @@
-package com.example.atyourservice;
+package com.example.atyourservice.ChatPackage;
 
 import android.media.Image;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.atyourservice.R;
 
 public class ReceivedMessagesHolder extends RecyclerView.ViewHolder {
     public ImageView imageReceived;
