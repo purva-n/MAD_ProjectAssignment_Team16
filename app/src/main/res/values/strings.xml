@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AtYourService</string>
+    <string name="a7_at_your_service">At Your Service</string>
+    <string name="team_16">Team 16</string>
+    <string name="firebase_assignment">Firebase</string>
+    <string name="togather">TOGATHER</string>
+    <string name="date_time">Date Time</string>
+    <string name="senderid_received">SenderID Received</string>
+    <string name="stickersent">stickersent</string>
+    <string name="sender_id">Sender ID</string>
+    <string name="stickerreceived">StickerReceived</string>
+    <string name="stickergrid">stickerGrid</string>
+</resources>
