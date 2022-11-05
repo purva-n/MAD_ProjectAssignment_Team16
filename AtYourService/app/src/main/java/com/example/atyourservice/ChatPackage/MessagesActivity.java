@@ -1,25 +1,26 @@
-package com.example.atyourservice;
+package com.example.atyourservice.ChatPackage;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.GridView;
-/*
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ktx.Firebase;
-*/
-import org.json.JSONObject;
+
+import com.example.atyourservice.GridAdapter;
+import com.example.atyourservice.R;
+import com.example.atyourservice.models.Message;
 
 import java.util.ArrayList;
 
 public class MessagesActivity extends AppCompatActivity {
-    private ArrayList<String> messagesReceived;
-    public String user_id;
+    private ArrayList<Message> messagesReceived;
+    public String receiver_id;
     public String sender_id;
     //retrieve current user id?
 
@@ -34,15 +35,14 @@ public class MessagesActivity extends AppCompatActivity {
         GridAdapter gridAdapter = new GridAdapter(MessagesActivity.this, stickers);
         GridView gridView = findViewById(R.id.GridView);
         gridView.setAdapter(gridAdapter);
-        messagesReceived = new ArrayList<>();
-       /* DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(user_id).child(sender_id);
+        messagesReceived = new ArrayList<Message>();
+       DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(sender_id).child(receiver);
         db.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange( DataSnapshot snapshot) {
                 messagesReceived.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    messagesReceived.add(snapshot1.getValue().toString());
-                }
+                    messagesReceived.add( new Message(snapshot1.)
             }
 
             @Override

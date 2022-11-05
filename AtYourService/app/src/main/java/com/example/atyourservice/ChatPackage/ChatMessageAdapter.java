@@ -1,4 +1,4 @@
-/*package com.example.atyourservice;
+package com.example.atyourservice.ChatPackage;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -7,12 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.ReceivedMessagesHolder;
+import com.example.atyourservice.models.Message;
 
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ReceivedMessagesHolder> {
     //create class of messages to hold ,
-    public ChatMessageAdapter(List<Messages>, Context context){
+    public ChatMessageAdapter(List<Message>, Context context){
 
     }
     @NonNull
