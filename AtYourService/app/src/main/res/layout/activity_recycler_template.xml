@@ -49,7 +49,7 @@
                 app:layout_constraintHorizontal_bias="0.056"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_recent_history" />
+                app:srcCompat="@drawable/default_user_img" />
 
             <TextView
                 android:id="@+id/eventDate"
