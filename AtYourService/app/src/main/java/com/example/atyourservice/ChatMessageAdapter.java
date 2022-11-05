@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.atyourservice.ReceivedMessagesHolder;
+import com.example.atyourservice.ChatPackage.ReceivedMessagesHolder;
 
 import java.util.List;
 
