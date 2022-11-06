@@ -16,6 +16,27 @@
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UserList"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+>>>>>>> 5df33ab (add about me and user profile image)
             android:name=".ChatPackage.MessagesActivity"
             android:exported="false">
             <meta-data
@@ -28,15 +49,6 @@
         <activity
             android:name=".EventSearchActivity"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
