@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText userNameInput;
     private Button register;
     private Button login;
+    private String DEVICE_TOKEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
                         }
 
                         // Get new FCM registration token
-                        String token = task.getResult();
-                        System.out.println(token);
+                        DEVICE_TOKEN = task.getResult();
+                        System.out.println(" TOKEN IS :::: " + DEVICE_TOKEN);
                     }
                 });
     }
@@ -92,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
                         List<UserIds> users = new ArrayList<>();
                         users.add(user);
                         databaseReference.child(regUser).child("receivers").setValue(users);
+                        databaseReference.child(regUser).child("Token").setValue(DEVICE_TOKEN);
+
                         Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                     }
                 }

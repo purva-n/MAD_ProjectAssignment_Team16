@@ -14,7 +14,7 @@ public class Stickers {
 
     public Stickers() {
         this.stickerId = -1;
-        this.timestamp = Long.parseLong(new Timestamp(System.currentTimeMillis()).toString());
+        this.timestamp = 0;
     }
 
     public int getStickerId() {
