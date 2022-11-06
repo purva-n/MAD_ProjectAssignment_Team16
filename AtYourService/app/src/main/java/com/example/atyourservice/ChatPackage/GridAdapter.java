@@ -1,4 +1,4 @@
-package com.example.atyourservice;
+package com.example.atyourservice.ChatPackage;
 
 import android.content.Context;
 import android.media.MediaDrm;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.example.atyourservice.R;
 
 public class GridAdapter extends BaseAdapter {
     //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/

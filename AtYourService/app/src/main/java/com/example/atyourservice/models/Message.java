@@ -1,23 +1,42 @@
 package com.example.atyourservice.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.io.Serializable;
 
-public class Message {
-    private int stickerId;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Message implements Serializable {
+    private String stickerId;
     private long timestamp;
-public Message(int stickerID, long timestamp){
-    this.stickerId = stickerID;
-    this.timestamp = timestamp;
-}
-public Message(){
-}
+    private String from;
 
-    public int getStickerId() {
+    public Message(){
+    }
+
+    public Message(String stickerId, long timestamp){
+        this.stickerId = stickerId;
+        this.timestamp = timestamp;
+    }
+
+
+    public String getStickerId() {
         return stickerId;
     }
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    @Override
+    public String toString() {
+        return this.stickerId + " " + this.timestamp;
     }
 }

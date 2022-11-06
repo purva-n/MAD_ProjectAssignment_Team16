@@ -13,13 +13,11 @@ import com.example.atyourservice.R;
 public class ReceivedMessagesHolder extends RecyclerView.ViewHolder {
     public ImageView imageReceived;
     public TextView timestampReceived;
-    public TextView senderIDReceived;
 
     public ReceivedMessagesHolder(@NonNull View viewItem) {
         super(viewItem);
         this.timestampReceived = viewItem.findViewById(R.id.timestampReceived);
         this.imageReceived = viewItem.findViewById(R.id.stickerReceived);
-        this.senderIDReceived = viewItem.findViewById(R.id.senderIDReceived);
     }
 }
 
