@@ -1,15 +1,23 @@
 package com.example.atyourservice.models;
 
-public class User {
-    public String username;
-    public String uriImage;
+import java.io.Serializable;
 
-    public String getUserName(){
-        return username;
+public class User implements Serializable {
+    public String userId;
+
+    public User() {
+        this.userId = "";
     }
-    public String getUriImage(){return uriImage;}
 
-    public void setUserName(String username){
-        this.username = username;
+    public User(String username) {
+        this.userId = username;
+    }
+
+    public String getUserId(){
+        return userId;
+    }
+
+    public void setUserId(String username){
+        this.userId = username;
     }
 }

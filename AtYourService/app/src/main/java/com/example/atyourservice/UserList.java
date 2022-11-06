@@ -28,24 +28,26 @@ public class UserList extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
 
         recyclerView = findViewById(R.id.userList);
-        database = FirebaseDatabase.getInstance().getReference().child("senders");
+        database = FirebaseDatabase.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        userAdapter = new UserAdapter(this,list);
-        recyclerView.setAdapter(userAdapter);
 
-        database.addValueEventListener(new ValueEventListener() {
+        database.child("senders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    int i =0;
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    User user = null;
-//                        String username = (String) dataSnapshot.child("Username").getValue();
-                        User user = dataSnapshot.getValue(User.class);
-//                    user.setUserName(username);
-                        list.add(user);
+                        System.out.println("COUNTER::: " + i++);
+                        String user = dataSnapshot.getKey();
+                        User currentUser = (User) getIntent().getSerializableExtra("userId");
+                        System.out.println("SETTING USER ID :::: " + user);
+                        if(!user.equalsIgnoreCase(currentUser.getUserId())){
+                            User u = new User(user);
+                            list.add(u);
+                        }
                     }
                 }
                 userAdapter.notifyDataSetChanged();
@@ -55,5 +57,8 @@ public class UserList extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        userAdapter = new UserAdapter(UserList.this, list);
+        recyclerView.setAdapter(userAdapter);
     }
 }
