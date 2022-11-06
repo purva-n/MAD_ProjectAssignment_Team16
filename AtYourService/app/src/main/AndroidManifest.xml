@@ -22,14 +22,21 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatPackage.MessagesActivity"
+            android:name=".mesaging.service.MessagesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <service android:name=".notification.service.PushNotificationService"
+        android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVEMT"/>
+            </intent-filter>
+        </service>
+
         <activity
-            android:name=".ChatPackage.MessagesRecycler"
+            android:name=".mesaging.service.MessagesRecycler"
             android:exported="false">
         </activity>
         <activity

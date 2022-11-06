@@ -1,4 +1,4 @@
-package com.example.atyourservice.ChatPackage;
+package com.example.atyourservice.mesaging.service;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
