@@ -29,16 +29,6 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/senderIDReceived"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sender_id"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/stickerReceived"
-
-                />
-
-            <TextView
                 android:id="@+id/timestampReceived"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

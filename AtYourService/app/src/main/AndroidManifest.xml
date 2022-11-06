@@ -29,6 +29,10 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ChatPackage.MessagesRecycler"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".ActivityRecyclerView"
             android:exported="false" />
         <activity

@@ -6,25 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ChatPackage.MessagesActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesRecycler"
-        android:layout_width="414dp"
-        android:layout_height="491dp"
+        android:layout_width="382dp"
+        android:layout_height="510dp"
+        app:layout_constraintBottom_toTopOf="@+id/GridView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.534" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="236dp"
+    <GridView
+        android:id="@+id/GridView"
+        android:layout_width="403dp"
+        android:layout_height="198dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/messagesRecycler">
-
-        <GridView
-            android:id="@+id/GridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994" />
+</androidx.constraintlayout.widget.ConstraintLayout>

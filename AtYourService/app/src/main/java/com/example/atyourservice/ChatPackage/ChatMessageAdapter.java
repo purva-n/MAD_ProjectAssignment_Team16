@@ -12,29 +12,87 @@ import com.example.atyourservice.api.response.pojo.Embedded;
 import com.example.atyourservice.models.Message;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatMessageAdapter extends RecyclerView.Adapter<ReceivedMessagesHolder> {
+public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    //https://stackoverflow.com/questions/26245139/how-to-create-recyclerview-with-multiple-view-types
     private final Context context;
-    private ArrayList<Message> messages;
-    public ChatMessageAdapter( Context context, ArrayList<Message> messages){
-        this.context = context;
-        this.messages= messages;
+    private final List<Message> messages;
+    int drawableId;
 
+    public ChatMessageAdapter(Context context, List<Message> messages){
+        this.context = context;
+        this.messages = messages;
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        int type = -1;
+        if(messages.get(position).getFrom().equals("sender")) {
+            type = 0;
+        }
+
+        if(messages.get(position).getFrom().equals("receiver")) {
+            type = 1;
+        }
+
+        return type;
+    }
+
     @NonNull
     @Override
-    public ReceivedMessagesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ReceivedMessagesHolder(LayoutInflater.from(context).inflate(R.layout.messages_received_template,null));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case 0:
+                return new SentMessagesHolder(LayoutInflater.from(context).inflate(R.layout.messages_sent_template,null));
+            case 1:
+            default:
+                return new ReceivedMessagesHolder(LayoutInflater.from(context).inflate(R.layout.messages_received_template,null));
 
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReceivedMessagesHolder holder, int position) {
-        holder.imageReceived.setImageResource(messages.get(position).getStickerId());
-        holder.timestampReceived.setText((int) messages.get(position).getTimestamp());
-       // holder.senderIDReceived = receiver ID
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        //http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+        switch (holder.getItemViewType()) {
+            case 0: {
+                SentMessagesHolder sentMessagesHolder = (SentMessagesHolder) holder;
+                try {
+                    Class res = R.drawable.class;
+                    Field field = res.getField(messages.get(position).getStickerId());
+                    drawableId = field.getInt(null);
+                }
+                catch (Exception e) {
+                    // default sticker
+                }
+
+                sentMessagesHolder.imageSent.setImageResource(drawableId);
+                sentMessagesHolder.timestampSent.setText(String.valueOf(messages.get(position).getTimestamp()));
+            }
+            break;
+
+            case 1: {
+                ReceivedMessagesHolder receivedMessagesHolder = (ReceivedMessagesHolder) holder;
+
+                try {
+                    Class res = R.drawable.class;
+                    Field field = res.getField(messages.get(position).getStickerId());
+                    drawableId = field.getInt(null);
+                }
+                catch (Exception e) {
+                    // default sticker
+                }
+
+                receivedMessagesHolder.imageReceived.setImageResource(drawableId);
+                receivedMessagesHolder.timestampReceived.setText(String.valueOf(messages.get(position).getTimestamp()));
+            }
+        }
+
+        System.out.println(drawableId + " " + messages.get(position).getTimestamp());
 
     }
 
