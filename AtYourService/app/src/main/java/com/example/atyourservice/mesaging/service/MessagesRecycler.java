@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.GridView;
 
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Messages;
+import com.example.atyourservice.models.User;
 
 
 public class MessagesRecycler extends AppCompatActivity {
@@ -40,6 +43,13 @@ public class MessagesRecycler extends AppCompatActivity {
         messagesRecycleView.setAdapter(chatMessageAdapter);
         messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount()-1);
     }
+        public void onBackPressed(){
+                String receiver = (String) getIntent().getSerializableExtra("Receiver");
+                Intent chatList = new Intent(MessagesRecycler.this, UserList.class);
+                User currentUser = new User(receiver);
+                chatList.putExtra("userId", currentUser);
+                startActivity(chatList);
+        }
 }
 
 

@@ -5,10 +5,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.example.atyourservice.RegisterActivity;
+import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Messages;
+import com.example.atyourservice.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
@@ -40,7 +45,6 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-
         receiver_id = (String) getIntent().getSerializableExtra("receiverId");
         sender_id = (String) getIntent().getSerializableExtra("userId");
 
@@ -99,6 +103,7 @@ public class MessagesActivity extends AppCompatActivity {
                     System.out.println("OOPS");
                 }
             }
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -161,4 +166,7 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
+
