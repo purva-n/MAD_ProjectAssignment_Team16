@@ -33,8 +33,12 @@ public class MessagesRecycler extends AppCompatActivity {
         msgs = (Messages) getIntent().getSerializableExtra("Messages");
 
         messagesRecycleView = findViewById(R.id.messagesRecycler);
-        messagesRecycleView.setLayoutManager(new LinearLayoutManager(MessagesRecycler.this));
-        messagesRecycleView.setAdapter(new ChatMessageAdapter(MessagesRecycler.this, msgs.getMessages()));
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(MessagesRecycler.this);
+        mLinearLayoutManager.setStackFromEnd(true);
+        messagesRecycleView.setLayoutManager(mLinearLayoutManager);
+        ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(MessagesRecycler.this, msgs.getMessages());
+        messagesRecycleView.setAdapter(chatMessageAdapter);
+        messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount()-1);
     }
 }
 
