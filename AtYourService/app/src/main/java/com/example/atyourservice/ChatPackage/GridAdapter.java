@@ -1,7 +1,6 @@
 package com.example.atyourservice.ChatPackage;
 
 import android.content.Context;
-import android.media.MediaDrm;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.models.Message;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.reflect.Field;
+import java.util.Date;
 
 public class GridAdapter extends BaseAdapter {
     //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/
@@ -17,10 +22,16 @@ public class GridAdapter extends BaseAdapter {
     int[] sticker;
 
     LayoutInflater inflater;
+    DatabaseReference stickerDb;
+    String sender;
+    String receiver;
 
-    public GridAdapter(Context context, int[] sticker) {
+    public GridAdapter(Context context, int[] sticker, String sender, String receiver) {
         this.context = context;
         this.sticker = sticker;
+        stickerDb = FirebaseDatabase.getInstance().getReference().child("senders");
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     @Override
@@ -50,6 +61,14 @@ public class GridAdapter extends BaseAdapter {
 
         ImageView imageView= convertView.findViewById(R.id.stickerGrid);
         imageView.setImageResource(sticker[position]);
+
+
+        imageView.setOnClickListener(view -> {
+               stickerDb.child(sender).child("receivers").child(receiver)
+                       .child("stickers").push().setValue(new Message(context.getResources().getResourceEntryName(sticker[position]),
+                               new Date().getTime()));
+        });
+
         return convertView;
     }
 }

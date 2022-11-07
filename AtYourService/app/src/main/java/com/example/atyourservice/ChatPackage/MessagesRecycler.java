@@ -1,5 +1,6 @@
 package com.example.atyourservice.ChatPackage;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,26 +13,27 @@ import android.widget.GridView;
 import com.example.atyourservice.R;
 import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Messages;
-import com.example.atyourservice.models.Message;
-
-import java.util.ArrayList;
 
 public class MessagesRecycler extends AppCompatActivity {
 
         RecyclerView messagesRecycleView;
         private Messages msgs;
+        private String sender;
+        private String receiver;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
-        int[] stickers = {R.drawable.thumbs_up, R.drawable.thumbs_down, R.drawable.love, R.drawable.celebrate, };
+        msgs = (Messages) getIntent().getSerializableExtra("Messages");
+        sender = (String) getIntent().getSerializableExtra("Sender");
+        receiver = (String) getIntent().getSerializableExtra("Receiver");
+
+        @DrawableRes int[] stickers = {R.drawable.thumbs_up, R.drawable.thumbs_down, R.drawable.love, R.drawable.celebrate, };
         //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/
-        GridAdapter gridAdapter = new GridAdapter(this, stickers);
+        GridAdapter gridAdapter = new GridAdapter(this, stickers, sender, receiver);
         GridView gridView = findViewById(R.id.GridView);
         gridView.setAdapter(gridAdapter);
-
-        msgs = (Messages) getIntent().getSerializableExtra("Messages");
 
         messagesRecycleView = findViewById(R.id.messagesRecycler);
         messagesRecycleView.setLayoutManager(new LinearLayoutManager(MessagesRecycler.this));
