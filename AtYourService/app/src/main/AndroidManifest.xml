@@ -40,7 +40,7 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".ChatPackage.MessagesRecycler"
+            android:name=".mesaging.service.MessagesRecycler"
             android:exported="false">
         </activity>
         <activity

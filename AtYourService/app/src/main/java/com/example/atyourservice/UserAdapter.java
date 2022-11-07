@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.atyourservice.mesaging.service.MessagesActivity;
 
-import com.example.atyourservice.ChatPackage.MessagesActivity;
+import com.example.atyourservice.mesaging.service.MessagesActivity;
 import com.example.atyourservice.models.User;
 
 import java.util.ArrayList;
