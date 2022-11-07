@@ -1,6 +1,7 @@
 package com.example.atyourservice.mesaging.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,9 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView= convertView.findViewById(R.id.stickerGrid);
         imageView.setImageResource(sticker[position]);
 
+
+        System.out.println("SENDER ::: "+ sender);
+        System.out.println("RECEIVER ::: "+ receiver);
 
         imageView.setOnClickListener(view -> {
                stickerDb.child(sender).child("receivers").child(receiver)
