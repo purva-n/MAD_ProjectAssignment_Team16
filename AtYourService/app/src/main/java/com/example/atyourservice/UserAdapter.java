@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.atyourservice.mesaging.service.MessagesActivity;
 
+import com.example.atyourservice.ChatPackage.MessagesActivity;
 import com.example.atyourservice.models.User;
 
 import java.util.ArrayList;
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     Context context;
     ArrayList<User> list;
+    String sender_id;
 
-    public UserAdapter(Context context, ArrayList<User> list) {
+    public UserAdapter(Context context, ArrayList<User> list, String sender_id) {
         this.context = context;
         this.list = list;
+        this.sender_id = sender_id;
     }
 
     @NonNull
@@ -38,7 +41,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.image.setImageResource(R.drawable.default_user_img);
 
         holder.itemView.setOnClickListener(view -> {
-            context.startActivity(new Intent(context, MessagesActivity.class));
+            Intent intent = new Intent(context, MessagesActivity.class);
+            intent.putExtra("userId", this.sender_id);
+            intent.putExtra("receiverId", user.getUserId());
+            context.startActivity(intent);
         });
     }
 

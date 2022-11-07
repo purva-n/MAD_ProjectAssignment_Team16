@@ -4,24 +4,23 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Stickers {
-    private int stickerId;
+    private String stickerId;
     private long timestamp;
 
-    public Stickers(int stickerId, long timestamp) {
+    public Stickers(String stickerId, long timestamp) {
         this.stickerId = stickerId;
         this.timestamp = timestamp;
     }
 
     public Stickers() {
-        this.stickerId = -1;
-        this.timestamp = 0;
+        this.stickerId = "";
     }
 
-    public int getStickerId() {
+    public String getStickerId() {
         return stickerId;
     }
 
-    public void setStickerId(int stickerId) {
+    public void setStickerId(String stickerId) {
         this.stickerId = stickerId;
     }
 
