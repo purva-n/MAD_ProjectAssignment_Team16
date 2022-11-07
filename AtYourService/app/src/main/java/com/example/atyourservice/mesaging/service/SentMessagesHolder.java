@@ -1,4 +1,4 @@
-package com.example.atyourservice.ChatPackage;
+package com.example.atyourservice.mesaging.service;
 
 import android.view.View;
 import android.widget.ImageView;

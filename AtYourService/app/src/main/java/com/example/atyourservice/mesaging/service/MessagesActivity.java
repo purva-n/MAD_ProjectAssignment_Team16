@@ -1,7 +1,6 @@
-package com.example.atyourservice.ChatPackage;
+package com.example.atyourservice.mesaging.service;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -35,8 +32,8 @@ import java.util.List;
 
 public class MessagesActivity extends AppCompatActivity {
 
-    private String receiver_id;
-    private String sender_id;
+    private String receiver_id = "abc234";
+    private String sender_id = "debra";
     private DatabaseReference dbfromSender;
     private DatabaseReference dbFromReceiver;
     private Messages messages;
@@ -47,19 +44,13 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-
-        receiver_id = (String) getIntent().getSerializableExtra("receiverId");
-        sender_id = (String) getIntent().getSerializableExtra("userId");
-
-        System.out.println("**********SENDER " + sender_id + " RECEIVER "+ receiver_id);
-
-        dbfromSender = FirebaseDatabase.getInstance().getReference().child("senders").child(sender_id).child("receivers");
+        dbfromSender = FirebaseDatabase.getInstance().getReference().child("senders").child(sender_id).child("receivers").child(receiver_id).child("stickers");
 
         List<Message> messagesSent = new ArrayList<>();
         List<Message> messagesReceived = new ArrayList<>();
         messages = new Messages();
 
-        dbfromSender.child(receiver_id).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        dbfromSender.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -83,56 +74,9 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
 
-        dbfromSender.child(receiver_id).child("stickers").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists()) {
-                    System.out.println("stickerSnap " + snapshot.getValue());
-                    Message m = snapshot.getValue(Message.class);
-                    if(m != null) {
-                        System.out.println("Sending!!!!!!!");
-                        m.setFrom("sender");
-                        messagesSent.add(m);
-                    }
-                    messages.setMessages(messagesSent);
+        dbFromReceiver = FirebaseDatabase.getInstance().getReference().child("senders").child(receiver_id).child("receivers").child(sender_id).child("stickers");
 
-                    Intent intent = new Intent(MessagesActivity.this, MessagesRecycler.class);
-                    intent.putExtra("Messages", messages);
-                    intent.putExtra("Sender", sender_id);
-                    intent.putExtra("Receiver", receiver_id);
-
-
-                    startActivity(intent);
-
-                } else {
-                    System.out.println("OOPS");
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        dbFromReceiver = FirebaseDatabase.getInstance().getReference().child("senders").child(receiver_id).child("receivers");
-
-        dbFromReceiver.child(receiver_id).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        dbFromReceiver.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -163,8 +107,6 @@ public class MessagesActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(MessagesActivity.this, MessagesRecycler.class);
                     intent.putExtra("Messages", messages);
-                    intent.putExtra("Sender", sender_id);
-                    intent.putExtra("Receiver", receiver_id);
                     startActivity(intent);
                 }
             }

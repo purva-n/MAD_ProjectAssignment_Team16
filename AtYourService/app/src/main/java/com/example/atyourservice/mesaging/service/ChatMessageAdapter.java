@@ -1,4 +1,4 @@
-package com.example.atyourservice.ChatPackage;
+package com.example.atyourservice.mesaging.service;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -58,18 +58,17 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         //http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
-        try {
-            Class res = R.drawable.class;
-            Field field = res.getField(messages.get(position).getStickerId());
-            drawableId = field.getInt(null);
-        }
-        catch (Exception e) {
-            // default sticker
-        }
-
         switch (holder.getItemViewType()) {
             case 0: {
                 SentMessagesHolder sentMessagesHolder = (SentMessagesHolder) holder;
+                try {
+                    Class res = R.drawable.class;
+                    Field field = res.getField(messages.get(position).getStickerId());
+                    drawableId = field.getInt(null);
+                }
+                catch (Exception e) {
+                    // default sticker
+                }
 
                 sentMessagesHolder.imageSent.setImageResource(drawableId);
                 sentMessagesHolder.timestampSent.setText(String.valueOf(messages.get(position).getTimestamp()));
@@ -78,6 +77,15 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             case 1: {
                 ReceivedMessagesHolder receivedMessagesHolder = (ReceivedMessagesHolder) holder;
+
+                try {
+                    Class res = R.drawable.class;
+                    Field field = res.getField(messages.get(position).getStickerId());
+                    drawableId = field.getInt(null);
+                }
+                catch (Exception e) {
+                    // default sticker
+                }
 
                 receivedMessagesHolder.imageReceived.setImageResource(drawableId);
                 receivedMessagesHolder.timestampReceived.setText(String.valueOf(messages.get(position).getTimestamp()));

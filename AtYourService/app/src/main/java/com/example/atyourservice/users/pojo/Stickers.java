@@ -14,7 +14,6 @@ public class Stickers {
 
     public Stickers() {
         this.stickerId = "";
-        this.timestamp = 0;
     }
 
     public String getStickerId() {

@@ -3,15 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/drawable/image1.xml" value="0.2445" />
         <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_event_search.xml" value="0.1" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_events_loader.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_messages.xml" value="0.35572916666666665" />
         <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_recycler_template.xml" value="0.413022351797862" />
+<<<<<<< Updated upstream
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/image1.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/image3.xml" value="0.1095" />
         <entry key="app/src/main/res/layout/activity_event_search.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+=======
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_recycler_view.xml" value="0.21203703703703702" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_register.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/activity_user_list.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/messages_received_template.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/messages_sent_template.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/sticker_grid.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/Purva Nartam/MAD/MAD_ProjectAssignment/AtYourService/app/src/main/res/layout/user.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18665924072265627" />
+>>>>>>> Stashed changes
         <entry key="app/src/main/res/layout/activity_recycler_template.xml" value="0.30976359049479163" />
         <entry key="app/src/main/res/layout/activity_recycler_view.xml" value="0.2561030069986979" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
