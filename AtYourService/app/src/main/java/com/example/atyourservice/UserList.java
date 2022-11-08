@@ -1,10 +1,13 @@
 package com.example.atyourservice;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.atyourservice.models.User;
@@ -79,4 +82,25 @@ public class UserList extends AppCompatActivity {
         userAdapter = new UserAdapter(UserList.this, list, currUser);
         recyclerView.setAdapter(userAdapter);
     }
+    public void onBackPressed(){
+        //https://stackoverflow.com/questions/10905945/android-prompting-an-alertdialog-onbackpressed
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to return to Login Page?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent2 = new Intent(UserList.this,RegisterActivity.class);
+                        startActivity(intent2);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
+
