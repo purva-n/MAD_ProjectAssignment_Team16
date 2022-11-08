@@ -31,8 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private EditText userNameInput;
-    private Button register;
-    private Button login;
+    private Button register,about,login;
     private String DEVICE_TOKEN;
 
     @Override
@@ -44,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         userNameInput = (EditText) findViewById(R.id.userName);
         register = findViewById(R.id.btnReg);
         login = findViewById(R.id.btnLogin);
+        about = findViewById(R.id.btnAbout);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +56,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                registerUser();
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this,AboutActivity.class));
             }
         });
 
