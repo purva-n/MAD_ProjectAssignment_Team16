@@ -23,7 +23,7 @@ public class GridAdapter extends BaseAdapter {
     int[] sticker;
 
     LayoutInflater inflater;
-    DatabaseReference stickerDb;
+    static DatabaseReference stickerDb;
     String sender;
     String receiver;
 
@@ -68,9 +68,18 @@ public class GridAdapter extends BaseAdapter {
         System.out.println("RECEIVER ::: "+ receiver);
 
         imageView.setOnClickListener(view -> {
-               stickerDb.child(sender).child("receivers").child(receiver)
-                       .child("stickers").push().setValue(new Message(context.getResources().getResourceEntryName(sticker[position]),
+            System.out.println("ON CLICK CALLED");
+            System.out.println("onclick sender: "+ sender);
+            System.out.println("onclick rec: "+ receiver);
+
+            String key = stickerDb.child(sender).child("receivers").child(receiver)
+                       .child("stickers").push().getKey();
+
+            assert key != null;
+            stickerDb.child(sender).child("receivers").child(receiver)
+                    .child("stickers").child(key).setValue(new Message(context.getResources().getResourceEntryName(sticker[position]),
                                new Date().getTime()));
+
         });
 
         return convertView;

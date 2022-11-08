@@ -39,6 +39,7 @@ public class UserList extends AppCompatActivity {
 
         list = new ArrayList<>();
 
+
         database.child("senders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -55,12 +56,12 @@ public class UserList extends AppCompatActivity {
                             User u = new User(receiver);
                             list.add(u);
 
-                            List<Stickers> stickers = new ArrayList<>();
-                            Stickers sticker = new Stickers();
-                            stickers.add(sticker);
-                            UserIds user = new UserIds(stickers);
-
-                            database.child("senders").child(currUser).child("receivers").child(receiver).setValue(user);
+//                            List<Stickers> stickers = new ArrayList<>();
+//                            Stickers sticker = new Stickers();
+//                            stickers.add(sticker);
+//                            UserIds user = new UserIds(stickers);
+//
+//                            database.child("senders").child(currUser).child("receivers").child(receiver).setValue(user);
                         }
                     }
                 }
