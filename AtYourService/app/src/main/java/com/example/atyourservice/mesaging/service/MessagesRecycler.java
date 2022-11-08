@@ -1,10 +1,14 @@
 package com.example.atyourservice.mesaging.service;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.GridView;
 
@@ -12,36 +16,38 @@ import android.widget.GridView;
 import com.example.atyourservice.R;
 import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Messages;
+import com.example.atyourservice.models.Message;
 import com.example.atyourservice.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class MessagesRecycler extends AppCompatActivity {
 
         RecyclerView messagesRecycleView;
-        private Messages msgs;
+        private String receiver_id;
+        private String sender_id;
 
+        private Messages messages;
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+
         String senderId = (String) getIntent().getSerializableExtra("Sender");
         String receiverId = (String) getIntent().getSerializableExtra("Receiver");
 
-        int[] stickers = {R.drawable.thumbs_up, R.drawable.thumbs_down, R.drawable.love, R.drawable.celebrate, };
-        //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/
-        GridAdapter gridAdapter = new GridAdapter(this, stickers, senderId, receiverId);
-        GridView gridView = findViewById(R.id.GridView);
-        gridView.setAdapter(gridAdapter);
-
-        msgs = (Messages) getIntent().getSerializableExtra("Messages");
-
-        messagesRecycleView = findViewById(R.id.messagesRecycler);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(MessagesRecycler.this);
-        mLinearLayoutManager.setStackFromEnd(true);
-        messagesRecycleView.setLayoutManager(mLinearLayoutManager);
-        ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(MessagesRecycler.this, msgs.getMessages());
-        messagesRecycleView.setAdapter(chatMessageAdapter);
-        messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount()-1);
     }
         public void onBackPressed(){
                 String receiver = (String) getIntent().getSerializableExtra("Receiver");
