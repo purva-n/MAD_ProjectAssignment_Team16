@@ -64,6 +64,7 @@ public class UserList extends AppCompatActivity {
                         }
                     }
                 }
+
                 userAdapter.notifyDataSetChanged();
             }
 
