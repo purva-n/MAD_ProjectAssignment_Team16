@@ -1,6 +1,7 @@
 package com.example.atyourservice;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,17 +15,15 @@ import com.example.atyourservice.users.pojo.Stickers;
 import com.example.atyourservice.users.pojo.UserIds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -83,14 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        final String regUser = userNameInput.getText().toString();
+        String regUser = userNameInput.getText().toString();
+        System.out.println("REG USERRRRR:: " + regUser);
         if (regUser == null || regUser.equals("")) {
             userNameInput.setError("Please Enter Username!");
         } else {
-            databaseReference.child(regUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            System.out.println("I AM HERE !");
+            databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    if (snapshot.hasChild(regUser)) {
                         Toast.makeText(RegisterActivity.this, "The username is already registered", Toast.LENGTH_SHORT).show();
                     } else {
                         List<Stickers> stickers = new ArrayList<>();
@@ -107,6 +108,21 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
@@ -119,18 +135,33 @@ public class RegisterActivity extends AppCompatActivity {
         if (logUser == null || logUser.equalsIgnoreCase("")) {
             userNameInput.setError("Please enter username!");
         } else{
-            databaseReference.child(logUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child(logUser).addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     if (snapshot.exists()){
                         Toast.makeText(RegisterActivity.this,"Login Successful.!",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this,UserList.class);
-                        User currentUser = new User(logUser);
-                        intent.putExtra("userId", currentUser);
+                        User currentUser = new User(logUser, DEVICE_TOKEN);
+                        intent.putExtra("Sender", currentUser);
                         startActivity(intent);
-                    }else{
+                    } else {
                         Toast.makeText(RegisterActivity.this,"User not registered. Please register first",Toast.LENGTH_SHORT).show();
                     }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 }
 
                 @Override

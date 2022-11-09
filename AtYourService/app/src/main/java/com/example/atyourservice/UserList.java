@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.example.atyourservice.models.User;
 import com.example.atyourservice.users.pojo.Stickers;
 import com.example.atyourservice.users.pojo.UserIds;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,7 @@ public class UserList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        FirebaseApp.initializeApp(this);
 
         recyclerView = findViewById(R.id.userList);
         database = FirebaseDatabase.getInstance().getReference();
@@ -42,7 +44,8 @@ public class UserList extends AppCompatActivity {
 
         list = new ArrayList<>();
 
-        database.child("senders").addValueEventListener(new ValueEventListener() {
+
+        database.child("senders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -51,19 +54,20 @@ public class UserList extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         System.out.println("COUNTER::: " + i++);
                         String receiver = dataSnapshot.getKey();
-                        User currentUser = (User) getIntent().getSerializableExtra("userId");
+                        User currentUser = (User) getIntent().getSerializableExtra("Sender");
                         currUser = currentUser.getUserId();
                         System.out.println("SETTING USER ID :::: " + receiver);
                         if(!receiver.equalsIgnoreCase(currentUser.getUserId())){
-                            User u = new User(receiver);
+                            String receiverToken = snapshot.child(receiver).child("Token").getValue().toString();
+                            User u = new User(receiver, receiverToken);
                             list.add(u);
 
-                            List<Stickers> stickers = new ArrayList<>();
-                            Stickers sticker = new Stickers();
-                            stickers.add(sticker);
-                            UserIds user = new UserIds(stickers);
-
-                            database.child("senders").child(currUser).child("receivers").child(receiver).setValue(user);
+//                            List<Stickers> stickers = new ArrayList<>();
+//                            Stickers sticker = new Stickers();
+//                            stickers.add(sticker);
+//                            UserIds user = new UserIds(stickers);
+//
+//                            database.child("senders").child(currUser).child("receivers").child(receiver).setValue(user);
                         }
                     }
                 }
@@ -76,10 +80,10 @@ public class UserList extends AppCompatActivity {
             }
         });
 
-        User currentUser = (User) getIntent().getSerializableExtra("userId");
+        User currentUser = (User) getIntent().getSerializableExtra("Sender");
         currUser = currentUser.getUserId();
 
-        userAdapter = new UserAdapter(UserList.this, list, currUser);
+        userAdapter = new UserAdapter(UserList.this, list, currentUser);
         recyclerView.setAdapter(userAdapter);
     }
     public void onBackPressed(){

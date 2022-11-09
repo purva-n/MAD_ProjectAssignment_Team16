@@ -4,6 +4,8 @@
     package="com.example.atyourservice">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+
 
     <application
         android:allowBackup="true"
@@ -42,10 +44,8 @@
 
         <activity
             android:name=".mesaging.service.MessagesRecycler"
-            android:exported="false"></activity>
-        <activity
-            android:name=".mesaging.service.MessagesRecycler"
-            android:exported="false"></activity>
+            android:exported="false"/>
+
         <activity
             android:name=".ActivityRecyclerView"
             android:exported="false" />

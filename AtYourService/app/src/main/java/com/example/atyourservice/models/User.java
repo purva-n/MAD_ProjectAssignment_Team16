@@ -3,14 +3,16 @@ package com.example.atyourservice.models;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    public String userId;
+    private String userId;
+    private String token;
 
     public User() {
         this.userId = "";
     }
 
-    public User(String username) {
+    public User(String username, String token) {
         this.userId = username;
+        this.token = token;
     }
 
     public String getUserId(){
@@ -19,5 +21,13 @@ public class User implements Serializable {
 
     public void setUserId(String username){
         this.userId = username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
