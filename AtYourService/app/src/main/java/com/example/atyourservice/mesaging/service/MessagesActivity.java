@@ -7,14 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.GridView;
-
-import com.example.atyourservice.RegisterActivity;
-import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Messages;
 import com.example.atyourservice.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,8 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Message;

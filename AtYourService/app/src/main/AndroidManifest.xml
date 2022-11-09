@@ -45,6 +45,7 @@
         <activity
             android:name=".mesaging.service.MessagesRecycler"
             android:exported="false"/>
+
         <activity
             android:name=".ActivityRecyclerView"
             android:exported="false" />

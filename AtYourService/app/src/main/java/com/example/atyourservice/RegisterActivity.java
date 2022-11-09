@@ -142,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this,"Login Successful.!",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this,UserList.class);
                         User currentUser = new User(logUser, DEVICE_TOKEN);
-                        intent.putExtra("userId", currentUser);
+                        intent.putExtra("Sender", currentUser);
                         startActivity(intent);
                     } else {
                         Toast.makeText(RegisterActivity.this,"User not registered. Please register first",Toast.LENGTH_SHORT).show();
