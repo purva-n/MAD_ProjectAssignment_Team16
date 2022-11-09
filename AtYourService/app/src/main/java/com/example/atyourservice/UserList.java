@@ -45,10 +45,11 @@ public class UserList extends AppCompatActivity {
         list = new ArrayList<>();
 
 
-        database.child("senders").addListenerForSingleValueEvent(new ValueEventListener() {
+        database.child("senders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    list.clear();
                     int i =0;
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -73,6 +74,11 @@ public class UserList extends AppCompatActivity {
                 }
 
                 userAdapter.notifyDataSetChanged();
+                //list.clear();
+                User currentUser = (User) getIntent().getSerializableExtra("Sender");
+                currUser = currentUser.getUserId();
+                userAdapter = new UserAdapter(UserList.this, list, currentUser);
+                recyclerView.setAdapter(userAdapter);
             }
 
             @Override
