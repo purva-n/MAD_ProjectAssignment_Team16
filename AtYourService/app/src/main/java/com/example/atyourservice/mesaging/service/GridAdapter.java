@@ -65,14 +65,7 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView= convertView.findViewById(R.id.stickerGrid);
         imageView.setImageResource(sticker[position]);
 
-
-        System.out.println("SENDER ::: "+ sender);
-        System.out.println("RECEIVER ::: "+ receiver);
-
         imageView.setOnClickListener(view -> {
-            System.out.println("ON CLICK CALLED");
-            System.out.println("onclick sender: "+ sender);
-            System.out.println("onclick rec: "+ receiver);
             String senderId = sender.getUserId();
             String receiverId = receiver.getUserId();
 

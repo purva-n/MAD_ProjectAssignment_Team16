@@ -19,26 +19,19 @@ import com.example.atyourservice.models.User;
 
 public class MessagesRecycler extends AppCompatActivity {
 
-        RecyclerView messagesRecycleView;
-        private User receiver;
-        private User sender;
-
-        private Messages messages;
-
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_messages);
         }
-
 
         @Override
         public void onBackPressed() {
                 super.onBackPressed();
 
                 Intent chatList = new Intent(MessagesRecycler.this, UserList.class);
-                sender = (User) getIntent().getSerializableExtra("Sender");
+                User sender = (User) getIntent().getSerializableExtra("Sender");
                 chatList.putExtra("Sender", sender);
         }
 }

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.Toast;
+
 import com.example.atyourservice.api.response.pojo.Messages;
 import com.example.atyourservice.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +37,8 @@ public class MessagesActivity extends AppCompatActivity {
     private DatabaseReference dbFromReceiver;
     private Messages messages;
     RecyclerView messagesRecycleView;
+    private List<Message> messagesSent;
+    private List<Message> messagesReceived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,6 @@ public class MessagesActivity extends AppCompatActivity {
 
         String receiverId = receiver.getUserId();
         String senderId = sender.getUserId();
-
-
-        System.out.println("**********SENDER " + senderId + " RECEIVER "+ receiverId);
 
         int[] stickers = {R.drawable.thumbs_up, R.drawable.thumbs_down, R.drawable.love, R.drawable.celebrate, };
         //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/
@@ -60,98 +61,35 @@ public class MessagesActivity extends AppCompatActivity {
         dbFromReceiver = FirebaseDatabase.getInstance().getReference().child("senders").child(receiverId).child("receivers");
         messages = new Messages();
 
-        List<Message> messagesSent = new ArrayList<>();
-        List<Message> messagesReceived = new ArrayList<>();
+        messagesSent = new ArrayList<>();
+        messagesReceived = new ArrayList<>();
 
         messagesRecycleView = findViewById(R.id.messagesRecycler);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(messagesRecycleView.getContext());
         mLinearLayoutManager.setStackFromEnd(true);
         messagesRecycleView.setLayoutManager(mLinearLayoutManager);
 
-        dbfromSender.child(receiverId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    messagesSent.clear();
-
-                    for (DataSnapshot stickerSnap : task.getResult().getChildren()) {
-                        if(stickerSnap.exists()) {
-                            System.out.println("stickerSnap " + stickerSnap.getValue());
-                            Message m = stickerSnap.getValue(Message.class);
-                            if(m != null && m.getTimestamp() != 0) {
-                                System.out.println("Sending!!!!!!!");
-                                m.setFrom("sender");
-                                messagesSent.add(m);
-                            }
-
-                        } else {
-                            System.out.println("OOPS");
-                        }
-                    }
-                }
-            }
-        });
-
-        dbFromReceiver.child(senderId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    messagesReceived.clear();
-
-                    for (DataSnapshot stickerSnap : task.getResult().getChildren()) {
-                        if(stickerSnap.exists()) {
-                            System.out.println("stickerSnap " + stickerSnap.getValue());
-                            Message m = stickerSnap.getValue(Message.class);
-                            if(m != null && m.getTimestamp() != 0) {
-                                m.setFrom("receiver");
-                                messagesReceived.add(m);
-                            }
-                        } else {
-                            System.out.println("OOPS");
-                        }
-                    }
-
-                    if(messages.getMessages() == null) {
-                        System.out.println("HOLAAAA");
-                        List<Message> ms;
-                        ms = new ArrayList<Message>();
-                        ms.addAll(messagesSent);
-                        ms.addAll(messagesReceived);
-
-                        ms.sort(Comparator.comparing(Message::getTimestamp));
-                        messages.setMessages(ms);
-                    } else {
-                        if(messages.getMessages().addAll(messagesSent) && messages.getMessages().addAll(messagesReceived)) {
-                            messages.getMessages().sort(Comparator.comparing(Message::getTimestamp));
-                        }
-                    }
-
-                    //messages.setMessages(messagesSent);
-
-                    if(messages.getMessages() != null && messages.getMessages().size() > 0) {
-                        ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(messagesRecycleView.getContext(), messages.getMessages());
-                        messagesRecycleView.setAdapter(chatMessageAdapter);
-                        messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount() - 1);
-                    }
-                }
-            }
-        });
+        //Important
+        getChatHistory(senderId, receiverId);
 
         dbfromSender.child(receiverId).child("stickers").addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()) {
-                    System.out.println("stickerSnap " + snapshot.getValue());
+                    messages.getMessages().clear();
+                    messagesSent.clear();
+
+                    getChatHistory(senderId, receiverId);
                     Message m = snapshot.getValue(Message.class);
                     if(m != null && m.getTimestamp() != 0) {
-                        System.out.println("Sending!!!!!!!");
                         m.setFrom("sender");
                         messagesSent.add(m);
                     }
-                    messages.setMessages(messagesSent);
+                    messages.getMessages().addAll(messagesSent);
+                    messages.getMessages().sort(Comparator.comparing(Message::getTimestamp));
                 } else {
-                    System.out.println("OOPS");
+                    Toast.makeText(MessagesActivity.this, "There was a glitch", Toast.LENGTH_SHORT).show();
                 }
 
                 if(messages.getMessages() != null && messages.getMessages().size() > 0) {
@@ -184,19 +122,22 @@ public class MessagesActivity extends AppCompatActivity {
         });
 
         dbFromReceiver.child(senderId).child("stickers").addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()) {
-                    System.out.println("stickerSnap " + snapshot.getValue());
+                    messagesReceived.clear();
                     Message m = snapshot.getValue(Message.class);
                     if(m != null && m.getTimestamp() != 0) {
-                        System.out.println("Sending!!!!!!!");
                         m.setFrom("receiver");
                         messagesReceived.add(m);
                     }
-                    messages.setMessages(messagesReceived);
+
+                    messages.getMessages().addAll(messagesReceived);
+                    messages.getMessages().sort(Comparator.comparing(Message::getTimestamp));
+
                 } else {
-                    System.out.println("OOPS");
+                    Toast.makeText(MessagesActivity.this, "There was a glitch", Toast.LENGTH_SHORT).show();
                 }
 
                 if(messages.getMessages() != null && messages.getMessages().size() > 0) {
@@ -227,13 +168,64 @@ public class MessagesActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void getChatHistory(String senderId, String receiverId) {
+        dbfromSender.child(receiverId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    messagesSent.clear();
 
-        /*ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(MessagesActivity.this, msgs.getMessages());
-        messagesRecycleView.setAdapter(chatMessageAdapter);
-        messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount()-1);
-*/
+                    for (DataSnapshot stickerSnap : task.getResult().getChildren()) {
+                        if(stickerSnap.exists()) {
+                            Message m = stickerSnap.getValue(Message.class);
+                            if(m != null && m.getTimestamp() != 0) {
+                                m.setFrom("sender");
+                                messagesSent.add(m);
+                            }
 
+                        } else {
+                            Toast.makeText(MessagesActivity.this, "There was a glitch", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        });
+
+        dbFromReceiver.child(senderId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    messagesReceived.clear();
+
+                    for (DataSnapshot stickerSnap : task.getResult().getChildren()) {
+                        if(stickerSnap.exists()) {
+                            Message m = stickerSnap.getValue(Message.class);
+                            if(m != null && m.getTimestamp() != 0) {
+                                m.setFrom("receiver");
+                                messagesReceived.add(m);
+                            }
+                        } else {
+                            Toast.makeText(MessagesActivity.this, "There was a glitch", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    messages.getMessages().clear();
+
+                    if(messages.getMessages().addAll(messagesSent) && messages.getMessages().addAll(messagesReceived)) {
+                        messages.getMessages().sort(Comparator.comparing(Message::getTimestamp));
+                    }
+
+                    if(messages.getMessages() != null && messages.getMessages().size() > 0) {
+                        ChatMessageAdapter chatMessageAdapter = new ChatMessageAdapter(messagesRecycleView.getContext(), messages.getMessages());
+                        messagesRecycleView.setAdapter(chatMessageAdapter);
+                        messagesRecycleView.smoothScrollToPosition(chatMessageAdapter.getItemCount() - 1);
+                    }
+                }
+            }
+        });
     }
 
 

@@ -13,7 +13,10 @@ import com.example.atyourservice.models.Message;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -80,7 +83,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
 
                 sentMessagesHolder.imageSent.setImageResource(drawableId);
-                sentMessagesHolder.timestampSent.setText(String.valueOf(messages.get(position).getTimestamp()));
+                Date date = new Date(messages.get(position).getTimestamp());
+                Format formatter = new SimpleDateFormat("MM-dd HH:mm");
+                String dateView = formatter.format(date);
+                sentMessagesHolder.timestampSent.setText(dateView);
             }
             break;
 
@@ -105,12 +111,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
 
                 receivedMessagesHolder.imageReceived.setImageResource(drawableId);
-                receivedMessagesHolder.timestampReceived.setText(String.valueOf(messages.get(position).getTimestamp()));
+                Date date = new Date(messages.get(position).getTimestamp());
+                Format formatter = new SimpleDateFormat("MM-dd  HH:mm");
+                String dateView = formatter.format(date);
+                receivedMessagesHolder.timestampReceived.setText(dateView);
             }
         }
-
-        System.out.println(drawableId + " " + messages.get(position).getTimestamp());
-
     }
 
 
