@@ -20,13 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -85,14 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        final String regUser = userNameInput.getText().toString();
+        String regUser = userNameInput.getText().toString();
+        System.out.println("REG USERRRRR:: " + regUser);
         if (regUser == null || regUser.equals("")) {
             userNameInput.setError("Please Enter Username!");
         } else {
-            databaseReference.child(regUser).addChildEventListener(new ChildEventListener() {
+            System.out.println("I AM HERE !");
+            databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    if (snapshot.exists()) {
+                    if (snapshot.hasChild(regUser)) {
                         Toast.makeText(RegisterActivity.this, "The username is already registered", Toast.LENGTH_SHORT).show();
                     } else {
                         List<Stickers> stickers = new ArrayList<>();
@@ -142,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (snapshot.exists()){
                         Toast.makeText(RegisterActivity.this,"Login Successful.!",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this,UserList.class);
-                        User currentUser = new User(logUser);
+                        User currentUser = new User(logUser, DEVICE_TOKEN);
                         intent.putExtra("userId", currentUser);
                         startActivity(intent);
                     } else {

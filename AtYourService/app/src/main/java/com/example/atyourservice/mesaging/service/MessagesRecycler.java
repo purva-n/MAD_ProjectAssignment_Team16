@@ -34,8 +34,8 @@ import java.util.List;
 public class MessagesRecycler extends AppCompatActivity {
 
         RecyclerView messagesRecycleView;
-        private String receiver_id;
-        private String sender_id;
+        private User receiver;
+        private User sender;
 
         private Messages messages;
 
@@ -45,15 +45,14 @@ public class MessagesRecycler extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
-        String senderId = (String) getIntent().getSerializableExtra("Sender");
-        String receiverId = (String) getIntent().getSerializableExtra("Receiver");
+        sender = (User) getIntent().getSerializableExtra("Sender");
+        receiver = (User) getIntent().getSerializableExtra("Receiver");
 
     }
         public void onBackPressed(){
-                String receiver = (String) getIntent().getSerializableExtra("Receiver");
                 Intent chatList = new Intent(MessagesRecycler.this, UserList.class);
-                User currentUser = new User(receiver);
-                chatList.putExtra("userId", currentUser);
+                User currentUser = new User(sender.getUserId(), sender.getToken());
+                chatList.putExtra("Sender", currentUser);
                 startActivity(chatList);
         }
 }

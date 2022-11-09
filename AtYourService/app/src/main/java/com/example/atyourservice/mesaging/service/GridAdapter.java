@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Message;
+import com.example.atyourservice.models.User;
+import com.example.atyourservice.notification.service.NotificationApi;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,10 +26,10 @@ public class GridAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
     static DatabaseReference stickerDb;
-    String sender;
-    String receiver;
+    User sender;
+    User receiver;
 
-    public GridAdapter(Context context, int[] sticker, String sender, String receiver) {
+    public GridAdapter(Context context, int[] sticker, User sender, User receiver) {
         this.context = context;
         this.sticker = sticker;
         stickerDb = FirebaseDatabase.getInstance().getReference().child("senders");
@@ -71,14 +73,20 @@ public class GridAdapter extends BaseAdapter {
             System.out.println("ON CLICK CALLED");
             System.out.println("onclick sender: "+ sender);
             System.out.println("onclick rec: "+ receiver);
+            String senderId = sender.getUserId();
+            String receiverId = receiver.getUserId();
 
-            String key = stickerDb.child(sender).child("receivers").child(receiver)
+
+            String key = stickerDb.child(senderId).child("receivers").child(receiverId)
                        .child("stickers").push().getKey();
 
             assert key != null;
-            stickerDb.child(sender).child("receivers").child(receiver)
+            stickerDb.child(senderId).child("receivers").child(receiverId)
                     .child("stickers").child(key).setValue(new Message(context.getResources().getResourceEntryName(sticker[position]),
                                new Date().getTime()));
+
+            NotificationApi noti = new NotificationApi(receiver.getToken());
+            noti.pushNotificationToReceiver(context, "At your Service", "You have new notification");
 
         });
 

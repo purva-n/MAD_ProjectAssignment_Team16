@@ -36,8 +36,8 @@ import java.util.List;
 
 public class MessagesActivity extends AppCompatActivity {
 
-    private String receiver_id;
-    private String sender_id;
+    private User receiver;
+    private User sender;
     private DatabaseReference dbfromSender;
     private DatabaseReference dbFromReceiver;
     private Messages messages;
@@ -47,19 +47,24 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-        receiver_id = (String) getIntent().getSerializableExtra("Receiver");
-        sender_id = (String) getIntent().getSerializableExtra("Sender");
+        receiver = (User) getIntent().getSerializableExtra("Receiver");
+        sender = (User) getIntent().getSerializableExtra("Sender");
 
-        System.out.println("**********SENDER " + sender_id + " RECEIVER "+ receiver_id);
+        String receiverId = receiver.getUserId();
+        String senderId = sender.getUserId();
+
+
+        System.out.println("**********SENDER " + senderId + " RECEIVER "+ receiverId);
 
         int[] stickers = {R.drawable.thumbs_up, R.drawable.thumbs_down, R.drawable.love, R.drawable.celebrate, };
         //https://www.geeksforgeeks.org/gridview-using-baseadapter-in-android-with-example/
-        GridAdapter gridAdapter = new GridAdapter(this, stickers, sender_id, receiver_id);
+        GridAdapter gridAdapter = new GridAdapter(this, stickers, sender, receiver
+        );
         GridView gridView = findViewById(R.id.GridView);
         gridView.setAdapter(gridAdapter);
 
-        dbfromSender = FirebaseDatabase.getInstance().getReference().child("senders").child(sender_id).child("receivers");
-        dbFromReceiver = FirebaseDatabase.getInstance().getReference().child("senders").child(receiver_id).child("receivers");
+        dbfromSender = FirebaseDatabase.getInstance().getReference().child("senders").child(senderId).child("receivers");
+        dbFromReceiver = FirebaseDatabase.getInstance().getReference().child("senders").child(receiverId).child("receivers");
         messages = new Messages();
 
         List<Message> messagesSent = new ArrayList<>();
@@ -70,7 +75,7 @@ public class MessagesActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(true);
         messagesRecycleView.setLayoutManager(mLinearLayoutManager);
 
-        dbfromSender.child(receiver_id).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        dbfromSender.child(receiverId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -94,7 +99,7 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
 
-        dbFromReceiver.child(sender_id).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        dbFromReceiver.child(senderId).child("stickers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -140,7 +145,7 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
 
-        dbfromSender.child(receiver_id).child("stickers").addChildEventListener(new ChildEventListener() {
+        dbfromSender.child(receiverId).child("stickers").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()) {
@@ -185,7 +190,7 @@ public class MessagesActivity extends AppCompatActivity {
             }
         });
 
-        dbFromReceiver.child(sender_id).child("stickers").addChildEventListener(new ChildEventListener() {
+        dbFromReceiver.child(senderId).child("stickers").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()) {
