@@ -20,12 +20,12 @@ import java.util.ArrayList;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     Context context;
     ArrayList<User> list;
-    String sender_id;
+    User sender;
 
-    public UserAdapter(Context context, ArrayList<User> list, String sender_id) {
+    public UserAdapter(Context context, ArrayList<User> list, User sender) {
         this.context = context;
         this.list = list;
-        this.sender_id = sender_id;
+        this.sender = sender;
     }
 
     @NonNull
@@ -43,9 +43,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, MessagesActivity.class);
-            intent.putExtra("Sender", this.sender_id);
-            intent.putExtra("Receiver", user.getUserId());
-            System.out.println("Senderrrr :::::: " + sender_id);
+            intent.putExtra("Sender", this.sender);
+            intent.putExtra("Receiver", user);
+            System.out.println("Senderrrr :::::: " + sender);
             System.out.println("Reciever :::::::: " + user.getUserId());
             context.startActivity(intent);
         });
