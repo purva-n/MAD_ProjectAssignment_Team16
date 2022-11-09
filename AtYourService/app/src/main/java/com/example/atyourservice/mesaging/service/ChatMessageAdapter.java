@@ -68,6 +68,15 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
                 catch (Exception e) {
                     // default sticker
+                    Class res = R.drawable.class;
+                    Field field = null;
+                    try {
+                        field = res.getField("default_sticker");
+                        drawableId = field.getInt(null);
+                    } catch (NoSuchFieldException | IllegalAccessException ex) {
+                        ex.printStackTrace();
+                    }
+
                 }
 
                 sentMessagesHolder.imageSent.setImageResource(drawableId);
@@ -85,6 +94,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
                 catch (Exception e) {
                     // default sticker
+                    Class res = R.drawable.class;
+                    Field field = null;
+                    try {
+                        field = res.getField("default_sticker");
+                        drawableId = field.getInt(null);
+                    } catch (NoSuchFieldException | IllegalAccessException ex) {
+                        ex.printStackTrace();
+                    }
                 }
 
                 receivedMessagesHolder.imageReceived.setImageResource(drawableId);
@@ -95,6 +112,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         System.out.println(drawableId + " " + messages.get(position).getTimestamp());
 
     }
+
 
     @Override
     public int getItemCount() {
