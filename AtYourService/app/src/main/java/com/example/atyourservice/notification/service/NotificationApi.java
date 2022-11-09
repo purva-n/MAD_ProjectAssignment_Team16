@@ -17,9 +17,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+//https://firebase.google.com/docs/cloud-messaging/android/client
 public class NotificationApi {
     private static String BASE_URL="https://fcm.googlesapis.com/fcm/send";
     private String TOKEN;
+    private final static String SERVER_TOKEN="key=AAAA5b3ChMU:APA91bHn_Jsr42w1JqzaPxpMEEXC96NbueibBqTe0H6aWVXNl9J2zz2m9O6o_DRRkcCpg4Q1L9jf0H7ySNpJQ-iCsaszkDSAH5D0j8ltL6qBBx0FqdM1yqInfUgRYF5lVRC5mt_3b5nB";
 
     public NotificationApi(String token) {
         this.TOKEN = token;
@@ -34,6 +36,7 @@ public class NotificationApi {
         try {
             JSONObject json = new JSONObject();
             json.put("to", TOKEN);
+            json.put("project_id", "986731152581");
             JSONObject notification = new JSONObject();
             notification.put("title", title);
             notification.put("body", message);
@@ -54,7 +57,8 @@ public class NotificationApi {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("Content-Type", "application/json");
-                    params.put("Authorization", TOKEN);
+                    params.put("Authorization", SERVER_TOKEN);
+                    params.put("Accept", "application/json");
                     return params;
                 }
             };

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.example.atyourservice.models.User;
 import com.example.atyourservice.users.pojo.Stickers;
 import com.example.atyourservice.users.pojo.UserIds;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class UserList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        FirebaseApp.initializeApp(this);
 
         recyclerView = findViewById(R.id.userList);
         database = FirebaseDatabase.getInstance().getReference();
