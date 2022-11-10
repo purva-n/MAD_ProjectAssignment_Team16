@@ -27,7 +27,7 @@ public class NotificationApi {
         this.TOKEN = token;
     }
 
-    public void pushNotificationToReceiver(Context context, String title, String message) {
+    public void pushNotificationToReceiver(Context context, String title, String message, int stickerId) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -41,6 +41,8 @@ public class NotificationApi {
             JSONObject notification = new JSONObject();
             notification.put("title", title);
             notification.put("body", message);
+            notification.put("icon", String.valueOf(stickerId));
+
             json.put("notification", notification);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BASE_URL, json, new Response.Listener<JSONObject>() {
