@@ -93,7 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    if (snapshot.exists()) {
+                    System.out.println("SNAPSHOT KEY : " + snapshot.getKey());
+                    if (snapshot.getKey().equalsIgnoreCase(regUser)) {
                         Toast.makeText(RegisterActivity.this, "The username is already registered", Toast.LENGTH_SHORT).show();
                     } else {
                         List<Stickers> stickers = new ArrayList<>();
