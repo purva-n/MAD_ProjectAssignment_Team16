@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.atyourservice.mesaging.service.MessagesRecycler;
 import com.example.atyourservice.models.User;
 import com.example.atyourservice.users.pojo.Stickers;
 import com.example.atyourservice.users.pojo.UserIds;
@@ -170,5 +172,13 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent mainPage = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(mainPage);
     }
 }

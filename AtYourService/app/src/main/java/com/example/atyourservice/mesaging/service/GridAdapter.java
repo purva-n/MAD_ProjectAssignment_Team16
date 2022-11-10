@@ -79,7 +79,7 @@ public class GridAdapter extends BaseAdapter {
                                new Date().getTime()));
 
             NotificationApi noti = new NotificationApi(receiver.getToken());
-            noti.pushNotificationToReceiver(context, "At your Service", "You have new notification");
+            noti.pushNotificationToReceiver(context, "At your Service", senderId, sticker[position]);
 
         });
 
