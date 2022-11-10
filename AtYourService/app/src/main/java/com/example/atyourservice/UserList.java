@@ -45,7 +45,7 @@ public class UserList extends AppCompatActivity {
         list = new ArrayList<>();
 
 
-        database.child("senders").addValueEventListener(new ValueEventListener() {
+        database.child("senders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
