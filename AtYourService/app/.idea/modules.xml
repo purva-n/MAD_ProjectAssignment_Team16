@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/158454136/AtYourService.iml" filepath="$PROJECT_DIR$/.idea/modules/158454136/AtYourService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AtYourService.app.iml" filepath="$PROJECT_DIR$/.idea/modules/AtYourService.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AtYourService.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AtYourService.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AtYourService.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AtYourService.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AtYourService.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AtYourService.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1449699131/AtYourService.libs.iml" filepath="$PROJECT_DIR$/.idea/modules/-1449699131/AtYourService.libs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-975557183/AtYourService.libs.picasso-master.iml" filepath="$PROJECT_DIR$/.idea/modules/-975557183/AtYourService.libs.picasso-master.iml" />
+    </modules>
+  </component>
+</project>
