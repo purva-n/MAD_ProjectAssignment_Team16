@@ -1,14 +1,25 @@
-package com.example.atyourservice.togather;
+package com.example.atyourservice.ToGather;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.ToGather.firebasemodel;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,16 @@ public class ChatFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseFirestore firebaseFirestore;
+    LinearLayoutManager linearLayoutManager;
+    private FirebaseAuth firebaseAuth;
+
+    ImageView mimageviewofuser;
+
+    FirestoreRecyclerAdapter<firebasemodel,NoteViewHolder> chatAdapter;
+
+    RecyclerView mrecyclerview;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -60,7 +81,39 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
-    }
+        View v=inflater.inflate(R.layout.fragment_chat,container,false);
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        mrecyclerview=v.findViewById(R.id.recyclerview);
+
+
+        // Query query=firebaseFirestore.collection("Users");
+        Query query=firebaseFirestore.collection("Users").whereNotEqualTo("uid",firebaseAuth.getUid());
+        FirestoreRecyclerOptions<firebasemodel> allusername=new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
+
+        chatAdapter=new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
+            @Override
+            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
+
+                noteViewHolder.particularusername.setText(firebasemodel.getName());
+                String uri=firebasemodel.getImage();
+
+                Picasso.get().load(uri).into(mimageviewofuser);
+
+                noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent=new Intent(getActivity(),ChatWindowActivity.class);
+                        intent.putExtra("name",firebasemodel.getName());
+                        intent.putExtra("receiveruid",firebasemodel.getUid());
+                        intent.putExtra("imageuri",firebasemodel.getImage());
+                        startActivity(intent);
+                    }
+                });
+
+
+
+            }
+
 }
