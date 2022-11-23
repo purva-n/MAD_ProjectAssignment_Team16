@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.atyourservice.togather.HomePageActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,6 +24,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
+        Button toGather = findViewById(R.id.toGather);
+
+        toGather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchToGather();
+            }
+        });
+    }
+
+    private void launchToGather() {
+        Intent intent = new Intent(this, HomePageActivity.class);
+        startActivity(intent);
     }
 
     public void onClick(View view) {
