@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.atyourservice.ToGather.SignInActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
+        Button toGatherButton = findViewById(R.id.toGatherButton);
+        toGatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent2);
+            }
+        });
+
     }
 
     public void onClick(View view) {
