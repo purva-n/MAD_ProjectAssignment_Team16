@@ -8,4 +8,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#AAA6A6</color>
+
+    <color name="home">#1194AA</color>
+    <color name="explore">#759F43</color>
+    <color name="chat">#C9379D</color>
+    <color name="notification">#AE7E0F</color>
+    <color name="banner">#5B37b6</color>
+
+    <color name="home_20">#331194AA</color>
+    <color name="explore_20">#33759F43</color>
+    <color name="chat_20">#33C9379D</color>
+    <color name="notification_20">#33AE7E0F</color>
+    <color name="banner_20">#335B37B6</color>
 </resources>
