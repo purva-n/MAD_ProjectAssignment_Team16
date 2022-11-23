@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.atyourservice.togather.HomePageActivity;
+import com.example.atyourservice.ToGather.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,19 +25,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button toGather = findViewById(R.id.toGather);
-
-        toGather.setOnClickListener(new View.OnClickListener() {
+        Button toGatherButton = findViewById(R.id.toGatherButton);
+        toGatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                launchToGather();
+            public void onClick(View v) {
+                Intent intent2 = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent2);
             }
         });
-    }
 
-    private void launchToGather() {
-        Intent intent = new Intent(this, HomePageActivity.class);
-        startActivity(intent);
     }
 
     public void onClick(View view) {
