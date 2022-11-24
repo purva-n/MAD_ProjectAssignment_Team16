@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="50dp"
-        android:background="@drawable/recieverchatdrawble"
+        android:background="@drawable/receiverchat_drawable"
         android:id="@+id/layoutformessage">
 
         <TextView

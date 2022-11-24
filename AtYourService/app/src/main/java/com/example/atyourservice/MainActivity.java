@@ -1,14 +1,13 @@
 package com.example.atyourservice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.atyourservice.ToGather.SignInActivity;
-import com.example.atyourservice.togather.HomePageActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.atyourservice.ToGather.HomePageActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,12 +16,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button firebaseButton = findViewById(R.id.fireBaseAssignment);
+        Button aboutus = findViewById(R.id.btnAbout);
+
+        aboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent1);
+            }
+        });
+
         firebaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this, RegisterActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
                 //Intent intent1 = new Intent(MainActivity.this, MessagesActivity.class);
-                startActivity(intent1);
+                startActivity(intent2);
             }
         });
 
@@ -30,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         toGatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, HomePageActivity.class);
-                startActivity(intent2);
+                Intent intent3 = new Intent(MainActivity.this, HomePageActivity.class);
+                startActivity(intent3);
             }
         });
 

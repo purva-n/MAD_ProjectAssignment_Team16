@@ -1,6 +1,4 @@
 package com.example.atyourservice.ToGather;
-
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -17,12 +15,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0:
-                return new com.example.atyourservice.togather.ChatFragment();
+                return new ChatFragment();
 
             default:
                 return null;
         }
-
     }
 
     @Override

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/explore"
-    tools:context=".togather.ExploreFragment">
+    tools:context=".ToGather.ExploreFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -25,7 +25,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/backbuttonofspecificchat"
-                android:tint="@color/white"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 android:layout_centerVertical="true">
@@ -46,18 +45,13 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/defaultprofile"
+                    android:src="@drawable/defaultprofileimg"
                     android:id="@+id/specificuserimageinimageview"
                     android:scaleType="centerCrop">
 
                 </ImageView>
 
-
-
             </androidx.cardview.widget.CardView>
-
-
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,12 +66,7 @@
                 android:textColor="@color/white">
 
             </TextView>
-
-
         </RelativeLayout>
-
-
-
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -100,7 +89,7 @@
         android:paddingLeft="20dp"
         android:paddingEnd="10dp"
         android:textSize="18sp"
-        android:background="@drawable/messagebackgroun"
+        android:background="@drawable/message_backround"
         android:textAlignment="textStart"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="55dp"
@@ -134,26 +123,6 @@
             app:tint="@color/white">
 
         </ImageButton>
-
-
-
     </androidx.cardview.widget.CardView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </RelativeLayout>

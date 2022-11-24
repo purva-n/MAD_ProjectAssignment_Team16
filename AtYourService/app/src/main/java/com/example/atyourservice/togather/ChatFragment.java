@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.ToGather.firebasemodel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +43,7 @@ public class ChatFragment extends Fragment {
 
     ImageView mimageviewofuser;
 
-    FirestoreRecyclerAdapter<firebasemodel,NoteViewHolder> chatAdapter;
+    FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> chatAdapter;
 
     RecyclerView mrecyclerview;
 
@@ -81,39 +81,84 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_chat,container,false);
+        View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore= FirebaseFirestore.getInstance();
-        mrecyclerview=v.findViewById(R.id.recyclerview);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        mrecyclerview = v.findViewById(R.id.recyclerview);
 
 
         // Query query=firebaseFirestore.collection("Users");
-        Query query=firebaseFirestore.collection("Users").whereNotEqualTo("uid",firebaseAuth.getUid());
-        FirestoreRecyclerOptions<firebasemodel> allusername=new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
+        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid());
+        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
-        chatAdapter=new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
+        chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
 
                 noteViewHolder.particularusername.setText(firebasemodel.getName());
-                String uri=firebasemodel.getImage();
+                String uri = firebasemodel.getImage();
 
                 Picasso.get().load(uri).into(mimageviewofuser);
 
                 noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent=new Intent(getActivity(),ChatWindowActivity.class);
-                        intent.putExtra("name",firebasemodel.getName());
-                        intent.putExtra("receiveruid",firebasemodel.getUid());
-                        intent.putExtra("imageuri",firebasemodel.getImage());
+                        Intent intent = new Intent(getActivity(), ChatWindowActivity.class);
+                        intent.putExtra("name", firebasemodel.getName());
+                        intent.putExtra("receiveruid", firebasemodel.getUid());
+                        intent.putExtra("imageuri", firebasemodel.getImage());
                         startActivity(intent);
                     }
                 });
 
-
-
             }
+            @NonNull
+            @Override
+            public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.chatview_layout,parent,false);
+                return new NoteViewHolder(view);
+            }
+        };
+
+
+        mrecyclerview.setHasFixedSize(true);
+        linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mrecyclerview.setLayoutManager(linearLayoutManager);
+        mrecyclerview.setAdapter(chatAdapter);
+
+
+        return v;
+
+    }
+
+    public class NoteViewHolder extends RecyclerView.ViewHolder
+    {
+
+        private TextView particularusername;
+        private TextView statusofuser;
+
+        public NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            particularusername=itemView.findViewById(R.id.nameofuser);
+            mimageviewofuser=itemView.findViewById(R.id.imageviewofuser);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        chatAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(chatAdapter!=null)
+        {
+            chatAdapter.stopListening();
+        }
+    }
 }

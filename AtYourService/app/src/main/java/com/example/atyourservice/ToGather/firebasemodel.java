@@ -2,18 +2,14 @@ package com.example.atyourservice.ToGather;
 
 
 public class firebasemodel {
-
     String name;
     String image;
     String uid;
-    String status;
 
-
-    public firebasemodel(String name, String image, String uid, String status) {
+    public firebasemodel(String name, String image, String uid) {
         this.name = name;
         this.image = image;
         this.uid = uid;
-        this.status = status;
     }
 
     public firebasemodel() {
@@ -43,11 +39,4 @@ public class firebasemodel {
         this.uid = uid;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
