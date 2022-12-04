@@ -60,7 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                        .replace(R.id.fragmentContainer, HomeFragment.class, null)
+                        .replace(R.id.fragmentContainer, com.example.atyourservice.togather.HomeFragment.class, null)
                                 .commit();
 
         homeLayout.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class HomePageActivity extends AppCompatActivity {
                     //Set Home Fragment as main screen
                     getSupportFragmentManager().beginTransaction()
                             .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, HomeFragment.class, null)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.HomeFragment.class, null)
                             .commit();
 
                     //unselect other options
@@ -157,7 +157,7 @@ public class HomePageActivity extends AppCompatActivity {
                     //Set Chat Fragment as main screen
                     getSupportFragmentManager().beginTransaction()
                             .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, ChatFragment.class, null)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.ChatFragment.class, null)
                             .commit();
 
                     //unselect other options
@@ -200,7 +200,7 @@ public class HomePageActivity extends AppCompatActivity {
                     //Set Notification Fragment as main screen
                     getSupportFragmentManager().beginTransaction()
                             .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, NotificationFragment.class, null)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.NotificationFragment.class, null)
                             .commit();
 
                     //unselect other options
@@ -244,7 +244,7 @@ public class HomePageActivity extends AppCompatActivity {
                     //Set Banner Fragment as main screen
                     getSupportFragmentManager().beginTransaction()
                             .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, BannerFragment.class, null)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.BannerFragment.class, null)
                             .commit();
 
                     //unselect other options
