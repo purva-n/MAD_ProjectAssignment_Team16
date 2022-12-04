@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.atyourservice"
@@ -26,6 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '33.0.0'
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
@@ -55,6 +56,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.hbb20:cpp:2.5.1'
 }
 task wrapper(type: Wrapper){
     gradleVersion = '7.2'

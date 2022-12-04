@@ -41,7 +41,7 @@ public class ChatFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
 
-    ImageView mimageviewofuser;
+    ImageView mimageviewofgroup;
 
     FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> chatAdapter;
 
@@ -87,27 +87,26 @@ public class ChatFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         mrecyclerview = v.findViewById(R.id.recyclerview);
 
-
-        // Query query=firebaseFirestore.collection("Users");
         Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid());
-        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
+        FirestoreRecyclerOptions<firebasemodel> allgroupname = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
-        chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
+        chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allgroupname) {
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
 
-                noteViewHolder.particularusername.setText(firebasemodel.getName());
+                noteViewHolder.groupname.setText(firebasemodel.getName());
                 String uri = firebasemodel.getImage();
 
-                Picasso.get().load(uri).into(mimageviewofuser);
+                Picasso.get().load(uri).into(mimageviewofgroup);
 
                 noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getActivity(), ChatWindowActivity.class);
-                        intent.putExtra("name", firebasemodel.getName());
-                        intent.putExtra("receiveruid", firebasemodel.getUid());
+                        intent.putExtra("receivergroupname", firebasemodel.getName());
+                        intent.putExtra("receivergroupid", firebasemodel.getUid());
                         intent.putExtra("imageuri", firebasemodel.getImage());
+                        intent.putExtra("chatid", firebasemodel.getChatId());
                         startActivity(intent);
                     }
                 });
@@ -122,28 +121,22 @@ public class ChatFragment extends Fragment {
             }
         };
 
-
         mrecyclerview.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mrecyclerview.setLayoutManager(linearLayoutManager);
         mrecyclerview.setAdapter(chatAdapter);
-
-
         return v;
 
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder
     {
-
-        private TextView particularusername;
-        private TextView statusofuser;
-
+        private TextView groupname;
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            particularusername=itemView.findViewById(R.id.nameofuser);
-            mimageviewofuser=itemView.findViewById(R.id.imageviewofuser);
+            groupname=itemView.findViewById(R.id.nameofuser);
+            mimageviewofgroup=itemView.findViewById(R.id.imageviewofuser);
         }
     }
 

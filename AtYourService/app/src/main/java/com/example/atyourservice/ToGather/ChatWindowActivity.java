@@ -39,15 +39,15 @@ public class ChatWindowActivity extends AppCompatActivity {
 
     CardView msendmessagecardview;
     androidx.appcompat.widget.Toolbar mtoolbarofspecificchat;
-    ImageView mimageviewofspecificuser;
-    TextView mnameofspecificuser;
+    ImageView mimageviewofgroup;
+    TextView mnameofgroup;
 
     private String enteredmessage;
     Intent intent;
-    String mrecievername,sendername,mrecieveruid,msenderuid;
+    String groupname,sendername,groupid,msenderuid,chatid;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    String senderroom,recieverroom;
+//    String senderroom,recieverroom;
 
     ImageButton mbackbuttonofspecificchat;
 
@@ -60,8 +60,6 @@ public class ChatWindowActivity extends AppCompatActivity {
     MessagesAdapter messagesAdapter;
     ArrayList<Messages> messagesArrayList;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +69,8 @@ public class ChatWindowActivity extends AppCompatActivity {
         msendmessagecardview=findViewById(R.id.carviewofsendmessage);
         msendmessagebutton=findViewById(R.id.imageviewsendmessage);
         mtoolbarofspecificchat=findViewById(R.id.toolbarofspecificchat);
-        mnameofspecificuser=findViewById(R.id.Nameofspecificuser);
-        mimageviewofspecificuser=findViewById(R.id.specificuserimageinimageview);
+        mnameofgroup=findViewById(R.id.Nameofspecificuser);
+        mimageviewofgroup=findViewById(R.id.specificuserimageinimageview);
         mbackbuttonofspecificchat=findViewById(R.id.backbuttonofspecificchat);
 
         messagesArrayList=new ArrayList<>();
@@ -84,7 +82,6 @@ public class ChatWindowActivity extends AppCompatActivity {
         messagesAdapter=new MessagesAdapter(ChatWindowActivity.this,messagesArrayList);
         mmessagerecyclerview.setAdapter(messagesAdapter);
 
-
         intent=getIntent();
 
         setSupportActionBar(mtoolbarofspecificchat);
@@ -92,8 +89,6 @@ public class ChatWindowActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Toolbar is Clicked",Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -103,13 +98,11 @@ public class ChatWindowActivity extends AppCompatActivity {
         simpleDateFormat=new SimpleDateFormat("hh:mm a");
 
         msenderuid=firebaseAuth.getUid();
-        mrecieveruid=getIntent().getStringExtra("receiveruid");
-        mrecievername=getIntent().getStringExtra("name");
+        groupid=getIntent().getStringExtra("receivergroupid");
+        groupname=getIntent().getStringExtra("receivergroupname");
+        chatid = getIntent().getStringExtra("chatid");
 
-        senderroom=msenderuid+mrecieveruid;
-        recieverroom=mrecieveruid+msenderuid;
-
-        DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
+        DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(groupid).child(chatid).child("message");
         messagesAdapter=new MessagesAdapter(ChatWindowActivity.this,messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,15 +131,15 @@ public class ChatWindowActivity extends AppCompatActivity {
         });
 
 
-        mnameofspecificuser.setText(mrecievername);
+        mnameofgroup.setText(groupname);
         String uri=intent.getStringExtra("imageuri");
         if(uri.isEmpty())
         {
-            Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"null is received",Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Picasso.get().load(uri).into(mimageviewofspecificuser);
+            Picasso.get().load(uri).into(mimageviewofgroup);
         }
 
 
@@ -166,25 +159,25 @@ public class ChatWindowActivity extends AppCompatActivity {
                     Messages messages=new Messages(enteredmessage,firebaseAuth.getUid(),date.getTime(),currenttime);
                     firebaseDatabase=FirebaseDatabase.getInstance();
                     firebaseDatabase.getReference().child("chats")
-                            .child(senderroom)
-                            .child("messages")
+                            .child(groupid)
+                            .child(chatid)
+                            .child("message")
                             .push().setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    firebaseDatabase.getReference()
-                                            .child("chats")
-                                            .child(recieverroom)
-                                            .child("messages")
-                                            .push()
-                                            .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-
-                                                }
-                                            });
+//                                    firebaseDatabase.getReference()
+//                                            .child("chats")
+//                                            .child(groupid)
+//                                            .child(chatid)
+//                                            .child("message")
+//                                            .push()
+//                                            .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<Void> task) {
+//                                                }
+//                                            });
                                 }
                             });
-
                     mgetmessage.setText(null);
                 }
             }
@@ -207,7 +200,4 @@ public class ChatWindowActivity extends AppCompatActivity {
             messagesAdapter.notifyDataSetChanged();
         }
     }
-
-
-
 }

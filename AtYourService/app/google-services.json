@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "986731152581",
-    "firebase_url": "https://mad-assignment-8-default-rtdb.firebaseio.com",
-    "project_id": "mad-assignment-8",
-    "storage_bucket": "mad-assignment-8.appspot.com"
+    "project_number": "872018935944",
+    "firebase_url": "https://madprojectfall22-default-rtdb.firebaseio.com",
+    "project_id": "madprojectfall22",
+    "storage_bucket": "madprojectfall22.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:986731152581:android:001f63922c704b7c0fdcac",
+        "mobilesdk_app_id": "1:872018935944:android:041402f786ff0c77171f3d",
         "android_client_info": {
           "package_name": "com.example.atyourservice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "986731152581-tcoejpf17r9v23k4td3e35lub2t8o3c4.apps.googleusercontent.com",
+          "client_id": "872018935944-qop6o6vd7eoojmm6ho3okrrtlp98spao.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDuFOgu_jvvVlpaF-ADvzZGnT_fhpobGgE"
+          "current_key": "AIzaSyBx5Ldte--YmPteW9CmTqSqYh6X7zkYRyI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "986731152581-tcoejpf17r9v23k4td3e35lub2t8o3c4.apps.googleusercontent.com",
+              "client_id": "872018935944-qop6o6vd7eoojmm6ho3okrrtlp98spao.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

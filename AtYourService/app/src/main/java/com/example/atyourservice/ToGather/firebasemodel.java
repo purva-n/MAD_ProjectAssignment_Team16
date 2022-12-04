@@ -1,26 +1,27 @@
 package com.example.atyourservice.ToGather;
 
-
 public class firebasemodel {
-    String name;
+    String groupname;
     String image;
-    String uid;
+    String groupid;
+    String chatid;
 
-    public firebasemodel(String name, String image, String uid) {
-        this.name = name;
+    public firebasemodel(String name, String image, String uid, String chatid) {
+        this.groupname = name;
         this.image = image;
-        this.uid = uid;
+        this.groupid = uid;
+        this.chatid = chatid;
     }
 
     public firebasemodel() {
     }
 
     public String getName() {
-        return name;
+        return groupname;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.groupname = name;
     }
 
     public String getImage() {
@@ -32,11 +33,13 @@ public class firebasemodel {
     }
 
     public String getUid() {
-        return uid;
+        return groupid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUid(String id) {
+        this.groupid = id;
     }
 
+    public String getChatId() {return chatid;
+    }
 }
