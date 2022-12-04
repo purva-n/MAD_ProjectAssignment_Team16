@@ -4,8 +4,9 @@
     package="com.example.atyourservice">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
-
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
+        <activity
+            android:name=".dropdown_item"
+            android:exported="false" />
+        <activity
+            android:name=".ToGather.GroupResultFindPageRecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".ToGather.HomePageActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".AboutActivity"
             android:exported="false" />
@@ -38,14 +48,13 @@
             android:name=".notification.service.PushNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVEMT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
             android:name=".mesaging.service.MessagesRecycler"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".ActivityRecyclerView"
             android:exported="false" />

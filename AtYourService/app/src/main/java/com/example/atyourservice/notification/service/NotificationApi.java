@@ -19,7 +19,7 @@ import java.util.Map;
 
 //https://firebase.google.com/docs/cloud-messaging/android/client
 public class NotificationApi {
-    private static String BASE_URL="https://fcm.googlesapis.com/fcm/send";
+    private static String BASE_URL="https://fcm.googleapis.com/fcm/send";
     private String TOKEN;
     private final static String SERVER_TOKEN="key=AAAA5b3ChMU:APA91bHn_Jsr42w1JqzaPxpMEEXC96NbueibBqTe0H6aWVXNl9J2zz2m9O6o_DRRkcCpg4Q1L9jf0H7ySNpJQ-iCsaszkDSAH5D0j8ltL6qBBx0FqdM1yqInfUgRYF5lVRC5mt_3b5nB";
 
@@ -27,7 +27,7 @@ public class NotificationApi {
         this.TOKEN = token;
     }
 
-    public void pushNotificationToReceiver(Context context, String title, String message) {
+    public void pushNotificationToReceiver(Context context, String title, String message, int stickerId) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -35,11 +35,14 @@ public class NotificationApi {
 
         try {
             JSONObject json = new JSONObject();
+            System.out.println("TOKEN IS :::: "+TOKEN);
             json.put("to", TOKEN);
             json.put("project_id", "986731152581");
             JSONObject notification = new JSONObject();
             notification.put("title", title);
             notification.put("body", message);
+            notification.put("icon", String.valueOf(stickerId));
+
             json.put("notification", notification);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BASE_URL, json, new Response.Listener<JSONObject>() {
