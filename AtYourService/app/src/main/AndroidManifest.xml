@@ -19,12 +19,14 @@
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
         <activity
-            android:name=".togather.HomePageActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".dropdown_item"
+            android:exported="false" />
+        <activity
+            android:name=".ToGather.GroupResultFindPageRecyclerView"
+            android:exported="false" />
+        <activity
+            android:name=".ToGather.HomePageActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".AboutActivity"
             android:exported="false" />

@@ -1,4 +1,4 @@
-package com.example.atyourservice.togather;
+package com.example.atyourservice.ToGather;
 
 import android.os.Bundle;
 
@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.atyourservice.R;
 
@@ -61,6 +65,13 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explore, container, false);
+        View li =  inflater.inflate(R.layout.fragment_explore, container, false);
+        Spinner category = (Spinner) li.findViewById(R.id.category);
+        String[] categories = new String[]{"Hike", "Sports", "Music", "Art", "Travel"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(li.getContext(), android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category.setAdapter(adapter);
+
+        return li;
     }
 }
