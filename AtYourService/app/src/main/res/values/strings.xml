@@ -12,4 +12,51 @@
     <string name="stickergrid">stickerGrid</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_text">Categories</string>
+
+    <string-array name="categories">
+        <item>Hiking</item>
+        <item>Sports</item>
+        <item>Art</item>
+        <item>Outdoor Activities</item>
+        <item>Indoor Activities</item>
+        <item>Seasonal</item>
+        <item>Music</item>
+    </string-array>
+
+    <string-array name="date_range">
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>This Week</item>
+        <item>Next Week</item>
+        <item>This Month</item>
+        <item>Next Month</item>
+    </string-array>
+
+    <string-array name="age_range">
+        <item>15 - 20</item>
+        <item>20 - 30</item>
+        <item>25 - 40</item>
+        <item>35 - 50</item>
+        <item>50 - 60</item>
+        <item>60+</item>
+    </string-array>
+
+    <string-array name="gender_pref">
+        <item>Women only</item>
+        <item>Men only</item>
+        <item>Any</item>
+    </string-array>
+
+    <string-array name="hiking_activities">
+        <item>Camping</item>
+        <item>Adventure</item>
+        <item>Stay-cation</item>
+    </string-array>
+
+    <string-array name="sport_activities">
+        <item>Camping</item>
+        <item>Adventure</item>
+        <item>Stay-cation</item>
+    </string-array>
 </resources>
