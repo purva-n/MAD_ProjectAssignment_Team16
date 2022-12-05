@@ -65,11 +65,12 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View li =  inflater.inflate(R.layout.fragment_explore, container, false);
-        Spinner category = (Spinner) li.findViewById(R.id.category);
-        String[] categories = new String[]{"Hike", "Sports", "Music", "Art", "Travel"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(li.getContext(), android.R.layout.simple_spinner_item, categories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        category.setAdapter(adapter);
+
+//        Spinner category = (Spinner) li.findViewById(R.id.category);
+//        String[] categories = new String[]{"Hike", "Sports", "Music", "Art", "Travel"};
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(li.getContext(), android.R.layout.simple_spinner_item, categories);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        category.setAdapter(adapter);
 
         return li;
     }
