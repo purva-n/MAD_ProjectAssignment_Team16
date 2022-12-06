@@ -1,13 +1,13 @@
 package com.example.atyourservice;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.atyourservice.ToGather.HomePageActivity;
+import com.example.atyourservice.ToGather.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         toGatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, HomePageActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent2);
             }
         });
