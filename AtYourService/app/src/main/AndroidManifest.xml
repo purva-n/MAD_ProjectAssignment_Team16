@@ -19,11 +19,23 @@
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GroupCreateActivity"
+            android:exported="false" />
+        <activity
             android:name=".togather.GroupResultFindPageRecyclerView"
             android:exported="false" />
         <activity
             android:name=".togather.HomePageActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".AboutActivity"
             android:exported="false" />

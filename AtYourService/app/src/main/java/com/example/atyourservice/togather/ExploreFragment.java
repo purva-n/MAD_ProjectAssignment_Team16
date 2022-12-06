@@ -1,4 +1,4 @@
-package com.example.atyourservice.togather;
+package com.example.atyourservice.ToGather;
 
 import android.os.Bundle;
 
