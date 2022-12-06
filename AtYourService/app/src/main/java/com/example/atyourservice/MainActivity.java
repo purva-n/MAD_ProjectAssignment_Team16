@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.atyourservice.togather.HomePageActivity;
+import com.example.atyourservice.ToGather.HomePageActivity;
 
 public class MainActivity extends AppCompatActivity {
 
