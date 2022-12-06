@@ -1,12 +1,15 @@
 package com.example.atyourservice.togather;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.atyourservice.R;
 
@@ -61,6 +64,15 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        SearchView searchBar = view.findViewById(R.id.searchBar);
+        EditText txtSearch = ((EditText)searchBar.findViewById(androidx.appcompat.R.id.search_src_text));
+        searchBar.setQuery("Search by Activity Category", false);
+        txtSearch.setHint("Search by Activity Category");
+        txtSearch.setHintTextColor(Color.DKGRAY);
+        txtSearch.setTextColor(Color.DKGRAY);
+
+
+        return view;
     }
 }
