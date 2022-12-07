@@ -17,11 +17,13 @@
     <string-array name="categories">
         <item>Hiking</item>
         <item>Sports</item>
-        <item>Art</item>
+        <item>Art and Culture</item>
         <item>Outdoor Activities</item>
         <item>Indoor Activities</item>
         <item>Seasonal</item>
         <item>Music</item>
+        <item>Health and Wellness</item>
+        <item>Career and Business</item>
     </string-array>
 
     <string-array name="date_range">
@@ -55,8 +57,30 @@
     </string-array>
 
     <string-array name="sport_activities">
-        <item>Camping</item>
-        <item>Adventure</item>
-        <item>Stay-cation</item>
+        <item>Baseball</item>
+        <item>Soccer</item>
+        <item>Football</item>
+        <item>Tennis</item>
+        <item>Billiards</item>
+        <item>Basketball</item>
+        <item>Badminton</item>
+        <item>Cricket</item>
+        <item>Swimming</item>
+    </string-array>
+
+    <string-array name="art_activities">
+        <item>Drawing</item>
+        <item>Sketching</item>
+        <item>Painting</item>
+        <item>Canvas</item>
+        <item>Origami and Paper Crafts</item>
+        <item>Pottery</item>
+        <item>Sculpting</item>
+        <item>Weaving</item>
+        <item>Crochet</item>
+        <item>Nail Art</item>
+        <item>Traditional</item>
+        <item>Cultural</item>
+        <item>Modern</item>
     </string-array>
 </resources>
