@@ -91,8 +91,6 @@ public class HomeFragment extends Fragment {
 
 
         HomePageActivities a = new HomePageActivities();
-
-        a = new HomePageActivities();
         a.setActivityImage(R.drawable.hiking_icon);
         a.setActivityName("Hiking");
         list.add(a);
