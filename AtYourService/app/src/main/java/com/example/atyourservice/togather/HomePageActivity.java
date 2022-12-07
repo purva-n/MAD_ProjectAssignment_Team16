@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.atyourservice.R;
 
-
 public class HomePageActivity extends AppCompatActivity {
 
     private LinearLayout homeLayout;
