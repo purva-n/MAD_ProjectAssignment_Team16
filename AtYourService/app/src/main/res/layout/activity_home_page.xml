@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/actionBar"
-        />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-107dp" />
 
     <LinearLayout
         android:id="@+id/actionBar"
@@ -43,12 +44,14 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <ImageView
                 android:id="@+id/homeImg"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/home_selected_icon" />
+
             <TextView
                 android:id="@+id/homeLabel"
                 android:layout_width="wrap_content"
@@ -70,21 +73,23 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <ImageView
                 android:id="@+id/exploreImg"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/explore_selected_icon" />
+
             <TextView
                 android:id="@+id/exploreLabel"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Explore"
                 android:textColor="@color/explore"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -99,21 +104,23 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <ImageView
                 android:id="@+id/chatImg"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/chat_selected_icon" />
+
             <TextView
                 android:id="@+id/chatLabel"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Chat"
                 android:textColor="@color/chat"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!--Notification-->
@@ -127,21 +134,23 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <ImageView
                 android:id="@+id/notificationImg"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/notification_selected_icon" />
+
             <TextView
                 android:id="@+id/notificationLabel"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Notification"
                 android:textColor="@color/notification"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!--Banner-->
@@ -155,21 +164,23 @@
             android:orientation="horizontal"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <ImageView
                 android:id="@+id/bannerImg"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/banner_icon" />
+
             <TextView
                 android:id="@+id/bannerLabel"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Banner Of Fame"
                 android:textColor="@color/banner"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
