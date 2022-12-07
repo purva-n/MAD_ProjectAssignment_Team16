@@ -1,8 +1,11 @@
 package com.example.atyourservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
     private String userId;
     private String name;
