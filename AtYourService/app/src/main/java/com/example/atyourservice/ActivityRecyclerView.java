@@ -6,11 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.atyourservice.api.response.pojo.DateResponse;
-import com.example.atyourservice.api.response.pojo.Dates;
 import com.example.atyourservice.api.response.pojo.Embedded;
-import com.example.atyourservice.api.response.pojo.Events;
-import com.example.atyourservice.api.response.pojo.Images;
 
 import java.util.ArrayList;
 

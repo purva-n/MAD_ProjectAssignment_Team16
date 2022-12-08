@@ -1,9 +1,12 @@
 package com.example.atyourservice.togather;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,13 +19,10 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
     public TextView groupTime;
     public TextView memberCount;
     public ImageView groupProfilePic;
+    public Button joinGroup;
 
-    public GroupResultFindPageViewHolder(@NonNull View view) {
-        super(view);
-        this.groupName = view.findViewById(R.id.groupName);
-        this.groupDate = view.findViewById(R.id.groupDate);
-        this.groupTime = view.findViewById(R.id.groupTime);
-        this.memberCount = view.findViewById(R.id.memberCount);
-        this.groupProfilePic = view.findViewById(R.id.groupImg);
+    this.memberCount = view.findViewById(R.id.memberCount);
+    this.groupProfilePic = view.findViewById(R.id.groupImg);
+    this.joinGroup = view.findViewById(R.id.join);
     }
 }

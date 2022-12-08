@@ -4,11 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
+import com.example.atyourservice.models.User;
 
 import java.util.List;
 
@@ -37,18 +44,22 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         holder.memberCount.setText(grp.getMemberCount());
         holder.groupProfilePic.setImageResource(R.drawable.default_user_img);
 
-        holder.itemView.setOnClickListener(view -> {
+
+        holder.joinGroup.setOnClickListener(view -> {
 //            Intent intent = new Intent(context, MessagesActivity.class);
 //            intent.putExtra("Sender", this.sender);
 //            intent.putExtra("Receiver", user);
 //            System.out.println("Senderrrr :::::: " + sender);
 //            System.out.println("Reciever :::::::: " + user.getUserId());
 //            context.startActivity(intent);
+
+            holder.joinGroup.setText("Joined");
+            holder.joinGroup.setEnabled(false);
         });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return groups.size();
     }
 }

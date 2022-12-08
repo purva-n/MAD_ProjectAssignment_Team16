@@ -1,10 +1,14 @@
 package com.example.atyourservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
-public class Group {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Group implements Serializable {
     private String Name;
     private Date Date;
     private Time Time;

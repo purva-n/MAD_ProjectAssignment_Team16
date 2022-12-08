@@ -13,7 +13,6 @@ import android.os.Bundle;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.UserList;
-import com.example.atyourservice.api.response.pojo.Messages;
 import com.example.atyourservice.models.User;
 
 
