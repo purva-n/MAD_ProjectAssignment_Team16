@@ -1,4 +1,4 @@
-package com.example.atyourservice.ToGather;
+package com.example.atyourservice.togather;
 
 import androidx.appcompat.app.AppCompatActivity;
 

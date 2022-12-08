@@ -1,20 +1,14 @@
-package com.example.atyourservice.ToGather;
+package com.example.atyourservice.togather;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.mesaging.service.MessagesActivity;
-import com.example.atyourservice.mesaging.service.SentMessagesHolder;
 import com.example.atyourservice.models.Group;
-import com.example.atyourservice.models.User;
 
 import java.util.List;
 

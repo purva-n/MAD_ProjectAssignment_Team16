@@ -1,12 +1,9 @@
-package com.example.atyourservice.ToGather.Notifications;
+package com.example.atyourservice.togather.Notifications;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.widget.RemoteViews;
 
@@ -17,8 +14,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.atyourservice.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.Locale;
 
 //https://firebase.google.com/docs/cloud-messaging/android/client
 public class ToGatherPushNotificationService extends FirebaseMessagingService {

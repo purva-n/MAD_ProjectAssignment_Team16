@@ -1,4 +1,4 @@
-package com.example.atyourservice.ToGather.Notifications;
+package com.example.atyourservice.togather.Notifications;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.mesaging.service.ReceivedMessagesHolder;
-import com.example.atyourservice.mesaging.service.SentMessagesHolder;
-import com.example.atyourservice.models.Message;
 import com.example.atyourservice.models.Notifications;
 
-import java.lang.reflect.Field;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

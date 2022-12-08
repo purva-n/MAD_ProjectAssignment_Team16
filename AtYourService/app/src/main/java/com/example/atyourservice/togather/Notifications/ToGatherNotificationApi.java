@@ -1,4 +1,4 @@
-package com.example.atyourservice.ToGather.Notifications;
+package com.example.atyourservice.togather.Notifications;
 
 import android.content.Context;
 import android.os.StrictMode;
@@ -10,14 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.atyourservice.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 //https://firebase.google.com/docs/cloud-messaging/android/client
 public class ToGatherNotificationApi {
