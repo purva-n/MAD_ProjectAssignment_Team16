@@ -11,8 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.atyourservice.R;
 import com.google.firebase.database.DatabaseReference;

@@ -6,109 +6,110 @@
     android:layout_height="match_parent"
     android:background="@color/explore"
     tools:context=".togather.ExploreFragment">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Category:"
-            android:textSize="20sp"
-            android:layout_marginTop="50sp">
-        </TextView>
-        <Spinner
-            android:id="@+id/categories"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:entries="@array/categories"
-            android:prompt="@string/category_text"
-            android:textAlignment="center"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Category:"
+        android:textSize="20sp"
+        android:layout_marginTop="50sp">
+    </TextView>
+    <Spinner
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:entries="@array/categories"
+        android:prompt="@string/category_text"
+        android:textAlignment="center"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Activity:"
-            android:textSize="20sp"/>
-        <Spinner
-            android:id="@+id/activities"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:textAlignment="center"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Activity:"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/activities"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:textAlignment="center"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age Preference:"
-            android:textSize="20sp"/>
-        <Spinner
-            android:id="@+id/age"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:textAlignment="center"
-            android:entries="@array/age_range"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age Preference:"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/age"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:textAlignment="center"
+        android:entries="@array/age_range"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender Preferences:"
-            android:textSize="20sp"/>
-        <Spinner
-            android:id="@+id/gender"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:textAlignment="center"
-            android:entries="@array/gender_pref"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender Preferences:"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:textAlignment="center"
+        android:entries="@array/gender_pref"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date range:"
-            android:textSize="20sp"/>
-        <Spinner
-            android:id="@+id/daterange"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:textAlignment="center"
-            android:entries="@array/date_range"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date range:"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/daterange"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:textAlignment="center"
+        android:entries="@array/date_range"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location:"
-            android:textSize="20sp"/>
-        <Spinner
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:textAlignment="center"
-            android:entries="@array/date_range"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="30sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location:"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:textAlignment="center"
+        android:entries="@array/date_range"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="30sp"/>
 
-        <Button
-            android:id="@+id/findGroups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Find Groups"/>
-        </LinearLayout>
+    <Button
+        android:id="@+id/findGroups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Find Groups"/>
+    </LinearLayout>
 
 </FrameLayout>

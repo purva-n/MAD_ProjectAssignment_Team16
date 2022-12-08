@@ -2,13 +2,27 @@ package com.example.atyourservice.togather;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.atyourservice.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +74,81 @@ public class BannerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_banner, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView usernameTextView = (TextView) getView().findViewById(R.id.bannerUserName);
+        TextView scoreTextView =(TextView) getView().findViewById(R.id.score);
+        TextView descriptionTextView = (TextView) getView().findViewById(R.id.bannerDescription);
+        ImageView bannerImage = (ImageView) getView().findViewById(R.id.bannerImg);
+        bannerImage.setImageResource(R.drawable.trophy);
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        Query mDatabaseHighestSocialite = databaseRef.child("users").orderByChild("socialitescore").limitToLast(1);
+        mDatabaseHighestSocialite.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    String key = childSnapshot.getKey();
+                    DatabaseReference scoreRef = databaseRef.child("users").child(key).child("socialitescore");
+                    scoreRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String value = String.valueOf(snapshot.getValue(Long.class));
+                            scoreTextView.setText(value);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    DatabaseReference descriptionRef = databaseRef.child("users").child(key).child("about");
+                    descriptionRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String description = snapshot.getValue(String.class);
+                            System.out.println(description);
+                            descriptionTextView.setText(description);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    System.out.println(key);
+                    usernameTextView.setText(key);
+
+
+                   /* DatabaseReference BannerDatabase = FirebaseDatabase.getInstance().getReference();
+                    BannerDatabase.child("users").child(key).child("username").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                textView.setText(dataSnapshot1.getValue().toString());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });*/
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException(); // don't swallow errors
+            }
+        });
     }
 }

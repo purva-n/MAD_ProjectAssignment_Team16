@@ -1,6 +1,9 @@
 package com.example.atyourservice.togather;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +44,7 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         holder.memberCount.setText(grp.getMemberCount());
         holder.groupProfilePic.setImageResource(R.drawable.default_user_img);
 
+
         holder.joinGroup.setOnClickListener(view -> {
 //            Intent intent = new Intent(context, MessagesActivity.class);
 //            intent.putExtra("Sender", this.sender);
@@ -48,6 +52,7 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 //            System.out.println("Senderrrr :::::: " + sender);
 //            System.out.println("Reciever :::::::: " + user.getUserId());
 //            context.startActivity(intent);
+
             holder.joinGroup.setText("Joined");
             holder.joinGroup.setEnabled(false);
         });

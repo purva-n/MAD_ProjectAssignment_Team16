@@ -1,12 +1,14 @@
 package com.example.atyourservice.togather;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import com.example.atyourservice.R;
+
 import com.example.atyourservice.api.response.pojo.Embedded;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.models.Group;
