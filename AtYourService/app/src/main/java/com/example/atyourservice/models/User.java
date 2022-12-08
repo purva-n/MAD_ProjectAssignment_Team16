@@ -9,11 +9,38 @@ import java.util.Date;
 public class User implements Serializable {
     private String userId;
     private String name;
-    private Date DOB;
-    private Integer SocialiteScore;
-    private String aboutMe;
-    private Integer Zipcode;
+    private int age;
+    private int socialitescore;
+    private String about;
     private String token;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getSocialitescore() {
+        return socialitescore;
+    }
+
+    public void setSocialitescore(int socialitescore) {
+        this.socialitescore = socialitescore;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
 
     public User() {
         this.userId = "";
@@ -23,10 +50,9 @@ public class User implements Serializable {
         this.userId = username;
         this.token = token;
         this.name = null;
-        this.DOB = null;
-        this.SocialiteScore = 0;
-        this.aboutMe = "Hi! I am here to have fun";
-        this.Zipcode = 00000;
+        this.age = 18;
+        this.socialitescore = 0;
+        this.about = "Hi! I am here to have fun";
     }
 
     public String getUserId(){

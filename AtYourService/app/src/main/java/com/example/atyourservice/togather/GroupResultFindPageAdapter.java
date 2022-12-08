@@ -17,6 +17,8 @@ import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.User;
 
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResultFindPageViewHolder> {
@@ -39,10 +41,19 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         Group grp = groups.get(position);
         //System.out.println("USER ID :::: " + user.getUserId());
         holder.groupName.setText(grp.getName());
-        holder.groupDate.setText(grp.getDate().toString());
-        holder.groupTime.setText(grp.getTime().toString());
+        holder.groupDate.setText(new Date(grp.getDate()).toString());
         holder.memberCount.setText(grp.getMemberCount());
-        holder.groupProfilePic.setImageResource(R.drawable.default_user_img);
+
+        int drawableId = 0;
+        try {
+            Class res = R.drawable.class;
+            Field field = null;
+            field = res.getField(grp.getIcon());
+            drawableId = field.getInt(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        holder.groupProfilePic.setImageResource(drawableId);
 
 
         holder.joinGroup.setOnClickListener(view -> {
