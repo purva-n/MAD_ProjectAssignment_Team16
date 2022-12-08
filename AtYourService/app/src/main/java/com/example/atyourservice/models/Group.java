@@ -1,5 +1,6 @@
 package com.example.atyourservice.models;
 
+import com.example.atyourservice.api.response.pojo.Messages;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -9,49 +10,84 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Group implements Serializable {
-    private String Name;
-    private Date Date;
-    private Time Time;
-    private Integer MemberCount;
-    private List<User> Users;
+    private String name;
+    private String description;
+    private String category;
+    private long eventdate;
+    private List<String> keywords;
+    private long location;
+    private int memberCount;
+    private String icon;
+
+    public long getEventdate() {
+        return eventdate;
+    }
+
+    public void setEventdate(long eventdate) {
+        this.eventdate = eventdate;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public long getLocation() {
+        return location;
+    }
+
+    public void setLocation(long location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public java.util.Date getDate() {
-        return Date;
+    public long getDate() {
+        return eventdate;
     }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
+    public void setDate(long date) {
+        eventdate = date;
     }
 
-    public java.sql.Time getTime() {
-        return Time;
+    public int getMemberCount() {
+        return memberCount;
     }
 
-    public void setTime(java.sql.Time time) {
-        Time = time;
-    }
-
-    public Integer getMemberCount() {
-        return MemberCount;
-    }
-
-    public void setMemberCount(Integer memberCount) {
-        MemberCount = memberCount;
-    }
-
-    public List<User> getUsers() {
-        return Users;
-    }
-
-    public void setUsers(List<User> users) {
-        Users = users;
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
     }
 }
