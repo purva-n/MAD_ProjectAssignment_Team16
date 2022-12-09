@@ -39,8 +39,6 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
         return joinGroup;
     }
 
-
-
     public GroupResultFindPageViewHolder(@NonNull View view) {
         super(view);
         this.groupName = view.findViewById(R.id.groupName);

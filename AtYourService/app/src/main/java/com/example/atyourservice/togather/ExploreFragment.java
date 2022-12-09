@@ -136,7 +136,6 @@ public class ExploreFragment extends Fragment {
                                 .replace(R.id.fragmentContainer,
                                         com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
                                 .commit();
-
                     }
                 }
 
