@@ -1,13 +1,16 @@
 package com.example.atyourservice.togather;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -63,6 +66,7 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
         System.out.println("holder :: " +  holder.activityName);
         holder.getActivityName().setText(activities.getActivityName());
         holder.getImage().setImageResource(activities.getActivityImage());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

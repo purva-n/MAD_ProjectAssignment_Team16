@@ -21,6 +21,7 @@ public class GroupResultFindPageRecyclerView extends Fragment {
     private DatabaseReference dbRef;
     private Groups groupList;
 
+
     public GroupResultFindPageRecyclerView() {
         // Required empty public constructor
     }
@@ -52,6 +53,7 @@ public class GroupResultFindPageRecyclerView extends Fragment {
         RecyclerView groupResultRecycler;
 
         View v =  inflater.inflate(R.layout.activity_group_result_find_page, container, false);
+
 
         groupResultRecycler = v.findViewById(R.id.recyclerViewGroupResult);
         groupResultRecycler.setLayoutManager(new LinearLayoutManager(v.getContext()));

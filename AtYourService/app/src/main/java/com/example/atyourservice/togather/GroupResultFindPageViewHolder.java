@@ -19,7 +19,6 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
     public TextView memberCount;
     public ImageView groupProfilePic;
     public Button joinGroup;
-
     public TextView getGroupName() {
         return groupName;
     }
