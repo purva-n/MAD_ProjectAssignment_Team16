@@ -21,8 +21,13 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
     public ImageView groupProfilePic;
     public Button joinGroup;
 
+    public GroupResultFindPageViewHolder(@NonNull View itemView) {
+        super(itemView);
+    }
+}
+/*
     this.memberCount = view.findViewById(R.id.memberCount);
     this.groupProfilePic = view.findViewById(R.id.groupImg);
     this.joinGroup = view.findViewById(R.id.join);
     }
-}
+*/

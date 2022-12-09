@@ -18,7 +18,7 @@ public class Notifications implements Serializable {
     }
 
 
-    public String getTitle() {
+    public String getGroupid() {
         return groupid;
     }
 
