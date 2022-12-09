@@ -147,7 +147,7 @@ public class BannerFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                throw databaseError.toException(); // don't swallow errors
+                throw databaseError.toException();
             }
         });
     }
