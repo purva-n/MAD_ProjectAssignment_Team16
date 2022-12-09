@@ -16,13 +16,36 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
 
     public TextView groupName;
     public TextView groupDate;
-    public TextView groupTime;
     public TextView memberCount;
     public ImageView groupProfilePic;
     public Button joinGroup;
 
+    public TextView getGroupName() {
+        return groupName;
+    }
+
+    public TextView getGroupDate() {
+        return groupDate;
+    }
+
+    public TextView getMemberCount() {
+        return memberCount;
+    }
+
+    public ImageView getGroupProfilePic() {
+        return groupProfilePic;
+    }
+
+    public Button getJoinGroup() {
+        return joinGroup;
+    }
+
+
+
     public GroupResultFindPageViewHolder(@NonNull View view) {
         super(view);
+        this.groupName = view.findViewById(R.id.groupName);
+        this.groupDate = view.findViewById(R.id.groupDate);
         this.memberCount = view.findViewById(R.id.memberCount);
         this.groupProfilePic = view.findViewById(R.id.groupImg);
         this.joinGroup = view.findViewById(R.id.join);

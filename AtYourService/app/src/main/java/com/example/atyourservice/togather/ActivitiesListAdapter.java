@@ -1,25 +1,41 @@
 package com.example.atyourservice.togather;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.api.response.pojo.Groups;
+import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.HomePageActivities;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAdapter.ActivitiesViewHolder>{
     ArrayList<HomePageActivities> list;
+    DatabaseReference dbRef;
+    Context ctx;
 
-    public ActivitiesListAdapter(ArrayList<HomePageActivities>  list) {
-
+    public ActivitiesListAdapter(Context ctx, ArrayList<HomePageActivities>  list) {
+        this.ctx = ctx;
         this.list = list;
+        this.dbRef = FirebaseDatabase.getInstance().getReference();
     }
 
 
@@ -47,6 +63,56 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
         System.out.println("holder :: " +  holder.activityName);
         holder.getActivityName().setText(activities.getActivityName());
         holder.getImage().setImageResource(activities.getActivityImage());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbRef.child("groups").orderByChild("category").equalTo(activities.getActivityName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Groups groups = new Groups();
+                        if(snapshot.exists()) {
+                            for (DataSnapshot grpSnap : snapshot.getChildren()) {
+                                if (grpSnap.exists()) {
+                                    Group g = grpSnap.getValue(Group.class);
+                                    if (g != null) {
+                                        groups.getGroups().add(g);
+                                    }
+
+                                } else {
+                                    // Not found
+                                }
+                            }
+
+                            FragmentTransaction ft = ((AppCompatActivity)ctx).getSupportFragmentManager().beginTransaction();
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            GroupResultFindPageRecyclerView rv = GroupResultFindPageRecyclerView.newInstance();
+
+                            if(groups.getGroups().size() > 0) {
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("GroupResult", groups);
+                                rv.setArguments(bundle);
+                                ft.setReorderingAllowed(true)
+                                        .replace(R.id.fragmentContainer,
+                                                rv,
+                                                null)
+                                        .commit();
+                            }
+
+                        }else {
+                            ((AppCompatActivity)ctx).getSupportFragmentManager().beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .replace(R.id.fragmentContainer, com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
+                                    .commit();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+         });
     }
 
     @Override
