@@ -20,7 +20,6 @@ public class GroupResultFindPageRecyclerView extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private DatabaseReference dbRef;
     private Groups groupList;
-
     public GroupResultFindPageRecyclerView() {
         // Required empty public constructor
     }
