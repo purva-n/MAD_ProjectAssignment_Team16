@@ -6,28 +6,28 @@ import java.io.Serializable;
 
 public class Notifications implements Serializable {
 @JsonIgnoreProperties(ignoreUnknown = true)
-    private String title;
-    private String body;
+    private String groupid;
+    private String message;
 
     public Notifications(){
     }
 
-    public Notifications(String title, String body){
-        this.title = title;
-        this.body = body;
+    public Notifications(String groupid, String message){
+        this.groupid = groupid;
+        this.message = message;
     }
 
 
     public String getTitle() {
-        return title;
+        return groupid;
     }
 
-    public String getBody() {return body;}
+    public String getMessage() {return message;}
 
 
     @Override
     public String toString() {
-        return this.title + " " + this.body;
+        return this.groupid + " " + this.message;
     }
 
 

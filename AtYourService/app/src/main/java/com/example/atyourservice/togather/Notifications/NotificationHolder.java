@@ -8,11 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
 
+import org.w3c.dom.Text;
+
 public class NotificationHolder extends RecyclerView.ViewHolder {
-    public TextView body;
+    public TextView message;
+    public TextView title;
 
     public NotificationHolder(@NonNull View viewItem) {
         super(viewItem);
-        body = viewItem.findViewById(R.id.notificationSummary);
+        message = viewItem.findViewById(R.id.notificationSummary);
+        title = viewItem.findViewById(R.id.notificationTitle);
+
+
     }
 }
