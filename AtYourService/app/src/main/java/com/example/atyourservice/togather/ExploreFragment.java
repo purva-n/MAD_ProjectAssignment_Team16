@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,9 +115,27 @@ public class ExploreFragment extends Fragment {
                             }
                         }
 
-                        Intent intent = new Intent(view.getContext(), GroupResultFindPageRecyclerView.class);
-                        intent.putExtra("GroupResult", groups);
-                        startActivity(intent);
+                        FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        GroupResultFindPageRecyclerView rv = GroupResultFindPageRecyclerView.newInstance();
+
+                        if(groups.getGroups().size() > 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("GroupResult", groups);
+                            rv.setArguments(bundle);
+                            ft.setReorderingAllowed(true)
+                                    .replace(R.id.fragmentContainer,
+                                            rv,
+                                            null)
+                                    .commit();
+                        }
+
+                    } else {
+                        ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmentContainer,
+                                        com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
+                                .commit();
 
                     }
                 }

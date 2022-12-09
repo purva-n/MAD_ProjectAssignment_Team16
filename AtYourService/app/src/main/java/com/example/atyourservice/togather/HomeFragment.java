@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
 
         list = new ArrayList<>();
 
-
         HomePageActivities a = new HomePageActivities();
         a.setActivityImage(R.drawable.hiking_icon);
         a.setActivityName("Hiking");
@@ -139,7 +138,7 @@ public class HomeFragment extends Fragment {
         System.out.println("LIST SIZE ::: " + list.size());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new ActivitiesListAdapter(list));
+        recyclerView.setAdapter(new ActivitiesListAdapter(getActivity(), list));
 
         return view;
     }
