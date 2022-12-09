@@ -105,6 +105,29 @@ public class NotificationFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        // TODO below will be added to send message activity
+        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+        String groupId = "id";
+        String currentUser="currentUserId";
+        DatabaseReference users =firebaseRef.child("groups").child(groupId).child("users");
+        ArrayList<String> notiReceivers= new ArrayList<String>();
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for( DataSnapshot snapshot1: snapshot.getChildren()){
+                    String receivers = snapshot1.getKey();
+                    if(!receivers.equalsIgnoreCase(currentUser)){
+                        notiReceivers.add(receivers);
+                    }}
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        for(String receiver: notiReceivers){
+            firebaseRef.child("users").child("notification").child(receiver).push().setValue(new Notifications("groupId", "message"));
+        }
         /*
         RecyclerView notificationRecycler;
 

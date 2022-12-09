@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Notifications;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -42,5 +45,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder
         public int getItemCount() {
             return notifications.size();
         }
+
+
+
     }
 
