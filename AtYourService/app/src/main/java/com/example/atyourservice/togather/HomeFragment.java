@@ -131,22 +131,22 @@ public class HomeFragment extends Fragment {
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.art_icon);
-        a.setActivityName("Art & Culture");
+        a.setActivityName("Art and Culture");
         list.add(a);
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.outdoor_icon);
-        a.setActivityName("Outdoor Activity");
+        a.setActivityName("Outdoor Activities");
         list.add(a);
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.indoor_icon);
-        a.setActivityName("Indoor Activity");
+        a.setActivityName("Indoor Activities");
         list.add(a);
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.seasonal_icon);
-        a.setActivityName("Seasonal Activity");
+        a.setActivityName("Seasonal");
         list.add(a);
 
         a = new HomePageActivities();
@@ -156,12 +156,12 @@ public class HomeFragment extends Fragment {
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.health_icon);
-        a.setActivityName("Health & Wellness");
+        a.setActivityName("Health and Wellness");
         list.add(a);
 
         a = new HomePageActivities();
         a.setActivityImage(R.drawable.career_icon);
-        a.setActivityName("Career & Business");
+        a.setActivityName("Career and Business");
         list.add(a);
     }
 
