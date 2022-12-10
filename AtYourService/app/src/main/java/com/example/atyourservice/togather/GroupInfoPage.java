@@ -79,4 +79,5 @@ public class GroupInfoPage extends Fragment {
         return view;
 
     }
+
 }
