@@ -99,6 +99,7 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
                                 bundle.putSerializable("GroupResult", groups);
                                 rv.setArguments(bundle);
                                 ft.setReorderingAllowed(true)
+                                        .addToBackStack("HomePageActivity")
                                         .replace(R.id.fragmentContainer,
                                                 rv,
                                                 null)
@@ -109,6 +110,7 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
                             ((AppCompatActivity)ctx).getSupportFragmentManager().beginTransaction()
                                     .setReorderingAllowed(true)
                                     .replace(R.id.fragmentContainer, com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
+                                    .addToBackStack("HomePageActivity")
                                     .commit();
                         }
                     }
