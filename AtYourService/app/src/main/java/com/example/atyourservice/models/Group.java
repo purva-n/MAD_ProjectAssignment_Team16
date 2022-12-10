@@ -16,11 +16,22 @@ public class Group implements Serializable {
     private String activity;
     private long eventdate;
     private List<String> keywords;
+    private List<String> users;
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
     private long location;
     private int memberCount;
     private String icon;
     private String ageRange;
     private String genderPref;
+    private String id;
 
     public String getActivity() {
         return activity;
@@ -116,5 +127,13 @@ public class Group implements Serializable {
 
     public void setMemberCount(int memberCount) {
         this.memberCount = memberCount;
+    }
+
+    public void setId(String key) {
+        this.id = key;
+    }
+    
+    public  String getId() {
+        return this.id;
     }
 }
