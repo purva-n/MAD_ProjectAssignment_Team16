@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NotificationFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/notification"
@@ -20,13 +21,13 @@
             android:id="@+id/clearFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="144dp"
-            android:clickable="true"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_notification_clear_all"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-            android:src="@android:drawable/ic_notification_clear_all" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

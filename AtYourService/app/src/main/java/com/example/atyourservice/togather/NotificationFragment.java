@@ -11,13 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.atyourservice.ActivityRecyclerView;
-import com.example.atyourservice.EventLinksAdapter;
 import com.example.atyourservice.R;
-import com.example.atyourservice.api.response.pojo.Embedded;
-import com.example.atyourservice.models.Notifications;
+import com.example.atyourservice.models.Notification;
 import com.example.atyourservice.togather.Notifications.NotificationAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,10 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,17 +82,17 @@ public class NotificationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference notiDB = dbRef.child("users").child("uuid2").child("notification");
-        ArrayList<Notifications> notificationsList = new ArrayList<Notifications>();
+        ArrayList<Notification> notificationList = new ArrayList<Notification>();
         notiDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Notifications notificationItem = new Notifications(snapshot1.child("groupid").getValue(String.class), snapshot1.child("message").getValue(String.class));
-                    notificationsList.add(notificationItem);
+                    Notification notificationItem = new Notification(snapshot1.child("groupid").getValue(String.class), snapshot1.child("message").getValue(String.class));
+                    notificationList.add(notificationItem);
 
                 }
-                for (int i = 0; i < notificationsList.size(); i++) {
-                    System.out.println(notificationsList.get(i).toString());
+                for (int i = 0; i < notificationList.size(); i++) {
+                    System.out.println(notificationList.get(i).toString());
                 }
 
             }
@@ -109,16 +102,25 @@ public class NotificationFragment extends Fragment {
             }
 
         });
-        for (Notifications noti : notificationsList) {
+        for (Notification noti : notificationList) {
             System.out.println(noti);
         }
         RecyclerView notificationRecycler;
 
         notificationRecycler = getView().findViewById(R.id.notificationRecyler);
         notificationRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        notificationRecycler.setAdapter(new NotificationAdapter(NotificationFragment.this.getContext(), notificationsList));
-
+        notificationRecycler.setAdapter(new NotificationAdapter(NotificationFragment.this.getContext(), notificationList));
+/*
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction ft = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.replace(R.id.NotificationFragmentLayout,notificationRecyclerView;
     }
+    */
+
+
+}
+
 
 }
 

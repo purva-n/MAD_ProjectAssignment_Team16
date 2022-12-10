@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
-public class Notifications implements Serializable {
+public class Notification implements Serializable {
 @JsonIgnoreProperties(ignoreUnknown = true)
     private String groupid;
     private String message;
 
-    public Notifications(){
+    public Notification(){
         this.groupid = "groupid";
         this.message="message";
     }
 
-    public Notifications(String groupid, String message){
+    public Notification(String groupid, String message){
         this.groupid = groupid;
         this.message = message;
     }
@@ -27,6 +27,7 @@ public class Notifications implements Serializable {
     }
 
     public String getMessage() {return message;}
+
 
 
     @NonNull
