@@ -4,19 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
-import com.example.atyourservice.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -25,10 +24,12 @@ import java.util.List;
 public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResultFindPageViewHolder> {
     private List<Group> groups;
     private Context context;
+    private DatabaseReference dbRef;
 
     public GroupResultFindPageAdapter(List<Group> groups, Context context) {
         this.groups = groups;
         this.context = context;
+        this.dbRef = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -63,13 +64,52 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 //            e.printStackTrace();
 //        }
 //        holder.getGroupProfilePic().setImageResource(drawableId);
+        //TODO: get username
+        String username = "uuid2";
+
+        dbRef.child("users").child(username).child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for(DataSnapshot grpid: snapshot.getChildren()) {
+                        if(grpid.getValue().equals(grp.getId())) {
+                            holder.joinGroup.setText("Joined");
+                            holder.joinGroup.setEnabled(false);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
-        holder.getJoinGroup().setOnClickListener(view -> {
-//
+        holder.joinGroup.setOnClickListener(view -> {
+//          //TODO: get username
+            dbRef.child("users").child(username).child("groups").push().setValue(grp.getId());
+            dbRef.child("groups").child(grp.getId()).child("users").push().setValue(username);
+            dbRef.child("groups").child(grp.getId()).child("memberCount").addListenerForSingleValueEvent(new ValueEventListener() {
+                Long memberCount = 0L;
 
-            holder.getJoinGroup().setText("Joined");
-            holder.getJoinGroup().setEnabled(false);
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    memberCount = (Long) snapshot.getValue();
+                    assert memberCount != null;
+                    if(dbRef.child("groups").child(grp.getId()).child("memberCount").setValue(memberCount + 1).isSuccessful()) {
+                        Toast.makeText(view.getContext(), "Joined Group", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
         });
     }
 
