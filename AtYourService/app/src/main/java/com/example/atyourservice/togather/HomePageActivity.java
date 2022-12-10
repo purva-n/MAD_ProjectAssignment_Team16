@@ -59,8 +59,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                        .replace(R.id.fragmentContainer, com.example.atyourservice.togather.HomeFragment.class, null)
-                                .commit();
+                .replace(R.id.fragmentContainer, com.example.atyourservice.togather.HomeFragment.class, null)
+                .commit();
 
         homeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +102,11 @@ public class HomePageActivity extends AppCompatActivity {
 
                     //change selected tab
                     selectedTab = 1;
+
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.HomeFragment.class, null)
+                            .commit();
                 }
             }
         });
