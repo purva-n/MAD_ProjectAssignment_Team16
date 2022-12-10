@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.models.Group;
+
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +51,7 @@ public class GroupInfoPage extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            group = (Group) bundle.getSerializable("GroupResult");
+            group = (Group) bundle.getSerializable("GroupSelected");
         }
     }
 
@@ -64,9 +67,14 @@ public class GroupInfoPage extends Fragment {
         activityDate = view.findViewById(R.id.activityDate);
         genderPreference = view.findViewById(R.id.genderPreference);
 
+        description.setMovementMethod(new ScrollingMovementMethod());
 
-        groupName.setText(group.getName());
+        groupName.setText(group.getName().toUpperCase());
         category.setText(group.getCategory());
+        ageGroup.setText(group.getAgeRange());
+        description.setText(group.getDescription());
+        activityDate.setText(new Date(group.getEventdate()).toString());
+        genderPreference.setText(group.getGenderPref());
 
         return view;
 
