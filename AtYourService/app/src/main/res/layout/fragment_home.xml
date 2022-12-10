@@ -9,44 +9,32 @@
     android:layout_height="match_parent"
     android:background="@color/home">
 
-    <EditText
+
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchBar"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="Search Activity by Category"
-        android:textColorPrimary="@color/home"
-        android:textSize="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:queryHint="Search Categories Here.."
+        android:layout_margin="8dp"
+        android:background="@drawable/search_view_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Search Activity by Category">
-
-        <!--<EditText
-            android:id="@+id/search_src_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Search Activity by Category"
-            android:text="Search Activity by Category"
-            android:textColor="@color/black"
-            android:textColorPrimary="@color/black" />-->
-
-    </EditText>
+        app:iconifiedByDefault="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activitiesRecyclerView"
-        android:layout_width="382dp"
-        android:layout_height="381dp"
+        android:layout_width="387dp"
+        android:layout_height="607dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.395" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,18 +27,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAdapter.ActivitiesViewHolder>{
-    ArrayList<HomePageActivities> list;
+    List<HomePageActivities> list;
     DatabaseReference dbRef;
     Context ctx;
 
-    public ActivitiesListAdapter(Context ctx, ArrayList<HomePageActivities>  list) {
+    public ActivitiesListAdapter(Context ctx, List<HomePageActivities>  list) {
         this.ctx = ctx;
         this.list = list;
         this.dbRef = FirebaseDatabase.getInstance().getReference();
     }
 
+    public void setFilteredList(List<HomePageActivities> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemViewType(final int position) {
