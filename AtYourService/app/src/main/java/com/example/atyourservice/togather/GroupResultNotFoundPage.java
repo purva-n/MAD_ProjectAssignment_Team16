@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.atyourservice.R;
 
@@ -44,6 +45,18 @@ public class GroupResultNotFoundPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_result_not_found_page, container, false);
+        View view =  inflater.inflate(R.layout.fragment_group_result_not_found_page, container, false);
+        Button createGroup = (Button) view.findViewById(R.id.createGroupNF);
+        createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, com.example.atyourservice.togather.CreateGroupFragment.class, null)
+                        .commit();
+            }
+        });
+
+        return view;
     }
 }
