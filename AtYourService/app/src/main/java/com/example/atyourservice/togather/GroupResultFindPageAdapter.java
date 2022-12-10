@@ -1,6 +1,7 @@
 package com.example.atyourservice.togather;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
@@ -51,6 +53,31 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         holder.getGroupName().setText(grp.getName().toUpperCase());
         holder.getGroupDate().setText(new Date(grp.getDate()).toString());
         holder.getMemberCount().setText(String.valueOf(grp.getMemberCount()));
+
+        holder.getGroupName().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                GroupInfoPage rv = GroupInfoPage.newInstance();
+                String groupName = ((TextView) view.findViewById(R.id.groupName)).getText().toString();
+                System.out.println("GROUP NAMEEE ::::: " + groupName);
+
+
+                if(grp != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("GroupSelected", grp);
+                    rv.setArguments(bundle);
+                    ft.setReorderingAllowed(true)
+                            .addToBackStack("groupResultList")
+                            .replace(R.id.fragmentContainer,
+                                    rv,
+                                    null)
+                            .commit();
+                }
+
+            }
+        });
 
         //TODO: Group Profile Img
 //        int drawableId = 0;

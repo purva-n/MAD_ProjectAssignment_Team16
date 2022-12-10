@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".togather.GroupInfoPage"
+    android:background="@color/home">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home"
+        tools:context=".togather.GroupInfoPage">
+
+
+        <TextView
+            android:id="@+id/activityDateLabel"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="44dp"
+            android:text="Activity Date: "
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/activityDate"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="188dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="72dp"
+            android:text="Description Value"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageGroup" />
+
+        <TextView
+            android:id="@+id/ageGroup"
+            android:layout_width="153dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="116dp"
+            android:text="Age group value"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="98dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="184dp"
+            android:text="Category Value"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupName" />
+
+        <TextView
+            android:id="@+id/genderPreferenceLabel"
+            android:layout_width="181dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="48dp"
+            android:text="Gender Preference: "
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/genderPreference"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityDateLabel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/genderPreference"
+            android:layout_width="181dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="20dp"
+            android:text="Gender Preference"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityDate"
+            app:layout_constraintVertical_bias="0.003" />
+
+        <TextView
+            android:id="@+id/categoryLabel"
+            android:layout_width="98dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="60dp"
+            android:text="Category: "
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/category"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupName" />
+
+        <TextView
+            android:id="@+id/activityDate"
+            android:layout_width="231dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="28dp"
+            android:text="Activity Date Value"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <TextView
+            android:id="@+id/ageGroupLabel"
+            android:layout_width="111dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="40dp"
+            android:text="Age Group: "
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/ageGroup"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
+
+        <TextView
+            android:id="@+id/groupName"
+            android:layout_width="238dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="48dp"
+            android:text="Group Name"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.56"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="40dp"
+            android:text="Description: "
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/description"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageGroupLabel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
