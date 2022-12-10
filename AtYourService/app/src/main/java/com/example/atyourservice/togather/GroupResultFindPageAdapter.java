@@ -11,12 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.User;
 
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResultFindPageViewHolder> {
@@ -28,33 +31,45 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         this.context = context;
     }
 
+    @Override
+    public int getItemViewType(final int position) {
+        return  R.layout.activity_group_result_find_page_view_holder;
+    }
+
     @NonNull
     @Override
     public GroupResultFindPageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GroupResultFindPageViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_group_result_find_page_view_holder,null));
+        //return new GroupResultFindPageViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_group_result_find_page_view_holder,null));
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        return new GroupResultFindPageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroupResultFindPageViewHolder holder, int position) {
         Group grp = groups.get(position);
         //System.out.println("USER ID :::: " + user.getUserId());
-        holder.groupName.setText(grp.getName());
-        holder.groupDate.setText(grp.getDate().toString());
-        holder.groupTime.setText(grp.getTime().toString());
-        holder.memberCount.setText(grp.getMemberCount());
-        holder.groupProfilePic.setImageResource(R.drawable.default_user_img);
+        holder.getGroupName().setText(grp.getName().toUpperCase());
+        holder.getGroupDate().setText(new Date(grp.getDate()).toString());
+        holder.getMemberCount().setText(String.valueOf(grp.getMemberCount()));
+
+        //TODO: Group Profile Img
+//        int drawableId = 0;
+//        try {
+//            Class res = R.drawable.class;
+//            Field field = null;
+//            field = res.getField(grp.getIcon());
+//            drawableId = field.getInt(null);
+//        } catch (NoSuchFieldException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        holder.getGroupProfilePic().setImageResource(drawableId);
 
 
-        holder.joinGroup.setOnClickListener(view -> {
-//            Intent intent = new Intent(context, MessagesActivity.class);
-//            intent.putExtra("Sender", this.sender);
-//            intent.putExtra("Receiver", user);
-//            System.out.println("Senderrrr :::::: " + sender);
-//            System.out.println("Reciever :::::::: " + user.getUserId());
-//            context.startActivity(intent);
+        holder.getJoinGroup().setOnClickListener(view -> {
+//
 
-            holder.joinGroup.setText("Joined");
-            holder.joinGroup.setEnabled(false);
+            holder.getJoinGroup().setText("Joined");
+            holder.getJoinGroup().setEnabled(false);
         });
     }
 

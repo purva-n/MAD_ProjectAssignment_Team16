@@ -1,8 +1,12 @@
 package com.example.atyourservice.togather;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +15,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.api.response.pojo.Groups;
+import com.example.atyourservice.api.response.pojo.Messages;
+import com.example.atyourservice.models.Group;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +80,7 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View li =  inflater.inflate(R.layout.fragment_explore, container, false);
-        this.dbRef = FirebaseDatabase.getInstance().getReference().child("groups");
+        this.dbRef = FirebaseDatabase.getInstance().getReference();
 
         setSpinnerConfiguration(li);
         findGroups(li);
@@ -80,11 +91,59 @@ public class ExploreFragment extends Fragment {
     private void findGroups(View view) {
         Button findGroups = (Button) view.findViewById(R.id.findGroups);
         findGroups.setOnClickListener(v -> {
-            String category = ((Spinner) v.findViewById(R.id.categories)).getSelectedItem().toString();
-            String activity = ((Spinner) v.findViewById(R.id.activities)).getSelectedItem().toString();
-            String agePref = ((Spinner) v.findViewById(R.id.age)).getSelectedItem().toString();
-            String genderPref = ((Spinner) v.findViewById(R.id.gender)).getSelectedItem().toString();
-            String datePref = ((Spinner) v.findViewById(R.id.daterange)).getSelectedItem().toString();
+            String category = ((Spinner) view.findViewById(R.id.categories)).getSelectedItem().toString();
+            String activity = ((Spinner) view.findViewById(R.id.activities)).getSelectedItem().toString();
+            String agePref = ((Spinner) view.findViewById(R.id.age)).getSelectedItem().toString();
+            String genderPref = ((Spinner) view.findViewById(R.id.gender)).getSelectedItem().toString();
+            String datePref = ((Spinner) view.findViewById(R.id.daterange)).getSelectedItem().toString();
+
+            Groups groups = new Groups();
+
+            this.dbRef.child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        for (DataSnapshot grpSnap : snapshot.getChildren()) {
+                            if (grpSnap.exists()) {
+                                Group g = grpSnap.getValue(Group.class);
+                                if (g != null) {
+                                    groups.getGroups().add(g);
+                                }
+
+                            } else {
+                                Toast.makeText(view.getContext(), "There was a glitch", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        GroupResultFindPageRecyclerView rv = GroupResultFindPageRecyclerView.newInstance();
+
+                        if(groups.getGroups().size() > 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("GroupResult", groups);
+                            rv.setArguments(bundle);
+                            ft.setReorderingAllowed(true)
+                                    .replace(R.id.fragmentContainer,
+                                            rv,
+                                            null)
+                                    .commit();
+                        }
+
+                    } else {
+                        ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmentContainer,
+                                        com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
+                                .commit();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
     }
 
