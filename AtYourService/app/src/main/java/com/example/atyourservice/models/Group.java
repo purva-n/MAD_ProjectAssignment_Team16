@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,22 +17,21 @@ public class Group implements Serializable {
     private String activity;
     private long eventdate;
     private List<String> keywords;
-    private List<String> users;
-
-    public List<String> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<String> users) {
-        this.users = users;
-    }
-
+    private HashMap<String, String> users;
     private long location;
     private int memberCount;
     private String icon;
     private String ageRange;
     private String genderPref;
     private String id;
+
+    public HashMap<String, String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(HashMap<String, String> users) {
+        this.users = users;
+    }
 
     public String getActivity() {
         return activity;
