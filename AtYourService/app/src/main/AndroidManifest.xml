@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AtYourService"
         tools:targetApi="31">
         <activity
+            android:name=".GroupChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".togather.HomePageActivity"
             android:exported="false">
             <meta-data
