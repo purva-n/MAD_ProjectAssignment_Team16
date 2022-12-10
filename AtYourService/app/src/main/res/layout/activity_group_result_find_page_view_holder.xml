@@ -12,6 +12,7 @@
         android:layout_margin="10dp"
         android:layout_marginStart="9dp"
         android:layout_marginEnd="9dp"
+        android:background="@color/home_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,8 +20,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardContraint"
             android:layout_width="match_parent"
-            android:layout_height="101dp"
-
+            android:layout_height="match_parent"
+            android:background="@color/home_20"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="171dp">
 
@@ -32,7 +33,7 @@
                 android:text="Group Name"
                 android:textColor="@color/home"
                 android:textColorLink="#1E6670"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/groupImg"
