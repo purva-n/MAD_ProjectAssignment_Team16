@@ -48,7 +48,7 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
     public void onBindViewHolder(@NonNull GroupResultFindPageViewHolder holder, int position) {
         Group grp = groups.get(position);
         //System.out.println("USER ID :::: " + user.getUserId());
-        holder.getGroupName().setText(grp.getName());
+        holder.getGroupName().setText(grp.getName().toUpperCase());
         holder.getGroupDate().setText(new Date(grp.getDate()).toString());
         holder.getMemberCount().setText(String.valueOf(grp.getMemberCount()));
 
