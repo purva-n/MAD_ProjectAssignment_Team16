@@ -25,7 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,29 +87,44 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Notifications> notificationsList = new ArrayList<Notifications>();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-
-        //TODO replace child"uuid" with current user
-
-        DatabaseReference notiDB =dbRef.child("users").child("uuid2").child("notification");
+        DatabaseReference notiDB = dbRef.child("users").child("uuid2").child("notification");
+        ArrayList<Notifications> notificationsList = new ArrayList<Notifications>();
         notiDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Notifications notificationItem = new Notifications(snapshot1.child("groupid").getValue(String.class), snapshot1.child("message").getValue(String.class));
-                    notificationsList.add(notificationItem);}
-                    for(int i =0; i<notificationsList.size(); i++){
-                        System.out.println(notificationsList.get(i));
+                    notificationsList.add(notificationItem);
 
                 }
+                for (int i = 0; i < notificationsList.size(); i++) {
+                    System.out.println(notificationsList.get(i).toString());
+                }
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
+
         });
-        // TODO below will be added to send message activity
-        DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+        for (Notifications noti : notificationsList) {
+            System.out.println(noti);
+        }
+        RecyclerView notificationRecycler;
+
+        notificationRecycler = getView().findViewById(R.id.notificationRecyler);
+        notificationRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        notificationRecycler.setAdapter(new NotificationAdapter(NotificationFragment.this.getContext(), notificationsList));
+
+    }
+
+}
+
+
+            // TODO below will be added to send message activity
+       /* DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
         String groupId = "id";
         String currentUser="currentUserId";
         DatabaseReference users =firebaseRef.child("groups").child(groupId).child("users");
@@ -124,16 +142,12 @@ public class NotificationFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-        for(String receiver: notiReceivers){
+        });*//*
+        for(String receiver: notiReceivers) {
             firebaseRef.child("users").child("notification").child(receiver).push().setValue(new Notifications("groupId", "message"));
-        }
-        /*
-        RecyclerView notificationRecycler;
 
-        notificationRecycler = getView().findViewById(R.id.recyclerView);
-        notificationRecycler.setLayoutManager(new LinearLayoutManager());
-        notificationRecycler.setAdapter(new NotificationAdapter(ActivityRecyclerView.this, notifications))
-*/
+        }
+
+
     }
-}
+*/
