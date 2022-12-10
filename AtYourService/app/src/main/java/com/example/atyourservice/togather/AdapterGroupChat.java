@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -55,13 +56,14 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
     public void onBindViewHolder(@NonNull HolderGroupChat holder, int position) {
         ModelGroupChat model = modelGroupChatList.get(position);
         String message = model.getMessage();
-        String senderuid = model.getSender();
-        String timestamp = model.getTimestamp();
+        String senderid = model.getSender();
+        String sendtime = model.getTimestamp();
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(Long.parseLong(timestamp));
+        cal.setTimeInMillis(Long.parseLong(sendtime));
+        String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal).toString();
         holder.messageTv.setText(message);
-        holder.timeTv.setText(timestamp);
+        holder.timeTv.setText(dateTime);
         setUserName(model,holder);
     }
 
@@ -75,7 +77,6 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
                     holder.nameTv.setText(name);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

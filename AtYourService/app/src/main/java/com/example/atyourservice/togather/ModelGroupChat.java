@@ -1,7 +1,7 @@
 package com.example.atyourservice.togather;
 
 public class ModelGroupChat {
-    String message, sender,timestamp,type;
+    String message, sender,sendtime;
 
     public ModelGroupChat() {
     }
@@ -9,8 +9,7 @@ public class ModelGroupChat {
     public ModelGroupChat(String message, String sender, String timestamp, String type) {
         this.message = message;
         this.sender = sender;
-        this.timestamp = timestamp;
-        this.type = type;
+        this.sendtime = timestamp;
     }
 
     public String getMessage() {
@@ -30,19 +29,11 @@ public class ModelGroupChat {
     }
 
     public String getTimestamp() {
-        return timestamp;
+        return sendtime;
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        this.sendtime = timestamp;
     }
 }
 

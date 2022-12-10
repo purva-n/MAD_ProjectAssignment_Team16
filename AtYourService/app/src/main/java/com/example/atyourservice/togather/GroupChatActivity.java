@@ -58,7 +58,7 @@ public class GroupChatActivity extends AppCompatActivity {
         chatRv = findViewById(R.id.chatRv);
 
         Intent intent = getIntent();
-        messageId = intent.getStringExtra("messageid");
+        messageId = intent.getStringExtra("groupid");
 
         firebaseAuth = FirebaseAuth.getInstance();
         loadGroupMessage();
@@ -79,8 +79,8 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void loadGroupMessage() {
         groupChatList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
-        reference.child(groupId).child("Messages").addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("messages");
+        reference.child("groupid").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupChatList.clear();
@@ -104,16 +104,13 @@ public class GroupChatActivity extends AppCompatActivity {
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("senderid",""+firebaseAuth.getUid());
         hashMap.put("content",""+message);
-        hashMap.put("groupid",""+groupId);
         hashMap.put("send_time",""+timestamp);
-        hashMap.put("type",""+"text");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("messages");
-        reference.child("groupid").child("messageid").setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+        reference.child("groupid").child("messageid").child("send_time").setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 messageEt.setText("");
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
