@@ -13,11 +13,38 @@ public class Group implements Serializable {
     private String name;
     private String description;
     private String category;
+    private String activity;
     private long eventdate;
     private List<String> keywords;
     private long location;
     private int memberCount;
     private String icon;
+    private String ageRange;
+    private String genderPref;
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public String getAgeRange() {
+        return ageRange;
+    }
+
+    public void setAgeRange(String ageRange) {
+        this.ageRange = ageRange;
+    }
+
+    public String getGenderPref() {
+        return genderPref;
+    }
+
+    public void setGenderPref(String genderPref) {
+        this.genderPref = genderPref;
+    }
 
     public long getEventdate() {
         return eventdate;
