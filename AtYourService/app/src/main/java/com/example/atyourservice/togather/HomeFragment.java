@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.UserAdapter;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,16 +37,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     DatabaseReference database;
     ActivitiesListAdapter categoryListAdapter;
-    ArrayList<HomePageActivities> list;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    List<HomePageActivities> list;
+    SearchView searchBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,18 +47,11 @@ public class HomeFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -72,8 +59,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -82,11 +67,54 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-        TextView searchBar = view.findViewById(R.id.searchBar);
+        searchBar = view.findViewById(R.id.searchBar);
+
+        searchBar.clearFocus();
 
         recyclerView = view.findViewById(R.id.activitiesRecyclerView);
         database = FirebaseDatabase.getInstance().getReference();
 
+        populateCategoryList();
+
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
+        categoryListAdapter = new ActivitiesListAdapter(getActivity(), list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(categoryListAdapter);
+
+        return view;
+    }
+
+
+    private void filterList(String filterStr) {
+        List<HomePageActivities> filteredList = new ArrayList<>();
+
+        for(HomePageActivities category: list) {
+            if(category.getActivityName().toLowerCase().contains(filterStr.toLowerCase())) {
+                filteredList.add(category);
+            }
+        }
+
+        if(filteredList.isEmpty()) {
+            Toast.makeText(getActivity(), "No category found!", Toast.LENGTH_SHORT).show();
+        } else {
+            categoryListAdapter.setFilteredList(filteredList);
+        }
+    }
+
+    private void populateCategoryList() {
         list = new ArrayList<>();
 
         HomePageActivities a = new HomePageActivities();
@@ -134,12 +162,5 @@ public class HomeFragment extends Fragment {
         a.setActivityImage(R.drawable.career_icon);
         a.setActivityName("Career & Business");
         list.add(a);
-
-        System.out.println("LIST SIZE ::: " + list.size());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new ActivitiesListAdapter(getActivity(), list));
-
-        return view;
     }
 }
