@@ -99,7 +99,7 @@ public class ExploreFragment extends Fragment {
 
             Groups groups = new Groups();
 
-            this.dbRef.child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
+            this.dbRef.child("groups").orderByChild("category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()) {
@@ -107,6 +107,7 @@ public class ExploreFragment extends Fragment {
                             if (grpSnap.exists()) {
                                 Group g = grpSnap.getValue(Group.class);
                                 if (g != null) {
+                                    g.setId(grpSnap.getKey());
                                     groups.getGroups().add(g);
                                 }
 

@@ -82,6 +82,7 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
                                 if (grpSnap.exists()) {
                                     Group g = grpSnap.getValue(Group.class);
                                     if (g != null) {
+                                        g.setId(grpSnap.getKey());
                                         groups.getGroups().add(g);
                                     }
 
