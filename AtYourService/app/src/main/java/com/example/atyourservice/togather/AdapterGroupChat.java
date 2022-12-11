@@ -37,7 +37,6 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
     private Context context;
     private List<Chat> chatList;
 
-
     public AdapterGroupChat(Context context, List<Chat> chatList){
         this.context = context;
         this.chatList = chatList;
