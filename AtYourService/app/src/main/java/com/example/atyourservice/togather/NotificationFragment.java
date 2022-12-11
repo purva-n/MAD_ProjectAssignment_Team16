@@ -2,13 +2,26 @@ package com.example.atyourservice.togather;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.models.Notification;
+import com.example.atyourservice.togather.Notifications.NotificationAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,4 +76,80 @@ public class NotificationFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notification, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference notiDB = dbRef.child("users").child("uuid2").child("notification");
+        ArrayList<Notification> notificationList = new ArrayList<Notification>();
+        notiDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Notification notificationItem = new Notification(snapshot1.child("groupid").getValue(String.class), snapshot1.child("message").getValue(String.class));
+                    notificationList.add(notificationItem);
+
+                }
+                for (int i = 0; i < notificationList.size(); i++) {
+                    System.out.println(notificationList.get(i).toString());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+
+        });
+        for (Notification noti : notificationList) {
+            System.out.println(noti);
+        }
+        RecyclerView notificationRecycler;
+
+        notificationRecycler = getView().findViewById(R.id.notificationRecyler);
+        notificationRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        notificationRecycler.setAdapter(new NotificationAdapter(NotificationFragment.this.getContext(), notificationList));
+/*
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction ft = ((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.replace(R.id.NotificationFragmentLayout,notificationRecyclerView;
+    }
+    */
+
+
 }
+
+
+}
+
+
+            // TODO below will be added to send message activity
+       /* DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+        String groupId = "id";
+        String currentUser="currentUserId";
+        DatabaseReference users =firebaseRef.child("groups").child(groupId).child("users");
+        ArrayList<String> notiReceivers= new ArrayList<String>();
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for( DataSnapshot snapshot1: snapshot.getChildren()){
+                    String receivers = snapshot1.getKey();
+                    if(!receivers.equalsIgnoreCase(currentUser)){
+                        notiReceivers.add(receivers);
+                    }}
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*//*
+        for(String receiver: notiReceivers) {
+            firebaseRef.child("users").child("notification").child(receiver).push().setValue(new Notifications("groupId", "message"));
+
+        }
+
+
+    }
+*/

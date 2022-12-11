@@ -39,12 +39,13 @@ public class GroupResultFindPageViewHolder extends RecyclerView.ViewHolder {
         return joinGroup;
     }
 
-    public GroupResultFindPageViewHolder(@NonNull View view) {
-        super(view);
-        this.groupName = view.findViewById(R.id.groupName);
-        this.groupDate = view.findViewById(R.id.groupDate);
-        this.memberCount = view.findViewById(R.id.memberCount);
-        this.groupProfilePic = view.findViewById(R.id.groupImg);
-        this.joinGroup = view.findViewById(R.id.join);
+    public GroupResultFindPageViewHolder(@NonNull View itemView) {
+        super(itemView);
     }
 }
+/*
+    this.memberCount = view.findViewById(R.id.memberCount);
+    this.groupProfilePic = view.findViewById(R.id.groupImg);
+    this.joinGroup = view.findViewById(R.id.join);
+    }
+*/

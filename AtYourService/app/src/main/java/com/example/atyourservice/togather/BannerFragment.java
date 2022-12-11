@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.atyourservice.R;
@@ -82,6 +83,8 @@ public class BannerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ProgressBar progressBar = getView().findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         TextView usernameTextView = (TextView) getView().findViewById(R.id.bannerUserName);
         TextView scoreTextView =(TextView) getView().findViewById(R.id.score);
         TextView descriptionTextView = (TextView) getView().findViewById(R.id.bannerDescription);
@@ -98,6 +101,7 @@ public class BannerFragment extends Fragment {
                     scoreRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            progressBar.setVisibility(View.INVISIBLE);
                             String value = String.valueOf(snapshot.getValue(Long.class));
                             scoreTextView.setText(value);
                         }
@@ -112,7 +116,6 @@ public class BannerFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String description = snapshot.getValue(String.class);
-                            System.out.println(description);
                             descriptionTextView.setText(description);
                         }
 
@@ -122,8 +125,6 @@ public class BannerFragment extends Fragment {
                         }
                     });
 
-
-                    System.out.println(key);
                     usernameTextView.setText(key);
 
 
@@ -147,7 +148,7 @@ public class BannerFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                throw databaseError.toException(); // don't swallow errors
+                throw databaseError.toException();
             }
         });
     }
