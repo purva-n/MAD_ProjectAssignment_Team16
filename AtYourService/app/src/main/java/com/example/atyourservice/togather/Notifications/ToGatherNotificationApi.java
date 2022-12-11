@@ -20,6 +20,7 @@ import java.util.Map;
 //https://firebase.google.com/docs/cloud-messaging/android/client
 public class ToGatherNotificationApi {
     private static String BASE_URL="https://fcm.googleapis.com/fcm/send";
+    private String TOKEN;
     ArrayList<String> groupUserTokens;
     private final static String SERVER_TOKEN="key=AAAAywhhAIg:APA91bG6axWjPhdC00kzGS-C19-7xJr1D-Sx9xYHOIktXwiklkp-DQ_sCyAl-ryKSChcJFC0OMB6Ie-eqFTIDjChOsNKN-osu3wpLdVJifNda5hM-Ac0-zCDVf_9fzh1kiHCgi09A4WL";
 
@@ -27,7 +28,7 @@ public class ToGatherNotificationApi {
         this.groupUserTokens = groupUserTokens;
     }
 
-    public void pushNotificationToReceiver(Context context, String title, String message) {
+    public void pushNotificationToReceiver(Context context, String title, String message/*, int stickerId*/) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -36,14 +37,17 @@ public class ToGatherNotificationApi {
             for (int i = 0; i < groupUserTokens.size(); i++){
                 try {
                 JSONObject json = new JSONObject();
-                System.out.println("TOKEN IS :::: " + groupUserTokens.get(i));
+                System.out.println("TOKEN IS :::: " + TOKEN);
                 json.put("to", groupUserTokens.get(i));
                 json.put("project_id", "872018935944");//this value is sender id from project settings in firebase console under firebase messaging.
                 JSONObject notification = new JSONObject();
                 notification.put("title", title);
                 notification.put("body", message);
+                //notification.put("", String.valueOf(stickerId));
+
                 json.put("notification", notification);
-                // firebaseRef.groupusertokens.get(i).child...notification.push(json);
+                // for notifications
+                    // firebaseRef.groupusertokens.get(i).child...notification.push(json);
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, BASE_URL, json, new Response.Listener<JSONObject>() {
                     @Override

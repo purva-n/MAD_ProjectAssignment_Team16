@@ -1,6 +1,5 @@
 package com.example.atyourservice.models;
 
-import com.example.atyourservice.api.response.pojo.Notifications;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -14,7 +13,6 @@ public class User implements Serializable {
     private int socialitescore;
     private String about;
     private String token;
-    private Notifications notifications;
 
     public void setName(String name) {
         this.name = name;
@@ -77,11 +75,5 @@ public class User implements Serializable {
         return name;
     }
 
-    public Notifications getNotifications() {
-        return notifications;
-    }
 
-    public void setNotifications(Notifications notifications) {
-        this.notifications = notifications;
-    }
 }
