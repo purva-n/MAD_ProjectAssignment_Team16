@@ -161,7 +161,7 @@ public class HomePageActivity extends AppCompatActivity {
                     //Set Chat Fragment as main screen
                     getSupportFragmentManager().beginTransaction()
                             .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.ChatFragment.class, null)
+                            .replace(R.id.fragmentContainer, com.example.atyourservice.togather.GroupChatFragment.class, null)
                             .commit();
 
                     //unselect other options

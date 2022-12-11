@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="3dp"
+    android:layout_marginTop="1dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iconofgroup"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/default_group_chat_icon"/>
+
+        <TextView
+            android:id="@+id/nameofgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/iconofgroup"
+            android:text="Group Name"
+            android:textColor="#0b0b0b"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/nameofsender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameofgroup"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/iconofgroup"
+            android:text="Sender Name"
+            android:textColor="#0b0b0b">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/newestmessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameofgroup"
+            android:layout_toEndOf="@id/nameofsender"
+            android:text="The message"
+            android:textColor="#0b0b0b">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/newestmessagetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameofsender"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:text="12:12 pm"
+            android:textColor="#0b0b0b"
+            android:textSize="10sp">
+
+        </TextView>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
