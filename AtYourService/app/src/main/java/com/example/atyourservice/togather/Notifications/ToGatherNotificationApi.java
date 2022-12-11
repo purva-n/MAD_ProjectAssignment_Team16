@@ -28,7 +28,7 @@ public class ToGatherNotificationApi {
         this.groupUserTokens = groupUserTokens;
     }
 
-    public void pushNotificationToReceiver(Context context, String title, String message/*, int stickerId*/) {
+    public void pushNotificationToReceiver(Context context, String groupid, String message) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -41,9 +41,8 @@ public class ToGatherNotificationApi {
                 json.put("to", groupUserTokens.get(i));
                 json.put("project_id", "872018935944");//this value is sender id from project settings in firebase console under firebase messaging.
                 JSONObject notification = new JSONObject();
-                notification.put("title", title);
+                notification.put("title", groupid);
                 notification.put("body", message);
-                //notification.put("", String.valueOf(stickerId));
 
                 json.put("notification", notification);
                 // for notifications

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.Message;
 import com.example.atyourservice.models.Notification;
+import com.example.atyourservice.togather.Notifications.ToGatherNotificationApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,9 +91,10 @@ public class GroupChatActivity extends AppCompatActivity {
                     Toast.makeText(GroupChatActivity.this, "Can't send empty message...", Toast.LENGTH_SHORT).show();
                 } else {
                     sendMessage(message);
+                    //below is for notification data for recylcer
                     DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
-                    DatabaseReference users=firebaseRef.child("groups").child(groupId).child("users");
-                    ArrayList<String> notiReceivers= new ArrayList<String>();
+                    DatabaseReference users = firebaseRef.child("groups").child(groupId).child("users");
+                    ArrayList<String> notiReceivers = new ArrayList<String>();
                     users.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -106,20 +109,44 @@ public class GroupChatActivity extends AppCompatActivity {
 
                             }
                         }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    //above is where notification recycler ends and below is where notification is being sent using FCM
+                    ArrayList<String> tokens = new ArrayList<String>();
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("groups")
+                            .child(groupId).child("users");
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                String token = dataSnapshot.child("token").getValue(String.class);
+                                tokens.add(token);
+
+                            }
+                            ToGatherNotificationApi notify = new ToGatherNotificationApi(tokens);
+                            notify.pushNotificationToReceiver(getApplicationContext(), groupId, message);
+                        }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
 
-                    }
 
 
                 }
-
+            }
         });
+// above is for notification recycler data}
 
     }
+
+
 
     private void loadGroupMessage() {
         List<String> messageKeys = new ArrayList<>();
@@ -195,3 +222,5 @@ public class GroupChatActivity extends AppCompatActivity {
 
     }
 }
+
+
