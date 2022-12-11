@@ -2,6 +2,7 @@ package com.example.atyourservice.togather;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +10,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.models.Group;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatList.HolderGroupChatList>{
     private Context context;
-    private ArrayList<ModelGroupChatList> groupChatLists;
+    private List<Group> groupChatLists;
 
-    public AdapterGroupChatList(Context context, ArrayList<ModelGroupChatList> groupChatLists){
+    public AdapterGroupChatList(Context context, List<Group> groupChatLists){
         this.context = context;
         this.groupChatLists = groupChatLists;
     }
+
+    public void updateGroupChatLists(List<Group> groupList) {
+        this.groupChatLists = groupList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public HolderGroupChatList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,10 +45,10 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
 
     @Override
     public void onBindViewHolder(@NonNull HolderGroupChatList holder, int position) {
-        ModelGroupChatList model = groupChatLists.get(position);
-        String groupId = model.getGroupid();
-        String groupIcon = model.getGroupicon();
-        String groupName = model.getGroupname();
+        Group model = groupChatLists.get(position);
+        String groupId = model.getId();
+        String groupIcon = model.getIcon();
+        String groupName = model.getName();
 
         holder.groupNameTv.setText(groupName);
         try{
@@ -46,12 +58,16 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
             holder.groupIconIv.setImageResource(R.drawable.default_group_chat_icon);
         }
 
+        Group group = new Group();
+        group.setId(groupId);
+        group.setIcon(groupIcon);
+        group.setName(groupName);
         //open chat window
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,GroupChatActivity.class);
-                intent.putExtra("groupid",groupId);
+                intent.putExtra("group",group);
                 context.startActivity(intent);
             }
         });

@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.MainActivity;
 import com.example.atyourservice.R;
+import com.example.atyourservice.api.response.pojo.Groups;
+import com.example.atyourservice.models.Group;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,12 +32,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class GroupChatFragment extends Fragment {
     private RecyclerView groupsRv;
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private ArrayList<ModelGroupChatList> groupChatLists;
+    private Groups groupChatLists;
     private AdapterGroupChatList adapterGroupChatList;
 
     public GroupChatFragment() {
@@ -47,35 +50,75 @@ public class GroupChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_group_chat,container,false);
         groupsRv = view.findViewById(R.id.groupsRv);
         firebaseAuth = FirebaseAuth.getInstance();
-        loadGroupChatLists();
+        //loadGroupChatLists();
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadGroupChatLists();
+    }
+
     private void loadGroupChatLists() {
-        groupChatLists = new ArrayList<>();
+        groupChatLists = new Groups();
+        List<String> groupKeys = new ArrayList<>();
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("groups");
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference groupDB = dbRef.child("groups").child("uuid1").child("users");
-        groupDB.addValueEventListener(new ValueEventListener() {
+        DatabaseReference usersDb = dbRef.child("users").child("uuid2").child("groups");
+        groupChatLists.getGroups().clear();
+
+        adapterGroupChatList = new AdapterGroupChatList(getContext(), groupChatLists.getGroups());
+
+        usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groupChatLists.clear();
-
                 for (DataSnapshot ds:dataSnapshot.getChildren()){
-                    if (ds.child("users").child("uuid2").exists()){
-                        ModelGroupChatList model = ds.getValue(ModelGroupChatList.class);
-                        groupChatLists.add(model);
-                    }
-                }
-                adapterGroupChatList = new AdapterGroupChatList(getContext(), groupChatLists);
-                groupsRv.setAdapter(adapterGroupChatList);
-            }
+                    //groupKeys.add(ds.getValue(String.class));
+                    String key = ds.getValue(String.class);
+                //}
 
+                //for(String key: groupKeys) {
+                    DatabaseReference groupsDb = dbRef.child("groups").child(key);
+                    groupsDb.addListenerForSingleValueEvent(
+                            new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                               for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
+//                                   if(Objects.requireNonNull(dataSnapshot1.getValue(String.class)).equalsIgnoreCase(groupKey)){
+//                                       groupChatLists.add(dataSnapshot1.getValue(ModelGroupChatList.class));
+//                                   }
+//                               }
+                                    if (snapshot.exists()) {
+                                        Group grp = snapshot.getValue(Group.class);
+                                        if (grp != null) {
+                                            grp.setId(snapshot.getKey());
+                                            groupChatLists.getGroups().add(grp);
+                                            System.out.println("In for");
+                                            System.out.println(groupChatLists.getGroups());
+                                        }
+                                    }
+                                    adapterGroupChatList.updateGroupChatLists(groupChatLists.getGroups());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                }
+//                System.out.println("HEREEEEE");
+                //adapterGroupChatList.updateGroupChatLists(groupChatLists.getGroups());
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+//        System.out.println(groupChatLists.getGroups().size());
+        groupsRv.setAdapter(adapterGroupChatList);
+
     }
 
 //    private void searchGroupChatLists(final String query) {

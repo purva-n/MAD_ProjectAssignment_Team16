@@ -1,6 +1,7 @@
 package com.example.atyourservice.togather;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.api.response.pojo.Chats;
+import com.example.atyourservice.models.Chat;
+import com.example.atyourservice.models.Group;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,62 +23,63 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
-public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.HolderGroupChat> {
+public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
     private static final int MSG_TYPE_LEFT = 0;
     private static final int MSG_TYPE_RIGHT = 1;
 
     private Context context;
-    private ArrayList<ModelGroupChat> modelGroupChatList;
+    private List<Chat> chatList;
 
     private FirebaseAuth firebaseAuth;
 
-    public AdapterGroupChat(Context context, ArrayList<ModelGroupChat> modelGroupChatList){
+    public AdapterGroupChat(Context context, List<Chat> chatList){
         this.context = context;
-        this.modelGroupChatList = modelGroupChatList;
-        firebaseAuth = FirebaseAuth.getInstance();
+        this.chatList = chatList;
+    }
+
+    public void updateGroupChat(List<Chat> chatList) {
+        this.chatList = chatList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public HolderGroupChat onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType ==  MSG_TYPE_RIGHT){
-            View view = LayoutInflater.from(context).inflate(R.layout.chatview_right,parent,false);
-            return new HolderGroupChat(view);
-        }else{
-            View view = LayoutInflater.from(context).inflate(R.layout.chatview_left,parent,false);
-            return new HolderGroupChat(view);
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        return new HolderGroupChat(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull HolderGroupChat holder, int position) {
-        ModelGroupChat model = modelGroupChatList.get(position);
-        String message = model.getMessage();
-        String senderid = model.getSender();
-        String sendtime = model.getTimestamp();
+        Chat model = chatList.get(position);
+        String message = model.getChat();
+        String senderid = model.getSenderid();
+        Long sendtime = model.getTimestamp();
 
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(Long.parseLong(sendtime));
-        String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal).toString();
-        holder.messageTv.setText(message);
-        holder.timeTv.setText(dateTime);
+        //Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        //@SuppressLint("SimpleDateFormat") String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal).toString();
+        holder.getMessageTv().setText(message);
+        holder.getTimeTv().setText((new Date(sendtime)).toString());
         setUserName(model,holder);
     }
 
-    private void setUserName(ModelGroupChat model, HolderGroupChat holder) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.orderByChild("uuid").equalTo(model.getSender()).addValueEventListener(new ValueEventListener() {
+    private void setUserName(Chat model, HolderGroupChat holder) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        reference.orderByChild("uuid").equalTo(model.getSenderid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot ) {
                 for (DataSnapshot ds:snapshot.getChildren()){
                     String name = ""+ds.child("name").getValue();
-                    holder.nameTv.setText(name);
+                    holder.getNameTv().setText(name);
                 }
             }
             @Override
@@ -86,26 +91,18 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
 
     @Override
     public int getItemCount() {
-        return modelGroupChatList.size();
+        return chatList.size();
     }
 
     @Override
     public int getItemViewType(int position){
-        if (modelGroupChatList.get(position).getSender().equals(firebaseAuth.getUid())){
-            return MSG_TYPE_RIGHT;
+        System.out.println("Sender is :: " + chatList.get(position).getSenderid());
+       if (chatList.get(position).getSenderid().equals("uuid2")){
+            return R.layout.chatview_right;
         }else{
-            return MSG_TYPE_LEFT;
+            return R.layout.chatview_left;
         }
     }
 
-    class HolderGroupChat extends RecyclerView.ViewHolder{
-        private TextView nameTv,messageTv,timeTv;
-        public HolderGroupChat(@Nullable View itemView){
-            super(itemView);
-            nameTv = itemView.findViewById(R.id.nameTv);
-            messageTv = itemView.findViewById(R.id.messageTv);
-            timeTv = itemView.findViewById(R.id.timeTv);
 
-        }
-    }
 }
