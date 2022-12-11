@@ -18,7 +18,7 @@ public class Group implements Serializable {
     private long eventdate;
     private List<String> keywords;
     private HashMap<String, String> users;
-    private long location;
+    private String location;
     private int memberCount;
     private String icon;
     private String ageRange;
@@ -73,11 +73,11 @@ public class Group implements Serializable {
         this.keywords = keywords;
     }
 
-    public long getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(long location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
