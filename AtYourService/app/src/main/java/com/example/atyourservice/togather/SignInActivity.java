@@ -1,6 +1,5 @@
 package com.example.atyourservice.togather;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,15 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SignInActivity extends AppCompatActivity {
-    String DEVICE_TOKEN;
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 100;
     @Override
@@ -86,23 +79,6 @@ public class SignInActivity extends AppCompatActivity {
                 String personId = acct.getId();
                 Uri personPhoto = acct.getPhotoUrl();
             }
-            //TODO update below device token.
-            FirebaseMessaging.getInstance().getToken()
-                    .addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            if (!task.isSuccessful()) {
-                                System.out.println("Fetching FCM registration token failed");
-                                return;
-                            }
-
-                            // Get new FCM registration token
-                            DEVICE_TOKEN = task.getResult();
-                            System.out.println(" TOKEN IS :::: " + DEVICE_TOKEN);
-                            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-                            dbRef.child("users").child(acct.getEmail()).child("token").setValue(DEVICE_TOKEN);
-                        }
-                    });
 
             // Signed in successfully, show authenticated UI.
             // updateUI(account);
@@ -111,10 +87,7 @@ public class SignInActivity extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.d("failed with code", String.valueOf(e.getStatusCode()));
             // updateUI(null);
-
         }
     }
 
-
 }
-

@@ -15,8 +15,6 @@ import com.example.atyourservice.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Locale;
-
 //https://firebase.google.com/docs/cloud-messaging/android/client
 public class ToGatherPushNotificationService extends FirebaseMessagingService {
 
@@ -33,12 +31,13 @@ public class ToGatherPushNotificationService extends FirebaseMessagingService {
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
 
         assert text != null;
+        RemoteViews notificationLayout = new RemoteViews(getPackageName(),R.layout.notification_template);
         Notification.Builder notification = new Notification.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setCustomContentView(notificationLayout)
                 .setContentTitle(title)
-                .setPriority(Notification.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setStyle(new Notification.BigPictureStyle().setSummaryText(title).setBigContentTitle(text.toUpperCase(Locale.ROOT)))
+                //.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.notification_icon))
+                //.setStyle(new Notification.BigPictureStyle().setSummaryText(remoteMessage.getNotification().getBody()).setBigContentTitle(text.toUpperCase(Locale.ROOT)))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setAutoCancel(true);
         NotificationManagerCompat.from(this).notify(0, notification.build());

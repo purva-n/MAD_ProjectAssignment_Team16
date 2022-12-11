@@ -9,32 +9,33 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.models.Notification;
+import com.example.atyourservice.models.Notifications;
 
 import java.util.List;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //https://stackoverflow.com/questions/26245139/how-to-create-recyclerview-with-multiple-view-types
         private final Context context;
-        private final List<Notification> notifications;
+        private final List<Notifications> notifications;
+        int drawableId;
 
-
-        public NotificationAdapter(Context context, List<Notification> notifications) {
+        public NotificationAdapter(Context context, List<Notifications> notifications){
             this.context = context;
             this.notifications = notifications;
         }
 
         @NonNull
         @Override
-        public NotificationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.notification_template,null);
             NotificationHolder holder = new NotificationHolder(view);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull NotificationHolder holder, int position) {
-            holder.message.setText(notifications.get(position).getMessage());
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+           // holder.itemView.findViewById(R.id.notificationSummary.)
+
         }
 
 
@@ -42,8 +43,4 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder
         public int getItemCount() {
             return notifications.size();
         }
-
-
-
     }
-
