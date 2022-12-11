@@ -129,6 +129,7 @@ public class ExploreFragment extends Fragment {
             String datePref = ((Spinner) view.findViewById(R.id.daterange)).getSelectedItem().toString();
             String location = ((EditText) view.findViewById(R.id.locationSearch)).getText().toString();
 
+            if(!location.isEmpty()) {
             Groups groups = new Groups();
 
             this.dbRef.child("groups").orderByChild("category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -147,7 +148,7 @@ public class ExploreFragment extends Fragment {
                                 if (g != null) {
                                     g.setId(grpSnap.getKey());
                                     if(g.getActivity().equalsIgnoreCase(activity) && g.getAgeRange().equalsIgnoreCase(agePref)
-                                    && g.getGenderPref().equalsIgnoreCase(genderPref) && date <= g.getDate())
+                                    && g.getGenderPref().equalsIgnoreCase(genderPref) && date <= g.getDate() && location.equalsIgnoreCase(g.getLocation()))
                                     groups.getGroups().add(g);
                                 }
 
@@ -194,6 +195,9 @@ public class ExploreFragment extends Fragment {
 
                 }
             });
+        } else {
+                Toast.makeText(getContext(), "Location needed!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
