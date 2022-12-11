@@ -1,70 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:contentPadding="3dp"
-    android:layout_marginTop="1dp"
-    android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+<androidx.cardview.widget.CardView
+    android:id="@+id/groupListTemplate"
+    android:layout_width="match_parent"
+    android:layout_height="103dp"
+    app:cardCornerRadius="2dp"
+    android:layout_margin="10dp"
+    android:layout_marginStart="9dp"
+    android:layout_marginEnd="9dp"
+    android:background="@color/chat_20"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardContraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iconofgroup"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/default_group_chat_icon"/>
+        android:layout_height="match_parent"
+        android:background="@color/chat_20"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="171dp">
 
         <TextView
             android:id="@+id/nameofgroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@id/iconofgroup"
+            android:layout_width="299dp"
+            android:layout_height="30dp"
             android:text="Group Name"
-            android:textColor="#0b0b0b"
-            android:textStyle="bold">
+            android:textColor="@color/chat"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.172"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.219">
 
         </TextView>
 
         <TextView
             android:id="@+id/nameofsender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="129dp"
+            android:layout_height="23dp"
             android:layout_below="@id/nameofgroup"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@id/iconofgroup"
             android:text="Sender Name"
-            android:textColor="#0b0b0b">
+            android:textColor="@color/chat"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/newestmessage"
+            app:layout_constraintHorizontal_bias="0.604"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameofgroup"
+            app:layout_constraintVertical_bias="0.352">
 
         </TextView>
 
         <TextView
             android:id="@+id/newestmessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="143dp"
+            android:layout_height="23dp"
             android:layout_below="@id/nameofgroup"
+            android:layout_marginEnd="92dp"
             android:layout_toEndOf="@id/nameofsender"
             android:text="The message"
-            android:textColor="#0b0b0b">
+            android:textColor="@color/chat"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameofgroup"
+            app:layout_constraintVertical_bias="0.352">
 
         </TextView>
 
         <TextView
             android:id="@+id/newestmessagetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="71dp"
+            android:layout_height="17dp"
             android:layout_below="@+id/nameofsender"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
             android:text="12:12 pm"
-            android:textColor="#0b0b0b"
-            android:textSize="10sp">
+            android:textColor="@color/chat"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.996"
+            app:layout_constraintStart_toStartOf="parent">
 
         </TextView>
 
-    </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
