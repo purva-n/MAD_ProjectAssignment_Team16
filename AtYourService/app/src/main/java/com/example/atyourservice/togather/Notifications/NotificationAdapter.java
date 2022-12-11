@@ -27,6 +27,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder
     //https://stackoverflow.com/questions/26245139/how-to-create-recyclerview-with-multiple-view-types
     private final Context context;
     private final List<Notification> notifications;
+    private String groupName = " New Message";
     private SelectListener listener;
 
 
@@ -51,7 +52,23 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder
 
     @Override
     public void onBindViewHolder(@NonNull NotificationHolder holder, int position) {
-        holder.title.setText(notifications.get(position).getGroupid());
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference notificationsRef = dbRef.child("groups").child(notifications.get(position).getGroupid()).child("name");
+        notificationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if(snapshot.exists()){
+                                                                    groupName = snapshot.getValue(String.class);
+                                                                    holder.title.setText(groupName);
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+
         holder.message.setText(notifications.get(position).getMessage());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
