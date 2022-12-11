@@ -138,6 +138,8 @@ public class CreateGroupFragment extends Fragment {
                 String agePref = ((Spinner) view.findViewById(R.id.ageC)).getSelectedItem().toString();
                 String genderPref = ((Spinner) view.findViewById(R.id.genderC)).getSelectedItem().toString();
                 String datePref = ((Spinner) view.findViewById(R.id.daterangeC)).getSelectedItem().toString();
+                String location = ((EditText) view.findViewById(R.id.locationSearch)).getText().toString();
+
                 List<String> keywords = null;
                 if(!keywordText.getText().toString().isEmpty()) {
                     keywords = Arrays.asList(((TextView)
@@ -149,17 +151,9 @@ public class CreateGroupFragment extends Fragment {
                     date = getTimeStamp(datePref);
                 }
 
-                if(!grpName.isEmpty()) {
+                if(!grpName.isEmpty() && !location.isEmpty()) {
                     //create group
-                    Group group = new Group();
-                    group.setName(grpName);
-                    group.setCategory(category);
-                    group.setDescription("Group for people into" + category + ", "+ activity);
-                    group.setActivity(activity);
-                    group.setAgeRange(agePref);
-                    group.setGenderPref(genderPref);
-                    group.setDate(date);
-                    group.setKeywords(keywords);
+                    Group group = createGroup(grpName, category, activity, agePref, genderPref, date, location, keywords);
 
                     //Add to database
                     dbRef.push().setValue(group).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -169,11 +163,33 @@ public class CreateGroupFragment extends Fragment {
                         }
                     });
                 } else {
-                    Toast.makeText(view.getContext(), "Group Name mandatory!", Toast.LENGTH_LONG).show();
+                    if(grpName.isEmpty()) {
+                        Toast.makeText(view.getContext(), "Group Name mandatory!", Toast.LENGTH_LONG).show();
+                    }
+
+                    if(location.isEmpty()){
+                        Toast.makeText(view.getContext(), "Location mandatory!", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
         });
+    }
+
+    private Group createGroup(String grpName, String category, String activity, String agePref,
+                              String genderPref, long date, String location, List<String> keywords) {
+        Group group = new Group();
+        group.setName(grpName);
+        group.setCategory(category);
+        group.setDescription("Group for people into" + category + ", "+ activity);
+        group.setActivity(activity);
+        group.setAgeRange(agePref);
+        group.setGenderPref(genderPref);
+        group.setDate(date);
+        group.setKeywords(keywords);
+        group.setLocation(location);
+
+        return group;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

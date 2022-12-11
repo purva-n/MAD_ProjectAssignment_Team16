@@ -127,6 +127,7 @@ public class ExploreFragment extends Fragment {
             String agePref = ((Spinner) view.findViewById(R.id.age)).getSelectedItem().toString();
             String genderPref = ((Spinner) view.findViewById(R.id.gender)).getSelectedItem().toString();
             String datePref = ((Spinner) view.findViewById(R.id.daterange)).getSelectedItem().toString();
+            String location = ((EditText) view.findViewById(R.id.locationSearch)).getText().toString();
 
             Groups groups = new Groups();
 
