@@ -9,33 +9,54 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="700dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="Group Name:"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/grpName"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:textSize="18sp"
+                    android:hint="Type here.."
+                    />
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10sp"
-                android:text="Group Name:"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/grpName"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Select Category:"
-                android:textSize="20sp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/category"
@@ -45,17 +66,28 @@
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="20sp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:entries="@array/categories"
+                android:layout_marginTop="28dp"
                 android:prompt="@string/category_text"
                 android:textAlignment="center" />
+        </LinearLayout>
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Select Activity:"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="0dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/activity"
@@ -64,15 +96,28 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
+                android:layout_marginTop="18dp"
+                android:textSize="25dp"
                 android:layout_marginBottom="20sp"
                 android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Age Preference:"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
 
             <Spinner
                 android:id="@+id/ageC"
@@ -82,15 +127,25 @@
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="20sp"
+                android:layout_marginTop="18dp"
                 android:entries="@array/age_range"
                 android:textAlignment="center" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Gender Preferences:"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:layout_marginTop="0dp"/>
 
             <Spinner
                 android:id="@+id/genderC"
@@ -100,15 +155,26 @@
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
                 android:layout_marginBottom="20sp"
+                android:layout_marginTop="18dp"
+                android:textSize="18dp"
                 android:entries="@array/gender_pref"
                 android:textAlignment="center" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date range:"
-                android:textSize="20sp"
-                android:layout_gravity="center"/>
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/daterangeC"
@@ -117,27 +183,40 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="10sp"
+                android:layout_marginTop="18dp"
                 android:layout_marginBottom="20sp"
+                android:textSize="18dp"
                 android:entries="@array/date_range"
                 android:textAlignment="center" />
-
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location:"
-                android:textSize="20sp"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="15dp"
                 android:layout_gravity="center"/>
 
-            <Spinner
-                android:id="@+id/locationC"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_marginBottom="20sp"
-                android:entries="@array/date_range"
-                android:textAlignment="center" />
+            <EditText
+                android:id="@+id/locationSearch"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="0dp"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Search location here.."
+                android:padding="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -146,30 +225,49 @@
                 <EditText
                     android:id="@+id/keyword"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="fill_parent">
+                    android:layout_weight="0.65"
+                    android:layout_width="fill_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="0dp"
+                    android:hint="Enter keywords here..">
                 </EditText>
 
                 <Button
                     android:id="@+id/addKeyword"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="0dp"
                     android:layout_width="fill_parent"
                     android:text="Add Keyword" />
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <TextView
                 android:id="@+id/keywordText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginBottom="30dp"/>
+                android:layout_height="100dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/search_view_bg"
+                android:hint="Keywords you add will be displayed here!"></TextView>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/createGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="120dp"
                 android:text="Create Group" />
+        </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
