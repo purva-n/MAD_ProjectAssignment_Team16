@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.models.Notifications;
+import com.example.atyourservice.models.Notification;
 
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //https://stackoverflow.com/questions/26245139/how-to-create-recyclerview-with-multiple-view-types
         private final Context context;
-        private final List<Notifications> notifications;
+        private final List<Notification> notifications;
         int drawableId;
 
-        public NotificationAdapter(Context context, List<Notifications> notifications){
+        public NotificationAdapter(Context context, List<Notification> notifications){
             this.context = context;
             this.notifications = notifications;
         }
