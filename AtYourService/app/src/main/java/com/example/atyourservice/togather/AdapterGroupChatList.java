@@ -116,8 +116,11 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                         Format formatter = new SimpleDateFormat("MM-dd HH:mm");
                         String dateView = formatter.format(date);
                         holder.getTimeTv().setText(dateView);
-
                     }
+                } else {
+                    holder.getSenderNameTv().setText("");
+                    holder.getMessageTv().setText("");
+                    holder.getTimeTv().setText("");
                 }
             }
 
@@ -140,6 +143,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
 
 
     }
