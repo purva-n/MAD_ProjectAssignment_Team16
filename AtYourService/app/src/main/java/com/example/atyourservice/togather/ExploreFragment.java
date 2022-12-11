@@ -1,10 +1,12 @@
 package com.example.atyourservice.togather;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -131,11 +134,19 @@ public class ExploreFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()) {
+
+                        long date = 0;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            date = getTimeStamp(datePref);
+                        }
+
                         for (DataSnapshot grpSnap : snapshot.getChildren()) {
                             if (grpSnap.exists()) {
                                 Group g = grpSnap.getValue(Group.class);
                                 if (g != null) {
                                     g.setId(grpSnap.getKey());
+                                    if(g.getActivity().equalsIgnoreCase(activity) && g.getAgeRange().equalsIgnoreCase(agePref)
+                                    && g.getGenderPref().equalsIgnoreCase(genderPref) && date <= g.getDate())
                                     groups.getGroups().add(g);
                                 }
 
@@ -158,6 +169,13 @@ public class ExploreFragment extends Fragment {
                                             rv,
                                             null)
                                     .commit();
+                        } else {
+                            ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction()
+                                    .setReorderingAllowed(true)
+                                    .addToBackStack("ExploreFragment")
+                                    .replace(R.id.fragmentContainer,
+                                            com.example.atyourservice.togather.GroupNotMatchedPage.class, null)
+                                    .commit();
                         }
 
                     } else {
@@ -176,6 +194,31 @@ public class ExploreFragment extends Fragment {
                 }
             });
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long getTimeStamp(String datePref) {
+        Calendar today = Calendar.getInstance();
+        switch (datePref) {
+            case "Today":
+                return today.getTime().getTime();
+            case "Tomorrow":
+                today.add(Calendar.DAY_OF_YEAR, 1);
+                return today.getTime().getTime();
+            case "This Week":
+                today.add(Calendar.DAY_OF_YEAR, 7);
+                return today.getTime().getTime();
+            case "Next Week":
+                today.add(Calendar.DAY_OF_YEAR, 14);
+                return today.getTime().getTime();
+            case "This Month":
+                today.add(Calendar.DAY_OF_YEAR, 31);
+                return today.getTime().getTime();
+            case "Next Month":
+                today.add(Calendar.DAY_OF_YEAR, 62);
+                return today.getTime().getTime();
+        }
+        return today.getTime().getTime();
     }
 
     private void setSpinnerConfiguration(View li) {

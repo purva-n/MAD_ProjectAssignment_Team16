@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +34,28 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
     private List<Group> groups;
     private Context context;
     private DatabaseReference dbRef;
+    GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 100;
+    private String GpersonEmail;
 
     public GroupResultFindPageAdapter(List<Group> groups, Context context) {
         this.groups = groups;
         this.context = context;
         this.dbRef = FirebaseDatabase.getInstance().getReference();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(context);
+        if (acct != null) {
+            //Can use to access using below getters
+            String GpersonName = acct.getDisplayName();
+            String GpersonGivenName = acct.getGivenName();
+            String GpersonFamilyName = acct.getFamilyName();
+            GpersonEmail = acct.getEmail();
+            String GpersonId = acct.getId();
+            Uri GpersonPhoto = acct.getPhotoUrl(); }
     }
 
     @Override
@@ -120,13 +142,14 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 //          //TODO: get username
             dbRef.child("users").child(username).child("groups").push().setValue(grp.getId());
             dbRef.child("groups").child(grp.getId()).child("users").push().setValue(username);
+
+            // update member count
             dbRef.child("groups").child(grp.getId()).child("memberCount").addListenerForSingleValueEvent(new ValueEventListener() {
                 Long memberCount = 0L;
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     memberCount = (Long) snapshot.getValue();
-                    assert memberCount != null;
                     if(dbRef.child("groups").child(grp.getId()).child("memberCount").setValue(memberCount + 1).isSuccessful()) {
                         Toast.makeText(view.getContext(), "Joined Group", Toast.LENGTH_SHORT).show();
                     }
@@ -138,7 +161,27 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
                 }
             });
 
+            for(String userid: grp.getUsers().values()) {
+                dbRef.child("users").child(userid).child("socialitescore").addListenerForSingleValueEvent(new ValueEventListener() {
+                    Long socialitescore = 0L;
 
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        socialitescore = (Long) snapshot.getValue();
+                        dbRef.child("users").child(userid).child("socialitescore").setValue(socialitescore + 1);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            holder.getJoinGroup().setText("Joined");
+            holder.getJoinGroup().setEnabled(false);
+
+            //TODO: Score
         });
     }
 
