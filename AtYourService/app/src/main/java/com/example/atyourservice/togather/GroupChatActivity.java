@@ -2,10 +2,12 @@ package com.example.atyourservice.togather;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 //import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,6 +73,7 @@ public class GroupChatActivity extends AppCompatActivity {
         Group group = ((Group) intent.getSerializableExtra("group"));
         groupId = group.getId();
         groupNameTv.setText(group.getName());
+        messageList = new Chats();
 
         currentuser = "uuid2";
 
@@ -90,49 +94,28 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void loadGroupMessage() {
-        messageList = new Chats();
         List<String> messageKeys = new ArrayList<>();
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("groups");
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference messageDb = dbRef.child("messages").child(groupId);
-        messageList.getChats().clear();
 
         adapterGroupChat = new AdapterGroupChat(GroupChatActivity.this, messageList.getChats());
-
+        messageList.getChats().clear();
         messageDb.addChildEventListener(new ChildEventListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
-                    messageList.getChats().clear();
-                    //for(String key: groupKeys) {
-                    DatabaseReference messagesDb = dbRef.child("messages").child(groupId);
-                    messagesDb.addListenerForSingleValueEvent(
-                            new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        for(DataSnapshot csnapshot: snapshot.getChildren()) {
-                                            Chat message = csnapshot.getValue(Chat.class);
-                                            if (message != null) {
-                                                if(message.getSenderid().equalsIgnoreCase(currentuser)) {
-                                                    message.setFrom("sender");
-                                                }
-                                                //message.setChatid(snapshot.getKey());
-                                                messageList.getChats().add(message);
-//                                            System.out.println("In for");
-//                                            System.out.println(groupChatLists.getGroups());
-                                            }
-                                        }
-                                    }
-                                    adapterGroupChat.updateGroupChat(messageList.getChats());
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                    Chat message = snapshot.getValue(Chat.class);
+                    if (message != null) {
+                        if(message.getSenderid().equalsIgnoreCase(currentuser)) {
+                            message.setFrom("sender");
+                        }
+                        messageList.getChats().add(message);
+                        messageList.getChats().sort(Comparator.comparing(Chat::getTimestamp));
+                        adapterGroupChat.updateGroupChat(messageList.getChats());
+                    }
                 }
             }
 
@@ -156,7 +139,6 @@ public class GroupChatActivity extends AppCompatActivity {
             }
         });
 
-//        System.out.println(groupChatLists.getGroups().size());
         chatRv.setAdapter(adapterGroupChat);
 
     }
