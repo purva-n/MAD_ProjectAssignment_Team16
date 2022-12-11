@@ -1,5 +1,6 @@
 package com.example.atyourservice.togather;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.atyourservice.R;
+import com.example.atyourservice.models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -16,9 +18,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignInActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
+    DatabaseReference dbRef;
     private static final int RC_SIGN_IN = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+        dbRef = FirebaseDatabase.getInstance().getReference();
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -78,7 +87,29 @@ public class SignInActivity extends AppCompatActivity {
                 String personEmail = acct.getEmail();
                 String personId = acct.getId();
                 Uri personPhoto = acct.getPhotoUrl();
+
+                dbRef.child("users").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        assert acct != null;
+                        if(snapshot.hasChild(personEmail)) {
+                            Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
+                            startActivity(intent);
+                        } else {
+                            User user = new User();
+                            user.setName(personName);
+                            user.setSocialitescore(0);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
+
+
 
             // Signed in successfully, show authenticated UI.
             // updateUI(account);

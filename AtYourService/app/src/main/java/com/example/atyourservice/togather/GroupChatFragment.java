@@ -23,8 +23,6 @@ import com.example.atyourservice.MainActivity;
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.models.Group;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +35,6 @@ import java.util.Objects;
 
 public class GroupChatFragment extends Fragment {
     private RecyclerView groupsRv;
-    private FirebaseAuth firebaseAuth;
     private Groups groupChatLists;
     private AdapterGroupChatList adapterGroupChatList;
 
@@ -49,7 +46,6 @@ public class GroupChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_group_chat,container,false);
         groupsRv = view.findViewById(R.id.groupsRv);
-        firebaseAuth = FirebaseAuth.getInstance();
         //loadGroupChatLists();
         return view;
     }

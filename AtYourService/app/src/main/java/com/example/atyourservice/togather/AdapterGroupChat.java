@@ -16,7 +16,6 @@ import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Chats;
 import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,9 +36,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
 
     private Context context;
     private List<Chat> chatList;
-
-    private FirebaseAuth firebaseAuth;
-
+    
     public AdapterGroupChat(Context context, List<Chat> chatList){
         this.context = context;
         this.chatList = chatList;
