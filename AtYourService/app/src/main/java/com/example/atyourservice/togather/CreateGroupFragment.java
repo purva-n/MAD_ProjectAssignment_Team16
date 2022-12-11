@@ -1,6 +1,7 @@
 package com.example.atyourservice.togather;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -22,8 +24,14 @@ import androidx.fragment.app.Fragment;
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.models.Group;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,6 +46,7 @@ public class CreateGroupFragment extends Fragment {
     DatabaseReference dbRef;
     EditText keyword;
     TextView keywordText;
+    private EditText location;
     public CreateGroupFragment() {
         // Required empty public constructor
     }
@@ -74,8 +83,37 @@ public class CreateGroupFragment extends Fragment {
         addKeywordConfiguration(li);
         setSpinnerConfiguration(li);
         addGroup(li);
+
+        location = li.findViewById(R.id.locationSearch);
+        Places.initialize(((AppCompatActivity) getActivity()).getApplicationContext(), "AIzaSyCeUHVf4a46VpARdx0mTUiQBEE13BnMNws");
+
+        location.setFocusable(false);
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(getActivity());
+
+                startActivityForResult(intent, 100);
+            }
+        });
+
         return li;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == AutocompleteActivity.RESULT_OK) {
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            location.setText(place.getAddress());
+        } else if (resultCode == AutocompleteActivity.RESULT_ERROR ) {
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void addKeywordConfiguration(View view) {
         view.findViewById(R.id.addKeyword).setOnClickListener(new View.OnClickListener() {

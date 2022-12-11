@@ -1,35 +1,31 @@
 package com.example.atyourservice.togather;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.atyourservice.R;
-import com.example.atyourservice.UserList;
 import com.example.atyourservice.api.response.pojo.Groups;
-import com.example.atyourservice.mesaging.service.MessagesRecycler;
-import com.example.atyourservice.models.Group;
-import com.example.atyourservice.models.User;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
-
-public class GroupResultFindPageRecyclerView extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link GroupResultMatchedPage#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class GroupResultMatchedPage extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private DatabaseReference dbRef;
     private Groups groupList;
-    public GroupResultFindPageRecyclerView() {
+
+    public GroupResultMatchedPage() {
         // Required empty public constructor
     }
 
@@ -40,8 +36,8 @@ public class GroupResultFindPageRecyclerView extends Fragment {
      * @return A new instance of fragment ExploreFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GroupResultFindPageRecyclerView newInstance() {
-        GroupResultFindPageRecyclerView fragment = new GroupResultFindPageRecyclerView();
+    public static GroupResultMatchedPage newInstance() {
+        GroupResultMatchedPage fragment = new GroupResultMatchedPage();
         return fragment;
     }
 
@@ -58,14 +54,12 @@ public class GroupResultFindPageRecyclerView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RecyclerView groupResultRecycler;
-
-        View v =  inflater.inflate(R.layout.activity_group_result_find_page, container, false);
-
-        groupResultRecycler = v.findViewById(R.id.recyclerViewGroupResult);
+        View v =  inflater.inflate(R.layout.fragment_group_result_matched_page, container, false);
+        System.out.println("HERE :  ");
+        groupResultRecycler = v.findViewById(R.id.recyclerViewGroupResultMatched);
         groupResultRecycler.setLayoutManager(new LinearLayoutManager(v.getContext()));
-        groupResultRecycler.setAdapter(new GroupResultFindPageAdapter(groupList.getGroups(), v.getContext()));
+        groupResultRecycler.setAdapter(new GroupResultsMatchedPageAdapter(groupList.getGroups(), v.getContext()));
 
         return v;
     }
-    
 }

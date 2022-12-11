@@ -5,111 +5,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/explore"
+    android:backgroundTint="@color/explore"
     tools:context=".togather.ExploreFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Category:"
-        android:textSize="20sp"
-        android:layout_marginTop="50sp">
-    </TextView>
-    <Spinner
-        android:id="@+id/categories"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:entries="@array/categories"
-        android:prompt="@string/category_text"
-        android:textAlignment="center"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="660dp"
+            android:orientation="vertical"
+            android:backgroundTint="@color/explore_20">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp"
+                android:text="Select Category:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/categories"
+                    android:layout_width="233dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10sp"
+                    android:layout_marginBottom="30sp"
+                    android:entries="@array/categories"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:prompt="@string/category_text"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="Select Activity:"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+                <Spinner
+                    android:id="@+id/activities"
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="30sp"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age Preference:"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/age"
+                android:layout_width="196dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="30sp"
+                android:entries="@array/age_range"
+                android:textSize="20sp"
+                android:textAlignment="center" />
+        </LinearLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Activity:"
-        android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/activities"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:textAlignment="center"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Age Preference:"
-        android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/age"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:textAlignment="center"
-        android:entries="@array/age_range"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender Preferences:"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender Preferences:"
-        android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:textAlignment="center"
-        android:entries="@array/gender_pref"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+            <Spinner
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30sp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:entries="@array/gender_pref"
+                android:textAlignment="center" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date range:"
-        android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/daterange"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:textAlignment="center"
-        android:entries="@array/date_range"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date range:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location:"
-        android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:textAlignment="center"
-        android:entries="@array/date_range"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginBottom="30sp"/>
+            <Spinner
+                android:id="@+id/daterange"
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginBottom="30sp"
+                android:entries="@array/date_range"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/findGroups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Find Groups"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Location:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/locationSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Search location here.."
+                android:padding="16dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/findGroups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Find Groups"
+                android:textStyle="bold"
+                android:textColor="@color/explore"
+                android:backgroundTint="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

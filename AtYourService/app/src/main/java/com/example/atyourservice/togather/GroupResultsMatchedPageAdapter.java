@@ -1,10 +1,5 @@
 package com.example.atyourservice.togather;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.models.Group;
@@ -21,16 +21,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
-public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResultFindPageViewHolder> {
+public class GroupResultsMatchedPageAdapter extends RecyclerView.Adapter<GroupResultMatchedPageViewHolder>{
     private List<Group> groups;
     private Context context;
     private DatabaseReference dbRef;
 
-    public GroupResultFindPageAdapter(List<Group> groups, Context context) {
+    public GroupResultsMatchedPageAdapter(List<Group> groups, Context context) {
         this.groups = groups;
         this.context = context;
         this.dbRef = FirebaseDatabase.getInstance().getReference();
@@ -38,19 +37,19 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
     @Override
     public int getItemViewType(final int position) {
-        return  R.layout.activity_group_result_find_page_view_holder;
+        return  R.layout.activity_group_result_matched_page;
     }
 
     @NonNull
     @Override
-    public GroupResultFindPageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupResultMatchedPageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //return new GroupResultFindPageViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_group_result_find_page_view_holder,null));
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new GroupResultFindPageViewHolder(view);
+        return new GroupResultMatchedPageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupResultFindPageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GroupResultMatchedPageViewHolder holder, int position) {
         Group grp = groups.get(position);
         //System.out.println("USER ID :::: " + user.getUserId());
         holder.getGroupName().setText(grp.getName().toUpperCase());
