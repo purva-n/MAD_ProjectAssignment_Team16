@@ -46,6 +46,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ExploreFragment extends Fragment {
+
     private EditText location;
     private Button searchGroup;
     private DatabaseReference dbRef;
@@ -98,7 +99,7 @@ public class ExploreFragment extends Fragment {
                 startActivityForResult(intent, 100);
             }
         });
-        
+
         return li;
     }
 
@@ -145,13 +146,14 @@ public class ExploreFragment extends Fragment {
 
                         FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
                         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        GroupResultFindPageRecyclerView rv = GroupResultFindPageRecyclerView.newInstance();
+                        GroupResultMatchedPage rv = GroupResultMatchedPage.newInstance();
 
                         if(groups.getGroups().size() > 0) {
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("GroupResult", groups);
                             rv.setArguments(bundle);
                             ft.setReorderingAllowed(true)
+                                    .addToBackStack("ExploreFragment")
                                     .replace(R.id.fragmentContainer,
                                             rv,
                                             null)
@@ -161,8 +163,9 @@ public class ExploreFragment extends Fragment {
                     } else {
                         ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction()
                                 .setReorderingAllowed(true)
+                                .addToBackStack("ExploreFragment")
                                 .replace(R.id.fragmentContainer,
-                                        com.example.atyourservice.togather.GroupResultNotFoundPage.class, null)
+                                        com.example.atyourservice.togather.GroupNotMatchedPage.class, null)
                                 .commit();
                     }
                 }
