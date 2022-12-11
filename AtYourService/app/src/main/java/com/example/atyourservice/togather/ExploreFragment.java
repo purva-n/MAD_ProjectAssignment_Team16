@@ -98,15 +98,7 @@ public class ExploreFragment extends Fragment {
                 startActivityForResult(intent, 100);
             }
         });
-
-        searchGroup = li.findViewById(R.id.findGroups);
-
-        searchGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("LOCATION SELECTED IS :: "+location.getText());
-            }
-        });
+        
         return li;
     }
 
