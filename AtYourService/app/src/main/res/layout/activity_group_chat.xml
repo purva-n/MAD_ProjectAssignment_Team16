@@ -47,11 +47,11 @@
         android:id="@+id/chatRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarofspecificchat"
         android:layout_above="@+id/chatLayout"
+        android:layout_below="@+id/toolbarofspecificchat"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:stackFromEnd="true"
-        tools:listitem="@layout/chatview_left"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:listitem="@layout/chatview_left" />
 
 
     <LinearLayout
