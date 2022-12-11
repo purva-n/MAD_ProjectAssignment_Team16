@@ -27,7 +27,6 @@ import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.Message;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GroupChatActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
     private String groupId, messageId;
     private Toolbar toolbar;
     private ImageView groupIconIv;
@@ -97,10 +95,11 @@ public class GroupChatActivity extends AppCompatActivity {
         List<String> messageKeys = new ArrayList<>();
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("groups");
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference messageDb = dbRef.child("messages").child(groupId);
 
         adapterGroupChat = new AdapterGroupChat(GroupChatActivity.this, messageList.getChats());
         messageList.getChats().clear();
+
+        DatabaseReference messageDb = dbRef.child("messages").child(groupId);
         messageDb.addChildEventListener(new ChildEventListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
