@@ -62,11 +62,6 @@ public class ActivitiesListAdapter extends RecyclerView.Adapter<ActivitiesListAd
     @Override
     public void onBindViewHolder(@NonNull ActivitiesViewHolder holder, int position) {
         HomePageActivities activities = list.get(position);
-        System.out.println("List size here : " + list.size());
-        System.out.println("position : " + position);
-
-        System.out.println("HERE " + activities.getActivityName());
-        System.out.println("holder :: " +  holder.activityName);
         holder.getActivityName().setText(activities.getActivityName());
         holder.getImage().setImageResource(activities.getActivityImage());
 

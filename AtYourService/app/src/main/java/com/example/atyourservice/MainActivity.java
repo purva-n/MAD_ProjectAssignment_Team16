@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         toGatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, HomePageActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent2);
             }
         });
