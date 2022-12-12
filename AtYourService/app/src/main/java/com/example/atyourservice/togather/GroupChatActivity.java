@@ -25,6 +25,10 @@ import com.example.atyourservice.api.response.pojo.Messages;
 import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.Message;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -49,15 +53,25 @@ public class GroupChatActivity extends AppCompatActivity {
     private ImageButton attachBtn,sendBtn;
     private EditText messageEt;
     private RecyclerView chatRv;
-    private ArrayList<Group> groupChatList;
     private AdapterGroupChat adapterGroupChat;
     private Chats messageList;
+    private GoogleSignInClient mGoogleSignInClient;
     private String currentuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(GroupChatActivity.this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(GroupChatActivity.this);
+        if (acct != null) {
+            currentuser = acct.getEmail();
+            currentuser = currentuser.substring(0, currentuser.length() - 10).replace(".", "_");
+        }
 
         //toolbar = findViewById(R.id.toolbarofspecificchat);
         groupIconIv = findViewById(R.id.groupIconIv);
@@ -72,8 +86,6 @@ public class GroupChatActivity extends AppCompatActivity {
         groupId = group.getId();
         groupNameTv.setText(group.getName());
         messageList = new Chats();
-
-        currentuser = "uuid2";
 
         loadGroupMessage();
 
@@ -144,11 +156,10 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void sendMessage(String message) {
         long timestamp = System.currentTimeMillis();
-        String uid = "uuid2";
 
         Chat chat = new Chat();
         chat.setChat(message);
-        chat.setSenderid(uid);
+        chat.setSenderid(currentuser);
         chat.setTimestamp(timestamp);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("messages");
