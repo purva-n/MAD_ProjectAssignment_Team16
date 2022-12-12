@@ -36,8 +36,8 @@ public class GroupResultsMatchedPageAdapter extends RecyclerView.Adapter<GroupRe
     private List<Group> groups;
     private Context context;
     private DatabaseReference dbRef;
-    GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 100;
+    private GoogleSignInClient mGoogleSignInClient;
     private String GpersonEmail;
 
     public GroupResultsMatchedPageAdapter(List<Group> groups, Context context) {

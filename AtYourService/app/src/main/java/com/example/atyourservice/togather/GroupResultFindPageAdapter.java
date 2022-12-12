@@ -102,7 +102,7 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
             }
         });
-
+        
         dbRef.child("users").child(GpersonEmail).child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
