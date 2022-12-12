@@ -57,8 +57,8 @@ public class NotificationRecyclerView  extends Fragment implements SelectListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RecyclerView notificationRecycler;
-        View v =  inflater.inflate(R.layout.replace_notification_recycler, container, false);
-        notificationRecycler = v.findViewById(R.id.replace_notification_recycler1);
+        View v =  inflater.inflate(R.layout.fragment_notification, container, false);
+        notificationRecycler = v.findViewById(R.id.recyclerFragment);
         notificationRecycler.setLayoutManager(new LinearLayoutManager(v.getContext()));
         notificationRecycler.setAdapter(new NotificationAdapter(v.getContext(), notificationList.getNotifications(),this));
         return v;

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.contentcapture.ContentCaptureCondition;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Notifications;
@@ -45,6 +46,8 @@ public class NotificationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private GoogleSignInClient mGoogleSignInClient;
     private String GpersonEmail;
+    public AppCompatActivity context;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -75,6 +78,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = (AppCompatActivity)getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -116,12 +120,13 @@ public class NotificationFragment extends Fragment {
                     System.out.println(notificationList.getNotifications().get(i).toString());
                 }
 
-                FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft =context.getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 NotificationRecyclerView nrv = NotificationRecyclerView.newInstance();
 
                 Collections.reverse(notificationList.getNotifications());
                 if(notificationList.getNotifications().size() > 0) {
+                    if(getContext() ==context){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("notifications", notificationList);
                     nrv.setArguments(bundle);
@@ -131,6 +136,8 @@ public class NotificationFragment extends Fragment {
                                     null)
                             .commit();
                 }
+
+                    }
             }
 
 
@@ -148,6 +155,7 @@ public class NotificationFragment extends Fragment {
 
 
     }
+
 }
 
 

@@ -22,9 +22,11 @@ import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Chats;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.api.response.pojo.Messages;
+import com.example.atyourservice.api.response.pojo.Notifications;
 import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.Message;
+import com.example.atyourservice.models.Notification;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -98,6 +100,30 @@ public class GroupChatActivity extends AppCompatActivity {
                     Toast.makeText(GroupChatActivity.this, "Can't send empty message...", Toast.LENGTH_SHORT).show();
                 } else {
                     sendMessage(message);
+                    //below is for
+                    DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference users =firebaseRef.child("groups").child(groupId).child("users");
+                    ArrayList<String> notiReceivers= new ArrayList<String>();
+                    users.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for( DataSnapshot snapshot1: snapshot.getChildren()){
+                                String receivers = snapshot1.getValue(String.class);
+                                if(!receivers.equalsIgnoreCase(currentuser)){
+                                    notiReceivers.add(receivers);
+                                }}
+                            for(String receiver: notiReceivers){
+                                firebaseRef.child("users").child(receiver).child("notification").push().setValue(new Notification(groupId,message));
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
                 }
             }
         });
