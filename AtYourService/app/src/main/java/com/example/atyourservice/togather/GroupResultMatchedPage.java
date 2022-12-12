@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Groups;
@@ -24,6 +25,7 @@ public class GroupResultMatchedPage extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private DatabaseReference dbRef;
     private Groups groupList;
+    private Button createGroup;
 
     public GroupResultMatchedPage() {
         // Required empty public constructor
@@ -59,7 +61,17 @@ public class GroupResultMatchedPage extends Fragment {
         groupResultRecycler = v.findViewById(R.id.recyclerViewGroupResultMatched);
         groupResultRecycler.setLayoutManager(new LinearLayoutManager(v.getContext()));
         groupResultRecycler.setAdapter(new GroupResultsMatchedPageAdapter(groupList.getGroups(), v.getContext()));
+        createGroup = v.findViewById(R.id.createGroup);
 
+        createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, com.example.atyourservice.togather.CreateGroupFragment.class, null)
+                        .commit();
+            }
+        });
         return v;
     }
 }

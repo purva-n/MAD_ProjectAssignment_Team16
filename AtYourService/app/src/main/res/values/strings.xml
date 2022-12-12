@@ -84,4 +84,67 @@
         <item>Cultural</item>
         <item>Modern</item>
     </string-array>
+
+    <string-array name="outdoor_activities">
+        <item>Beach</item>
+        <item>Star Gazing</item>
+        <item>Travel</item>
+        <item>Biking</item>
+        <item>Skate-boarding</item>
+        <item>Kayaking</item>
+        <item>River Rafting</item>
+        <item>Surfing</item>
+        <item>Kite flying</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="indoor_activities">
+        <item>Play Station Gaming</item>
+        <item>Board Games</item>
+        <item>Quizzing</item>
+        <item>Group Studying</item>
+        <item>Movie Club</item>
+        <item>Book Club</item>
+        <item>Roller Skating</item>
+        <item>Bowling</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="seasonal_activities">
+        <item>Beach Basking</item>
+        <item>Surfing</item>
+        <item>Hiking</item>
+        <item>Skiing</item>
+    </string-array>
+
+    <string-array name="music_activities">
+        <item>String</item>
+        <item>Puccersion</item>
+        <item>Vocals</item>
+        <item>Jamming</item>
+        <item>Wind</item>
+        <item>Jazz</item>
+        <item>Classical</item>
+        <item>Regional</item>
+    </string-array>
+
+    <string-array name="health_activities">
+        <item>Cycling</item>
+        <item>Rowing</item>
+        <item>Zumba</item>
+        <item>Yoga</item>
+        <item>Dancing</item>
+        <item>Running</item>
+        <item>Gymming</item>
+        <item>Meditation</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="career_activities">
+        <item>Guidance</item>
+        <item>Training</item>
+        <item>Counselling</item>
+        <item>Coaching</item>
+        <item>Other</item>
+    </string-array>
 </resources>

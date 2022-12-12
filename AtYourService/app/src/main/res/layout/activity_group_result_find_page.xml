@@ -8,10 +8,25 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGroupResult"
-        android:layout_width="398dp"
-        android:layout_height="715dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="402dp"
+        android:layout_height="550dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/createGroup"
+        android:layout_width="197dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
+        android:text="Create Group"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewGroupResult"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

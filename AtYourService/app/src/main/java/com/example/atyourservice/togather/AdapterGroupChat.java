@@ -82,6 +82,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
 
         //Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         //@SuppressLint("SimpleDateFormat") String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal).toString();
+        holder.getNameTv().setText(senderid);
         holder.getMessageTv().setText(message);
         holder.getTimeTv().setText((new Date(sendtime)).toString());
         setUserName(model,holder);
