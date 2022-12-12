@@ -94,7 +94,6 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
         final String[] latestSender = {""};
         final long[] timeStamp = {0};
 
-        String currentuser = "uuid2";
         DatabaseReference messageDb = ref.child("messages").child(groupId);
         messageDb.addChildEventListener(new ChildEventListener() {
 

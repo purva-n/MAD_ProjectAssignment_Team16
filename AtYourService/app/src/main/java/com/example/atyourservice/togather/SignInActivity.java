@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -76,49 +77,52 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+        //GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+        GoogleSignInAccount account = completedTask.getResult();
 
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-            if (acct != null) {
-                String personName = acct.getDisplayName();
-                String personGivenName = acct.getGivenName();
-                String personFamilyName = acct.getFamilyName();
-                String personEmail = acct.getEmail();
-                String personId = acct.getId();
-                Uri personPhoto = acct.getPhotoUrl();
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String finalPersonEmail = personEmail.substring(0, personEmail.length() - 10).replace(".", "_");
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+            System.out.println("email "+ personEmail);
 
-                dbRef.child("users").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        assert acct != null;
-                        if(snapshot.hasChild(personEmail)) {
-                            Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
-                            startActivity(intent);
-                        } else {
-                            User user = new User();
-                            user.setName(personName);
-                            user.setSocialitescore(0);
-                        }
+            dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    assert acct != null;
+                    if(snapshot.hasChild(finalPersonEmail)) {
+                        Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                    } else {
+                        User user = new User();
+                        user.setName(personName);
+                        user.setSocialitescore(0);
+
+                        dbRef.child("users").child(finalPersonEmail).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-            }
-
-
-
-            // Signed in successfully, show authenticated UI.
-            // updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.d("failed with code", String.valueOf(e.getStatusCode()));
-            // updateUI(null);
+                }
+            });
         }
+
+
+        // Signed in successfully, show authenticated UI.
+        // updateUI(account);
     }
 
 }
