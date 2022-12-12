@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,12 +22,13 @@ import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Chats;
 import com.example.atyourservice.api.response.pojo.Groups;
 import com.example.atyourservice.api.response.pojo.Messages;
-import com.example.atyourservice.api.response.pojo.Notifications;
 import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
 import com.example.atyourservice.models.Message;
-import com.example.atyourservice.models.Notification;
-import com.example.atyourservice.togather.Notifications.ToGatherNotificationApi;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -53,15 +53,25 @@ public class GroupChatActivity extends AppCompatActivity {
     private ImageButton attachBtn,sendBtn;
     private EditText messageEt;
     private RecyclerView chatRv;
-    private ArrayList<Group> groupChatList;
     private AdapterGroupChat adapterGroupChat;
     private Chats messageList;
+    private GoogleSignInClient mGoogleSignInClient;
     private String currentuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(GroupChatActivity.this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(GroupChatActivity.this);
+        if (acct != null) {
+            currentuser = acct.getEmail();
+            currentuser = currentuser.substring(0, currentuser.length() - 10).replace(".", "_");
+        }
 
         //toolbar = findViewById(R.id.toolbarofspecificchat);
         groupIconIv = findViewById(R.id.groupIconIv);
@@ -77,8 +87,6 @@ public class GroupChatActivity extends AppCompatActivity {
         groupNameTv.setText(group.getName());
         messageList = new Chats();
 
-        currentuser = "uuid2";
-
         loadGroupMessage();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,62 +97,11 @@ public class GroupChatActivity extends AppCompatActivity {
                     Toast.makeText(GroupChatActivity.this, "Can't send empty message...", Toast.LENGTH_SHORT).show();
                 } else {
                     sendMessage(message);
-                    //below is for notification data for recylcer
-                    DatabaseReference firebaseRef = FirebaseDatabase.getInstance().getReference();
-                    DatabaseReference users = firebaseRef.child("groups").child(groupId).child("users");
-                    ArrayList<String> notiReceivers = new ArrayList<String>();
-                    users.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                                String receivers = snapshot1.getValue(String.class);
-                                if (!receivers.equalsIgnoreCase(currentuser)) {
-                                    notiReceivers.add(receivers);
-                                }
-                            }
-                            for (String receiver : notiReceivers) {
-                                firebaseRef.child("users").child(receiver).child("notification").push().setValue(new Notification(groupId, message));
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    //above is where notification recycler ends and below is where notification is being sent using FCM
-                    ArrayList<String> tokens = new ArrayList<String>();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("groups")
-                            .child(groupId).child("users");
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                String token = dataSnapshot.child("token").getValue(String.class);
-                                tokens.add(token);
-
-                            }
-                            ToGatherNotificationApi notify = new ToGatherNotificationApi(tokens);
-                            notify.pushNotificationToReceiver(getApplicationContext(), groupId, message);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-
                 }
             }
         });
-// above is for notification recycler data}
 
     }
-
-
 
     private void loadGroupMessage() {
         List<String> messageKeys = new ArrayList<>();
@@ -199,11 +156,10 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void sendMessage(String message) {
         long timestamp = System.currentTimeMillis();
-        String uid = "uuid2";
 
         Chat chat = new Chat();
         chat.setChat(message);
-        chat.setSenderid(uid);
+        chat.setSenderid(currentuser);
         chat.setTimestamp(timestamp);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("messages");
@@ -221,5 +177,3 @@ public class GroupChatActivity extends AppCompatActivity {
 
     }
 }
-
-

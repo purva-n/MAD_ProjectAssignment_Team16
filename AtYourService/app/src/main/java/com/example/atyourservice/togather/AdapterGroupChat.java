@@ -16,6 +16,10 @@ import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Chats;
 import com.example.atyourservice.models.Chat;
 import com.example.atyourservice.models.Group;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,11 +40,24 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
 
     private Context context;
     private List<Chat> chatList;
+    GoogleSignInClient mGoogleSignInClient;
+    String GpersonEmail;
 
 
     public AdapterGroupChat(Context context, List<Chat> chatList){
         this.context = context;
         this.chatList = chatList;
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(context);
+        if (acct != null) {
+            //Can use to access using below getters
+            GpersonEmail = acct.getEmail();
+            GpersonEmail = GpersonEmail.substring(0, GpersonEmail.length() - 10).replace(".", "_");
+        }
     }
 
     public void updateGroupChat(List<Chat> chatList) {
@@ -72,7 +89,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
 
     private void setUserName(Chat model, HolderGroupChat holder) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        reference.orderByChild("uuid").equalTo(model.getSenderid()).addValueEventListener(new ValueEventListener() {
+        reference.orderByChild(GpersonEmail).equalTo(model.getSenderid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot ) {
                 for (DataSnapshot ds:snapshot.getChildren()){
@@ -95,7 +112,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<HolderGroupChat> {
     @Override
     public int getItemViewType(int position){
         System.out.println("Sender is :: " + chatList.get(position).getSenderid());
-       if (chatList.get(position).getSenderid().equals("uuid2")){
+       if (chatList.get(position).getSenderid().equals(GpersonEmail)){
             return R.layout.chatview_right;
         }else{
             return R.layout.chatview_left;

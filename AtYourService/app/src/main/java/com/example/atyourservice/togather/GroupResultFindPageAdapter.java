@@ -20,6 +20,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,12 +52,9 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(context);
         if (acct != null) {
             //Can use to access using below getters
-            String GpersonName = acct.getDisplayName();
-            String GpersonGivenName = acct.getGivenName();
-            String GpersonFamilyName = acct.getFamilyName();
             GpersonEmail = acct.getEmail();
-            String GpersonId = acct.getId();
-            Uri GpersonPhoto = acct.getPhotoUrl(); }
+            GpersonEmail = GpersonEmail.substring(0, GpersonEmail.length() - 10).replace(".", "_");
+        }
     }
 
     @Override
@@ -104,21 +103,8 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
             }
         });
 
-        //TODO: Group Profile Img
-//        int drawableId = 0;
-//        try {
-//            Class res = R.drawable.class;
-//            Field field = null;
-//            field = res.getField(grp.getIcon());
-//            drawableId = field.getInt(null);
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        holder.getGroupProfilePic().setImageResource(drawableId);
         //TODO: get username
-        String username = "uuid2";
-
-        dbRef.child("users").child(username).child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.child("users").child(GpersonEmail).child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
@@ -139,19 +125,45 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
 
         holder.joinGroup.setOnClickListener(view -> {
-//          //TODO: get username
-            dbRef.child("users").child(username).child("groups").push().setValue(grp.getId());
-            dbRef.child("groups").child(grp.getId()).child("users").push().setValue(username);
+            dbRef.child("users").child(GpersonEmail).child("groups").push().setValue(grp.getId());
+            dbRef.child("groups").child(grp.getId()).child("users").push().setValue(GpersonEmail);
 
             // update member count
-            dbRef.child("groups").child(grp.getId()).child("memberCount").addListenerForSingleValueEvent(new ValueEventListener() {
+            dbRef.child("groups").child(grp.getId()).child("memberCount")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 Long memberCount = 0L;
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     memberCount = (Long) snapshot.getValue();
-                    if(dbRef.child("groups").child(grp.getId()).child("memberCount").setValue(memberCount + 1).isSuccessful()) {
-                        Toast.makeText(view.getContext(), "Joined Group", Toast.LENGTH_SHORT).show();
+                    dbRef.child("groups").child(grp.getId()).child("memberCount").setValue(memberCount + 1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            holder.getMemberCount().setText(String.valueOf(grp.getMemberCount() + 1));
+                            Toast.makeText(view.getContext(), "Joined Group", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    //update socialite score for every user in that group
+                    if(grp.getUsers() != null && grp.getUsers().values().size() > 0) {
+                        for (String userid : grp.getUsers().values()) {
+                            dbRef.child("users").child(userid).child("socialitescore")
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        Long socialitescore = 0L;
+
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            socialitescore = (Long) snapshot.getValue();
+                                            dbRef.child("users").child(userid).child("socialitescore")
+                                                    .setValue(socialitescore + 1);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                        }
                     }
                 }
 
@@ -160,23 +172,6 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
                 }
             });
-
-            for(String userid: grp.getUsers().values()) {
-                dbRef.child("users").child(userid).child("socialitescore").addListenerForSingleValueEvent(new ValueEventListener() {
-                    Long socialitescore = 0L;
-
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        socialitescore = (Long) snapshot.getValue();
-                        dbRef.child("users").child(userid).child("socialitescore").setValue(socialitescore + 1);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
 
             holder.getJoinGroup().setText("Joined");
             holder.getJoinGroup().setEnabled(false);
@@ -189,4 +184,5 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
     public int getItemCount() {
         return groups.size();
     }
+
 }
