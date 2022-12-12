@@ -24,10 +24,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SignInActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     DatabaseReference dbRef;
+    String DEVICE_TOKEN;
     private static final int RC_SIGN_IN = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,20 @@ public class SignInActivity extends AppCompatActivity {
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
             System.out.println("email "+ personEmail);
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                System.out.println("Fetching FCM registration token failed");
+                                return;
+                            }
+
+                            // Get new FCM registration token
+                            DEVICE_TOKEN = task.getResult();
+                            System.out.println(" TOKEN IS :::: " + DEVICE_TOKEN);
+                        }
+                    });
 
             dbRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -102,6 +118,8 @@ public class SignInActivity extends AppCompatActivity {
                         User user = new User();
                         user.setName(personName);
                         user.setSocialitescore(0);
+                        user.setToken(DEVICE_TOKEN);
+
 
                         dbRef.child("users").child(finalPersonEmail).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -112,6 +130,7 @@ public class SignInActivity extends AppCompatActivity {
                         });
                     }
                 }
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

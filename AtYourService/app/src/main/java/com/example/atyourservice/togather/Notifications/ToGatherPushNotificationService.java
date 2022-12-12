@@ -31,10 +31,8 @@ public class ToGatherPushNotificationService extends FirebaseMessagingService {
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
 
         assert text != null;
-        RemoteViews notificationLayout = new RemoteViews(getPackageName(),R.layout.notification_template);
         Notification.Builder notification = new Notification.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setCustomContentView(notificationLayout)
                 .setContentTitle(title)
                 //.setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.drawable.notification_icon))
                 //.setStyle(new Notification.BigPictureStyle().setSummaryText(remoteMessage.getNotification().getBody()).setBigContentTitle(text.toUpperCase(Locale.ROOT)))
