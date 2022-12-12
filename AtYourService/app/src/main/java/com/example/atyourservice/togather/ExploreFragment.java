@@ -246,7 +246,24 @@ public class ExploreFragment extends Fragment {
                     case "Art and Culture":
                         activities = getResources().getStringArray(R.array.art_activities);
                         break;
-                    //TODO: continue rest categories
+                    case "Outdoor Activities":
+                        activities = getResources().getStringArray(R.array.outdoor_activities);
+                        break;
+                    case "Indoor Activities":
+                        activities = getResources().getStringArray(R.array.indoor_activities);
+                        break;
+                    case "Seasonal":
+                        activities = getResources().getStringArray(R.array.seasonal_activities);
+                        break;
+                    case "Music":
+                        activities = getResources().getStringArray(R.array.music_activities);
+                        break;
+                    case "Health and Wellness":
+                        activities = getResources().getStringArray(R.array.health_activities);
+                        break;
+                    case "Career and  Business":
+                        activities = getResources().getStringArray(R.array.career_activities);
+                        break;
                 }
 
                 Spinner activity = (Spinner) li.findViewById(R.id.activities);

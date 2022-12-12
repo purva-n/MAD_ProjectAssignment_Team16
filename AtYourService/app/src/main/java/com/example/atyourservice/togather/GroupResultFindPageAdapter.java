@@ -102,8 +102,7 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
             }
         });
-
-        //TODO: get username
+        
         dbRef.child("users").child(GpersonEmail).child("groups").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -175,8 +174,6 @@ public class GroupResultFindPageAdapter extends RecyclerView.Adapter<GroupResult
 
             holder.getJoinGroup().setText("Joined");
             holder.getJoinGroup().setEnabled(false);
-
-            //TODO: Score
         });
     }
 
