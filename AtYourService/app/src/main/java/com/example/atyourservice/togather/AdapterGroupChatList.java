@@ -69,12 +69,6 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
         String groupName = model.getName();
 
         holder.groupNameTv.setText(groupName.toUpperCase());
-        /*try{
-            Picasso.get().load(groupIcon).placeholder(R.drawable.default_group_chat_icon).into(holder.groupIconIv);
-        }
-        catch (Exception e){
-            //holder.groupIconIv.setImageResource(R.drawable.default_group_chat_icon);
-        }*/
 
         Group group = new Group();
         group.setId(groupId);
