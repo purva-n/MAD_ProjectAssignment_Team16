@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.contentcapture.ContentCaptureCondition;
 
 import com.example.atyourservice.R;
 import com.example.atyourservice.api.response.pojo.Notifications;
@@ -124,6 +125,7 @@ public class NotificationFragment extends Fragment {
                 NotificationRecyclerView nrv = NotificationRecyclerView.newInstance();
 
                 if(notificationList.getNotifications().size() > 0) {
+                    if(getContext() ==context){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("notifications", notificationList);
                     nrv.setArguments(bundle);
@@ -133,6 +135,8 @@ public class NotificationFragment extends Fragment {
                                     null)
                             .commit();
                 }
+
+                    }
             }
 
 
