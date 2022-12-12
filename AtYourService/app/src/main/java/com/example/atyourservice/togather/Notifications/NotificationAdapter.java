@@ -79,7 +79,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationHolder
 
 
     }
-
+    public int getItemViewType(final int position) {
+        return R.layout.notification_template;
+    }
     @Override
     public int getItemCount() {
         return notifications.size();

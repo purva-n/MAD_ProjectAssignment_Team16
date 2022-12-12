@@ -45,6 +45,8 @@ public class NotificationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private GoogleSignInClient mGoogleSignInClient;
     private String GpersonEmail;
+    public AppCompatActivity context;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -75,6 +77,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = (AppCompatActivity)getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -116,7 +119,7 @@ public class NotificationFragment extends Fragment {
                     System.out.println(notificationList.getNotifications().get(i).toString());
                 }
 
-                FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft =context.getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 NotificationRecyclerView nrv = NotificationRecyclerView.newInstance();
 
@@ -147,6 +150,7 @@ public class NotificationFragment extends Fragment {
 
 
     }
+
 }
 
 
