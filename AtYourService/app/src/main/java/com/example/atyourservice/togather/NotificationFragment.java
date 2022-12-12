@@ -124,6 +124,7 @@ public class NotificationFragment extends Fragment {
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 NotificationRecyclerView nrv = NotificationRecyclerView.newInstance();
 
+                Collections.reverse(notificationList.getNotifications());
                 if(notificationList.getNotifications().size() > 0) {
                     if(getContext() ==context){
                     Bundle bundle = new Bundle();
