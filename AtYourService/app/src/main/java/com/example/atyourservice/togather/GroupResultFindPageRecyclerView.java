@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.atyourservice.R;
@@ -29,6 +30,7 @@ public class GroupResultFindPageRecyclerView extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private DatabaseReference dbRef;
     private Groups groupList;
+    private Button createGroup;
     public GroupResultFindPageRecyclerView() {
         // Required empty public constructor
     }
@@ -65,6 +67,17 @@ public class GroupResultFindPageRecyclerView extends Fragment {
         groupResultRecycler.setLayoutManager(new LinearLayoutManager(v.getContext()));
         groupResultRecycler.setAdapter(new GroupResultFindPageAdapter(groupList.getGroups(), v.getContext()));
 
+        createGroup = v.findViewById(R.id.createGroup);
+
+        createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainer, com.example.atyourservice.togather.CreateGroupFragment.class, null)
+                        .commit();
+            }
+        });
         return v;
     }
     

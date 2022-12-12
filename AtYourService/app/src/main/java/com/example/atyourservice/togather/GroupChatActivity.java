@@ -58,6 +58,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private String currentuser;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,33 @@ public class GroupChatActivity extends AppCompatActivity {
                 } else {
                     sendMessage(message);
                 }
+            }
+        });
+
+        setListeners();
+    }
+
+    private void setListeners() {
+        chatRv.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (bottom > oldBottom)
+                    if (messageList.getChats().size()==0){
+                        chatRv.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                chatRv.smoothScrollToPosition(messageList.getChats().size());
+                            }
+                        }, 100);
+                    }else{
+                        chatRv.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                chatRv.smoothScrollToPosition(messageList.getChats().size()-1);
+                            }
+                        }, 100);
+                    }
             }
         });
 
